@@ -1,0 +1,9 @@
+#Ignora todas bin e obj
+**/bin/
+**/obj/
+
+*/bin/
+*/obj/
+
+#Permite tudo dentro de packages onde quer que ela esteja
+!*/packages/*

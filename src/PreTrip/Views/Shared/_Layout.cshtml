@@ -8,7 +8,8 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <!--Navbar-->
+    <div class="navbar">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,27 +17,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav navbar-right">
+
+                    @{
+                        //Atributos comuns de cada botão do menu
+                        var att = new {
+                          @class = "btn navbar-btn"
+                        };
+                    }
+
+                    <li>@Html.ActionLink("Logar", "Index", "Home", att)</li>
+                    <li>@Html.ActionLink("Cadastre-se!", "About", "Home", att)</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+
+    
+    <div>
+        <!--Content-->
         @RenderBody()
         <hr />
+        <!--Footer-->
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/bootstrap")
 </body>
 </html>

@@ -1,22 +1,4 @@
-﻿body {
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-
-/*******************************************/
+﻿/*******************************************/
 /*Início do css*/
 /*******************************************/
 
@@ -67,11 +49,11 @@ a .open .dropdown-toggle.btn-warning{
 }
 
 .bg-img-content .bg-img-content-ctn {
-    padding: 1.2em;
+    padding: 4em;
     background-color: #fff;
     margin-top: -20em;
     margin-bottom: 5em;
-    min-height: 25em;
+
 
     /*Shadow*/
     -webkit-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
@@ -79,7 +61,7 @@ a .open .dropdown-toggle.btn-warning{
     box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3);
 }
 
-.header-ctn {
+.wrapcenter {
     float: none;
     margin: 0 auto;
 }

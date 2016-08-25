@@ -10,6 +10,8 @@ namespace PreTrip.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.QuantidadeViagens = 999;
+
             return View();
         }
 

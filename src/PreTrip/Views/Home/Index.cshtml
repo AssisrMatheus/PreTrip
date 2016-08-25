@@ -1,49 +1,100 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Pre-Trip";
 }
 
 <div class="bg-img-content">
     <aside class="bg-img-content-img" 
            style="background-image: url(http://www.big1news.com.br/wp-content/uploads/2014/01/beto-carrero-parque.jpg)">
     </aside>
-    <div class="bg-img-content-ctn wrapcenter col-sm-10 col-md-8">
-        
-		<p class="text-center" style="font-size: 2rem; margin-top: 0.2em;">Encontre a melhor opção para a sua viagem.</p>
+    <div class="row bg-img-content-ctn wrapcenter col-sm-10 col-md-8">
+        <!--Login-->
+        <div class="col-md-4" style="padding-right: 3em;">
+            <form class="row">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="material-icons" style="font-size: 16px">person</i></div>
+                        <input type="text" class="form-control" placeholder="Usuário">
+                    </div>
 
-		<p class="text-center" style="font-size: 2rem; margin-top: 2em;">Mais de @ViewBag.QuantidadeViagens opções.</p>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="material-icons" style="font-size: 16px">lock</i></div>
+                        <input type="password" class="form-control" placeholder="Senha">
+                    </div>
+                </div>
 
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <button type="submit" class="btn btn-warning">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+
+        <!--Pesquisa-->
+        <div class="col-md-8" style="border-left: 1px solid #ccc">
+            <p class="text-center" style="font-size: 2rem; margin-top: 0.2em;">Pesquise rapidamente sua viagem. Começe por pontos turísticos! :)</p>
+            <p class="text-center" style="font-size: 2rem; margin-top: 2em;">Mais de @ViewBag.QuantidadeViagens opções diferentes para você navegar.</p>
             <div class="row" style="margin-top: 3em;">
                 <div class="col-xs-8 wrapcenter">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Ex: Hopi Hari, CBLoL, Olimpíada Rio 2016...">
+                        <input type="text" class="form-control" placeholder="Ex: Hopi Hari, CBLoL...">
                         <span class="input-group-btn">
                             <button style="height: 34px;" class="btn btn-default" type="button">Pesquisar</button>
                         </span>
                     </div>
                 </div>
             </div>
+        </div>    
     </div>
 </div>
 
-<div class="row row-sep col-md-7">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-		<i class="material-icons">directions_bus</i>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="row" style="margin-bottom: 3em;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-7">
+            <h2>Transporte coletivo</h2>
+            <p>
+                Procure por eventos conhecidos e saiba se já existem caravanas com o mesmo destino que o seu! Economize aquela graninha importante na hora da sua viagem ;)
+            </p>
+        </div>
+        <div class="col-md-5">
+            <i style="font-size: 13rem;" class="material-icons pull-left">group</i>
+            <i style="font-size: 13rem;" class="material-icons pull-left">directions_bus</i>
+        </div>
     </div>
 </div>
+
+<div class="row row-sep " style="background: #333;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
+
+            <h2 style="color: #fff;">Simplicidade para encontrar o melhor serviço</h2>
+            <p>
+                Você pode separar por avaliação, duração da viagem, lugares disponíveis... Facilitando sua busca na hora de encontrar a passagem ideal.
+            </p>
+
+            <div style="padding: 2em;" >
+                <i class="material-icons" style="font-size: 8rem; color: #000">sentiment_very_dissatisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #e28400">sentiment_dissatisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #dcd100">sentiment_neutral</i>
+                <i class="material-icons" style="font-size: 8rem; color: #00d480">sentiment_satisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_very_satisfied</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-sep" style="padding: 3em 0;">
+    <div class="wrapcenter col-md-7">        
+        <div class="col-md-5">
+            <i style="font-size: 13rem;" class="material-icons pull-left">lock</i>
+            <i style="font-size: 13rem;" class="material-icons pull-left">shopping_cart</i>
+        </div>
+        <div class="col-md-7">
+            <h2>100% Segurança</h2>
+            <p>
+                Fique tranquilo! Garantimos sua segurança na hora da compra, contamos com criptografias e não guardamos seus dados.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>

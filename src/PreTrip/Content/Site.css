@@ -66,3 +66,11 @@ a .open .dropdown-toggle.btn-warning{
     margin: 0 auto;
 }
 
+.row-sep {
+    border-top: 1px solid #ccc;
+}
+
+.input-group {
+    padding: 1.2em 0;
+}
+

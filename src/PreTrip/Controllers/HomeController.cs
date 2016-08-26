@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PreTrip.Model.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,10 @@ namespace PreTrip.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.QuantidadeViagens = 999;
+            using (var banco = new PreTripDB())
+            {
+                ViewBag.QuantidadeViagens = banco.Viagem.Count();
+            }   
 
             return View();
         }

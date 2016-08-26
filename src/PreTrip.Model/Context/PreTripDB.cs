@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace PreTrip.Model.Context
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class PreTripDB : DbContext
     {
+        public PreTripDB()
+            :base()
+        {
+
+        }
+
         public DbSet<Viagem> Viagem { get; set; }
 
         public DbSet<Veiculo> Veiculo { get; set; }

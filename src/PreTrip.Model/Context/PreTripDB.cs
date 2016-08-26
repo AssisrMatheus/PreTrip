@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PreTrip.Model.Context
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class PreTripDB : DbContext
     {
         public PreTripDB()

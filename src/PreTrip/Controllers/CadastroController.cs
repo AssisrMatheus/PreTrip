@@ -20,9 +20,15 @@ namespace PreTrip.Controllers
                     db.Usuario.Add(usuario);
                     db.SaveChanges();
                 }
+                
+                return RedirectToAction("Index", "Home", usuario);
             }
-
-            return RedirectToAction("Index", "Home", usuario);
+            else
+            {
+                var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
+                ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
+                return RedirectToAction("Cadastro", "Home", usuario);
+            }
         }
 
         /// <summary>
@@ -42,12 +48,6 @@ namespace PreTrip.Controllers
                 return false;
 
             if(string.IsNullOrEmpty(user.Pessoa.Nome))
-                return false;
-
-            if (user.Pessoa.Cpf == 0 || user.Pessoa.Cpf.ToString().Length != 11)
-                return false;
-
-            if (user.Pessoa.DtNascimento == default(DateTime))
                 return false;
 
             return true;

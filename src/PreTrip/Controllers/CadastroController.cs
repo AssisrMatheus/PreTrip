@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
+using System.Security.Cryptography;
+using PreTrip.Utils;
 
 namespace PreTrip.Controllers
 {
@@ -17,6 +19,9 @@ namespace PreTrip.Controllers
             {
                 using (var db = new PreTripDB())
                 {
+                    //Converte para md5
+                    usuario.Senha = CreateMD5.GetHash(usuario.Senha);
+                    
                     db.Usuario.Add(usuario);
                     db.SaveChanges();
                 }

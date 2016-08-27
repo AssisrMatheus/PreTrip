@@ -14,7 +14,8 @@ namespace PreTrip.Controllers
         {            
             using(var db = new PreTripDB())
             {
-                ViewBag.QuantidadeViagens = db.Viagem.Count();
+                ViewBag.QuantidadeViagens = 0;
+                //db.Viagem.Count();
             }
 
             return View();

@@ -36,6 +36,15 @@ namespace PreTrip.Controllers
         }
 
         /// <summary>
+        /// Action chamada ao clicar no botão cadastre-se no topo.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Cadastro()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// Caso o usuário preencha na tela inicial os campos 'Usuario' e 'Senha'
         /// Ele já direciona para a view de cadastro preenchendo os campos de usuário e senha.
         /// </summary>
@@ -45,15 +54,6 @@ namespace PreTrip.Controllers
         public ActionResult Cadastro(Usuario usuario)
         {
             return View(usuario);
-        }
-
-        /// <summary>
-        /// Action chamada ao clicar no botão cadastre-se no topo.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Cadastro()
-        {
-            return View();
         }
     }
 }

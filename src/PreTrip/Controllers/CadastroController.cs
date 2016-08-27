@@ -4,21 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PreTrip.Model.Classes;
+using PreTrip.Model.Context;
 
 namespace PreTrip.Controllers
 {
     public class CadastroController : Controller
     {
         [HttpPost]
-        public ActionResult Cadastrar(Usuario user)
+        public ActionResult Cadastrar(Usuario usuario)
         {
-            if (this.VerificaDadosUsuario(user))
+            if (this.VerificaDadosUsuario(usuario))
             {
-#warning Adicionar os dados no banco.
+                using (var db = new PreTripDB())
+                {
+                    db.Usuario.Add(usuario);
+                    db.SaveChanges();
+                }
             }
 
-#warning Verificar como retorna essa view.
-            return View("Home/Index.cshtml", new Usuario());
+            return RedirectToAction("Index", "Home", usuario);
         }
 
         /// <summary>
@@ -28,6 +32,9 @@ namespace PreTrip.Controllers
         /// <returns></returns>
         private bool VerificaDadosUsuario(Usuario user)
         {
+            if (!ModelState.IsValid)
+                return false;
+
             if (string.IsNullOrEmpty(user.Login))
                 return false;
 

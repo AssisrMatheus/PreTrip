@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="pull-right">
-                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    @Html.ActionLink("Entrar", "Index", "Login", new { @class = "btn btn-primary" })
                     <button type="submit" class="btn btn-warning">Cadastrar</button>
                 </div>
             }

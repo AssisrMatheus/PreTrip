@@ -32,6 +32,6 @@ namespace PreTrip.Model.Classes
 
         public Veiculo Veiculo { get; set; }
 
-        public List<Evento> Eventos { get; set; }
+        public virtual IEnumerable<Evento> Eventos { get; set; }
     }
 }

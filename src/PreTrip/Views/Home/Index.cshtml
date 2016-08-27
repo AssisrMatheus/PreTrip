@@ -1,24 +1,30 @@
-﻿@{
+﻿@using System.Web.UI.WebControls
+@model PreTrip.Model.Classes.Usuario
+@{
     ViewBag.Title = "Pre-Trip";
 }
 
 <div class="bg-img-content">
-    <aside class="bg-img-content-img" 
-           style="background-image: url(http://www.big1news.com.br/wp-content/uploads/2014/01/beto-carrero-parque.jpg)">
-    </aside>
+    <aside class="bg-img-content-img"
+           style="background-image: url(http://www.big1news.com.br/wp-content/uploads/2014/01/beto-carrero-parque.jpg)"></aside>
     <div class="row bg-img-content-ctn wrapcenter col-sm-10 col-md-8">
         <!--Login-->
         <div class="col-md-4" style="padding-right: 3em;">
-            <form class="row">
+            @using (Html.BeginForm("Cadastro", "Home", FormMethod.Post, new { @class = "row" }))
+            {
                 <div class="form-group">
                     <div class="input-group">
-                        <div class="input-group-addon"><i class="material-icons" style="font-size: 16px">person</i></div>
-                        <input type="text" class="form-control" placeholder="Usuário">
+                        <div class="input-group-addon">
+                            <i class="material-icons" style="font-size: 16px">person</i>
+                        </div>
+                        @Html.EditorFor(x => x.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuário" } })
                     </div>
 
                     <div class="input-group">
-                        <div class="input-group-addon"><i class="material-icons" style="font-size: 16px">lock</i></div>
-                        <input type="password" class="form-control" placeholder="Senha">
+                        <div class="input-group-addon">
+                            <i class="material-icons" style="font-size: 16px">lock</i>
+                        </div>
+                        @Html.PasswordFor(x => x.Senha, new { @class = "form-control", placeholder = "Senha" })
                     </div>
                 </div>
 
@@ -26,7 +32,7 @@
                     <button type="submit" class="btn btn-primary">Entrar</button>
                     <button type="submit" class="btn btn-warning">Cadastrar</button>
                 </div>
-            </form>
+            }
         </div>
 
         <!--Pesquisa-->
@@ -43,7 +49,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
 </div>
 
@@ -71,7 +77,7 @@
                 Você pode separar por avaliação, duração da viagem, lugares disponíveis... Facilitando sua busca na hora de encontrar a passagem ideal.
             </p>
 
-            <div style="padding: 2em;" >
+            <div style="padding: 2em;">
                 <i class="material-icons" style="font-size: 8rem; color: #000">sentiment_very_dissatisfied</i>
                 <i class="material-icons" style="font-size: 8rem; color: #e28400">sentiment_dissatisfied</i>
                 <i class="material-icons" style="font-size: 8rem; color: #dcd100">sentiment_neutral</i>
@@ -83,7 +89,7 @@
 </div>
 
 <div class="row row-sep" style="padding: 3em 0;">
-    <div class="wrapcenter col-md-7">        
+    <div class="wrapcenter col-md-7">
         <div class="col-md-5">
             <i style="font-size: 13rem;" class="material-icons pull-left">lock</i>
             <i style="font-size: 13rem;" class="material-icons pull-left">shopping_cart</i>

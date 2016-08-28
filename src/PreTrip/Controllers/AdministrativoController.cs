@@ -13,8 +13,7 @@ namespace PreTrip.Controllers
     public class AdministrativoController : Controller
     {
         // GET: Administrador
-#warning Precisa ser alterado a view pois esta sendo referenciada no Login, precisa sair do login e passar para o controller Administrativo
-        public ActionResult Index()
+        public ActionResult Administrativo()
         {
             return View();
         }
@@ -22,53 +21,17 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult CadastrarUsuario(Usuario usuario)
         {
-            if (VerificaDadosUsuario(usuario))
+            if (ModelState.IsValid && CadastroUtils.VerificaDadosUsuario(usuario))
             {
-                this.Gravar(usuario);
-#warning Testar para ver se está passando o usuario certo ou se precisa ser o usuario administrador.
-                return RedirectToAction("Index", "Login", null);
+                CadastroUtils.Gravar(usuario);
             }
-
-            var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
-            ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
-
-#warning Testar para ver se está passando o usuario certo ou se precisa ser o usuario administrador.
-            return RedirectToAction("Index", "Login", usuario);
-        }
-
-        private void Gravar(Usuario usuario)
-        {
-            using (var db = new PreTripDB())
+            else
             {
-                //Converte para md5
-                usuario.Senha = CreateMD5.GetHash(usuario.Senha);
-
-                db.Usuario.Add(usuario);
-                db.SaveChanges();
+                var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
+                ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
             }
-        }
-
-        private bool VerificaDadosUsuario(Usuario usuario)
-        {
-            if (!ModelState.IsValid)
-                return false;
-
-            if (string.IsNullOrEmpty(usuario.Login))
-                return false;
-
-            if (string.IsNullOrEmpty(usuario.Senha))
-                return false;
-
-            if (string.IsNullOrEmpty(usuario.Pessoa.Nome))
-                return false;
-
-            var usuBanco = new UsuarioService().GetWithLoginPass(usuario.Login, usuario.Senha);
-
-            //Se o usuário existir não podemos deixar registrar
-            if (usuBanco != null)
-                return false;
-
-            return true;
+            
+            return RedirectToAction("Administrativo", "Administrativo");
         }
     }
 }

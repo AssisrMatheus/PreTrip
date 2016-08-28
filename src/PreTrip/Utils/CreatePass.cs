@@ -9,7 +9,6 @@ namespace PreTrip.Utils
     {
         private CreatePass()
         {
-
         }
 
         public static string Create()

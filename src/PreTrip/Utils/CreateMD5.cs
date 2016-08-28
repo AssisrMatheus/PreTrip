@@ -11,7 +11,6 @@ namespace PreTrip.Utils
     {
         private CreateMD5()
         {
-
         }
 
         public static string GetHash(string value)

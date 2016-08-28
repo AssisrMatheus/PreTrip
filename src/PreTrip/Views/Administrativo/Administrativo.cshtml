@@ -3,7 +3,7 @@
 
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Ultimas Viagens Registradas</div>
+                <div class="panel-heading">Últimos usuários</div>
                 @*<div class="panel-body">
                     <p>
                         Texto adicional se necessário
@@ -14,14 +14,15 @@
                 <table class="table">
                     <tr>
                         <th>Usuário</th>
-                        <th>Descrição Viagem</th>
-                        <th>Origem </th>
-                        <th>Destino</th>
+                        <th>Nome</th>
+                        <th>Email</th>
                     </tr>
-                    @foreach(var usuario in ViewBag.Usuarios)
+                    @foreach(var usuario in (IEnumerable<PreTrip.Model.Classes.Usuario>)ViewBag.Usuarios)
                     {
                         <tr>
-                            <td>@usuario.Login</td>                            
+                            <td>@usuario.Login</td>
+                            <td>@usuario.Pessoa.Nome</td>
+                            <td>@usuario.Email</td>
                         </tr>
                     }
                 </table>

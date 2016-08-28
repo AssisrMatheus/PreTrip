@@ -17,7 +17,21 @@ namespace PreTrip.Services
             using (var db = new PreTripDB())
             {
                 //Pegamos somente por login e somente se for admin.
-                var usuAdmin = db.Usuario
+                var usuAdmin = db.Usuario.ToList() //Converte para lista para materializar e ser link to object e poder usar "new usuario" em baixo
+                    .Join(db.Pessoa, //Join na tabela pessoa
+                        usu => usu.Pessoa, //Onde o usuario.pessoa
+                        pes => pes, //precisa ser a pessoa da tabela pessoa
+                        (usu, pes) => new Usuario() //preenche o usuario com os novos parametros
+                        {
+                            IsAdmin = usu.IsAdmin,
+                            Pessoa = pes,
+                            Email = usu.Email,
+                            Login = usu.Login,
+                            Id = usu.Id,
+                            Pedidos = usu.Pedidos,
+                            Senha = usu.Senha
+                        }
+                     )
                     .FirstOrDefault(u => u.Login == login && u.IsAdmin);
 
                 //Se existe um usuario admin com o login
@@ -36,8 +50,22 @@ namespace PreTrip.Services
                     //Se não encontrou nenhum usuario admin com aquele login, é um usuário normal
                     //então precisa ter digitado a senha correta também, e retornará nulo se inválido
                     var senhaHash = CreateMD5.GetHash(password);
-                    return db.Usuario
-                        .FirstOrDefault(u => u.Login == login && u.Senha == senhaHash);
+                    return db.Usuario.ToList() //Converte para lista para materializar e ser link to object e poder usar "new usuario" em baixo
+                        .Join(db.Pessoa, //Join na tabela pessoa
+                            usu => usu.Pessoa, //Onde o usuario.pessoa
+                            pes => pes, //precisa ser a pessoa da tabela pessoa
+                            (usu, pes) => new Usuario() //preenche o usuario com os novos parametros
+                            {
+                                IsAdmin = usu.IsAdmin,
+                                Pessoa = pes,
+                                Email = usu.Email,
+                                Login = usu.Login,
+                                Id = usu.Id,
+                                Pedidos = usu.Pedidos,
+                                Senha = usu.Senha
+                            }
+                         )
+                         .FirstOrDefault(u => u.Login == login && u.Senha == senhaHash);
                 }
             }
         }

@@ -20,10 +20,10 @@ namespace PreTrip.Controllers
             if (usuBanco != null)
             {
                 if (usuBanco.IsAdmin)
-                    return RedirectToAction("Administrativo", "Administrativo", usuario);
+                    return RedirectToAction("Administrativo", "Administrativo", usuBanco);
 
                 // Fazer o redirecionamento para o controller de usuário passando a action necessária.
-                return RedirectToAction("Painel", "Usuario", usuario);
+                return RedirectToAction("Painel", "Usuario", usuBanco);
             }
 
             //Se veio nulo o usuário não existe, voltar para index

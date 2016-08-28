@@ -13,7 +13,9 @@ namespace PreTrip.Test
         {
             var password = CreatePass.Create();
 
-            Debug.Write($"\r\n{password}");
+            Debug.Write(String.Format("\r\n{0}",password));
         }
     }
 }
+
+

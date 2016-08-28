@@ -28,7 +28,7 @@ namespace PreTrip.Services
                     if (usuAdmin.Senha != password)
                         return null;
                     else
-                        //Se a senha digitada foi correta com a gerada é pois é um login de admin válido
+                        //Se a senha digitada foi correta com a gerada é um login de admin válido
                         return usuAdmin;
                 }
                 else

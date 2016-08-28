@@ -194,6 +194,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\PreTrip.Lib\PreTrip.Lib.csproj">
       <Project>{e6684884-6463-4cc4-bbaa-25e66ce2d496}</Project>
       <Name>PreTrip.Lib</Name>

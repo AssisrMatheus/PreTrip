@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PreTrip.Utils;
+using PreTrip.Lib.Utils;
 
 namespace PreTrip.Test
 {
@@ -13,7 +13,7 @@ namespace PreTrip.Test
         {
             var password = CreatePass.Create();
 
-            Debug.Write(String.Format("\r\n{0}",password));
+            Debug.Write(string.Format("\r\n{0}",password));
         }
     }
 }

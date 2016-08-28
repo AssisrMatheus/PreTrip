@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreTrip", "PreTrip\PreTrip.csproj", "{BAE9DF32-D074-43C7-9C48-DF560A10B2B5}"
 EndProject
@@ -15,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreTrip.Model", "PreTrip.Model\PreTrip.Model.csproj", "{A8446D23-95E8-4411-A699-5B0AD1B6DB6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreTrip.Test", "PreTrip.Test\PreTrip.Test.csproj", "{19EF61DE-9452-42C0-AC11-712D2B679192}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreTrip.Lib", "PreTrip.Lib\PreTrip.Lib.csproj", "{E6684884-6463-4CC4-BBAA-25E66CE2D496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{19EF61DE-9452-42C0-AC11-712D2B679192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19EF61DE-9452-42C0-AC11-712D2B679192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19EF61DE-9452-42C0-AC11-712D2B679192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6684884-6463-4CC4-BBAA-25E66CE2D496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6684884-6463-4CC4-BBAA-25E66CE2D496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6684884-6463-4CC4-BBAA-25E66CE2D496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6684884-6463-4CC4-BBAA-25E66CE2D496}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

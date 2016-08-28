@@ -1,7 +1,6 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
 using PreTrip.Services;
-using PreTrip.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +20,11 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult CadastrarUsuario(Usuario usuario)
         {
-            if (ModelState.IsValid && CadastroUtils.VerificaDadosUsuario(usuario))
+            var service = new UsuarioService();
+
+            if (ModelState.IsValid)
             {
-                CadastroUtils.Gravar(usuario);
+                service.Gravar(usuario);
             }
             else
             {

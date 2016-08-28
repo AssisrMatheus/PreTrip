@@ -137,10 +137,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\UsuarioService.cs" />
-    <Compile Include="Utils\CadastroUtils.cs" />
-    <Compile Include="Utils\CreateMD5.cs" />
-    <Compile Include="Utils\CreatePass.cs" />
-    <Compile Include="Utils\LoginUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -198,6 +194,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PreTrip.Lib\PreTrip.Lib.csproj">
+      <Project>{e6684884-6463-4cc4-bbaa-25e66ce2d496}</Project>
+      <Name>PreTrip.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PreTrip.Model\PreTrip.Model.csproj">
       <Project>{a8446d23-95e8-4411-a699-5b0ad1b6db6f}</Project>
       <Name>PreTrip.Model</Name>

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
 using PreTrip.Services;
-using PreTrip.Utils;
 
 namespace PreTrip.Controllers
 {
@@ -12,13 +11,16 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Cadastrar(Usuario usuario)
         {
-            if (ModelState.IsValid && CadastroUtils.VerificaDadosUsuario(usuario))
+            var service = new UsuarioService();
+
+            if (ModelState.IsValid)
             {
-                CadastroUtils.Gravar(usuario);
+                service.Gravar(usuario);
 
                 return RedirectToAction("Index", "Home", usuario);
             }
             
+            //Guardamos os erros
             var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
             ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
 

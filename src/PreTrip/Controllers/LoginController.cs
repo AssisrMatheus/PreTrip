@@ -1,5 +1,4 @@
 ﻿using PreTrip.Model.Classes;
-using PreTrip.Utils;
 using System.Web.Mvc;
 using PreTrip.Services;
 
@@ -12,11 +11,15 @@ namespace PreTrip.Controllers
     {
         [HttpPost]
         public ActionResult Logar(Usuario usuario)
-        {            
+        {
+            var service = new UsuarioService();
+
+            var usuBanco = service.GetWithLoginPass(usuario.Login, usuario.Senha);
+
             //Se é um usuário real
-            if (LoginUtils.ValidarUsuario(ref usuario))
+            if (usuBanco != null)
             {
-                if (usuario.IsAdmin)
+                if (usuBanco.IsAdmin)
                     return RedirectToAction("Administrativo", "Administrativo", usuario);
 
                 // Fazer o redirecionamento para o controller de usuário passando a action necessária.

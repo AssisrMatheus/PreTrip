@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PreTrip.Lib.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,8 +24,24 @@ namespace PreTrip.Model.Classes
         [Required]
         public string Login { get; set; }
 
+
+        private string senha;
         [Required]
-        public string Senha { get; set; }
+        public string Senha
+        {
+            get
+            {
+                if (this.IsAdmin)
+                    return CreatePass.Create();
+
+                return senha;
+            }
+
+            set
+            {
+                this.senha = value;
+            }
+        }
 
         public string Email { get; set; }
 

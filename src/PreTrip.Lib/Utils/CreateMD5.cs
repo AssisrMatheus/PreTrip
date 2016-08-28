@@ -5,13 +5,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace PreTrip.Utils
+namespace PreTrip.Lib.Utils
 {
     public class CreateMD5
     {
         private CreateMD5()
         {
-
         }
 
         public static string GetHash(string value)

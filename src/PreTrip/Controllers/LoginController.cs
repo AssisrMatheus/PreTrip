@@ -13,26 +13,27 @@ namespace PreTrip.Controllers
     public class LoginController : Controller
     {
 
-        public ActionResult Index()
+        public ActionResult Index(Usuario usuario)
         {
-            return View("Administrativo", new Usuario());
+            return View("Administrativo", usuario);
         }
 
         [HttpPost]
         public ActionResult Logar(Usuario usuario)
         {
+            return View("Administrativo", usuario);
             //Se é um usuário real
-            if (ValidarUsuario(usuario))
-            {
-                if (usuario.IsAdmin)
-                    return View("Administrativo", usuario);
-                else
-                    return View("Painel", usuario);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (ValidarUsuario(usuario))
+            //{
+            //    if (usuario.IsAdmin)
+            //        return View("Administrativo", usuario);
+            //    else
+            //        return View("Painel", usuario);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
         }
 
         private bool ValidarUsuario(Usuario usuario)

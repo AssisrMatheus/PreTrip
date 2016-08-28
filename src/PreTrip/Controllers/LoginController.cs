@@ -14,8 +14,7 @@ namespace PreTrip.Controllers
 
         [HttpPost]
         public ActionResult Logar(Usuario usuario)
-        {
-            return View("Administrativo", usuario);
+        {            
             //Se é um usuário real
             if (ValidarUsuario(ref usuario))
             {

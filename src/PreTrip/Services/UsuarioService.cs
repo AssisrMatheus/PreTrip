@@ -105,15 +105,6 @@ namespace PreTrip.Services
         /// <returns></returns>
         public bool ValidaNovoUsuario(Usuario usuario)
         {
-            if (string.IsNullOrEmpty(usuario.Login))
-                return false;
-
-            if (string.IsNullOrEmpty(usuario.Senha))
-                return false;
-
-            if (string.IsNullOrEmpty(usuario.Pessoa.Nome))
-                return false;
-
             var usuBanco = this.GetWithLoginPass(usuario.Login, usuario.Senha);
 
             //Se o usuário existir não podemos deixar registrar

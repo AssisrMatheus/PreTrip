@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Viagens";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoBefore.cshtml");
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Ultimas Viagens Registradas</div>
+    @*<div class="panel-body">
+            <p>
+                Texto adicional se necessário
+            </p>
+        </div>*@
+
+    <!-- Table -->
+    <table class="table">
+        <tr>
+            <th>Descrição Viagem</th>
+            <th>Origem </th>
+            <th>Destino</th>
+            <th>Preço da passagem</th>
+        </tr>
+        @foreach (var viagem in (IEnumerable<PreTrip.Model.Classes.Viagem>)ViewBag.Viagens)
+        {
+            <tr>
+                <th>@viagem.Descricao</th>
+                <th>@viagem.Origem.Cidade - @viagem.Origem.Bairro</th>
+                <th>@viagem.Destino.Cidade - @viagem.Destino.Bairro</th>
+                <th>@viagem.PrecoPassagem</th>
+            </tr>
+        }
+    </table>
+</div>
+
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoAfter.cshtml");

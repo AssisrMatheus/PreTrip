@@ -41,6 +41,12 @@ a .open .dropdown-toggle.btn-warning{
     background-color: #ed9c28 !important;
 }
 
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open .dropdown-toggle.btn-danger {
+    color: #ffffff !important;
+    background-color: #d2322d !important;
+    border-color: #ac2925 !important;
+}
+
 /*Header com imagem e conteúdo no meio da imagem*/
 .bg-img-content .bg-img-content-img {
     min-height: 30em;

@@ -46,7 +46,7 @@ namespace PreTrip.Model.Classes
         public string Email { get; set; }
 
         public bool IsAdmin { get; set; }
-
+        
         public Pessoa Pessoa { get; set; }
 
         public virtual IEnumerable<Pedido> Pedidos { get; set; }

@@ -16,6 +16,9 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Logar(Usuario usuario)
         {
+            // Busca o usuário no banco
+            usuario = new UsuarioService().GetWithLoginPass(usuario.Login, usuario.Senha);
+
             //Se é um usuário real
             if (ValidarUsuario(usuario))
             {
@@ -35,14 +38,12 @@ namespace PreTrip.Controllers
         /// <returns></returns>
         private bool ValidarUsuario(Usuario usuario)
         {
-            var usuBanco = new UsuarioService().GetWithLoginPass(usuario.Login, usuario.Senha);
-
             //Se o usuário não existe não pode logar
-            if (usuBanco == null)
+            if (usuario == null)
                 return false;
 
-            if (usuBanco.IsAdmin)
-                //Admins precisam logar com senha gerada automaticamente
+            if (usuario.IsAdmin)
+                //Admins precisam logar com senha (Token) gerada automaticamente no dia.
                 if (usuario.Senha.ToUpper() != CreatePass.Create().ToUpper())
                     return false;
 

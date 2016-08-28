@@ -14,7 +14,7 @@
     <div class="col-md-8">
         @using (Html.BeginForm("Cadastrar", "Cadastro", FormMethod.Post))
         {
-           @Html.Partial("~/Views/PartialView/_CadastroUsuarioPartialView.cshtml", @Model);
+           @Html.Partial("~/Views/Shared/Cadastro/_CadastroUsuarioPartialView.cshtml", @Model);
         }
     </div>
 </div>

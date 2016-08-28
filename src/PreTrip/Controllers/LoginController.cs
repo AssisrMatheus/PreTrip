@@ -26,6 +26,7 @@ namespace PreTrip.Controllers
                 return RedirectToAction("Painel", "Usuario", usuario);
             }
 
+            //Se veio nulo o usuário não existe, voltar para index
             return RedirectToAction("Index", "Home");
         }
     }

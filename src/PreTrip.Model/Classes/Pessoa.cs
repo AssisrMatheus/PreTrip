@@ -11,15 +11,24 @@ namespace PreTrip.Model.Classes
     [Table("Pessoa")]
     public class Pessoa
     {
+        public Pessoa()
+        {
+            this.Conta = new Conta();
+        }
+
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string Nome { get; set; }
 
-        public int Telefone { get; set; }
+        public long Telefone { get; set; }
 
-        public int Cpf { get; set; }
+        [Required]
+        [RegularExpression("^[0-9]{11}$")]
+        public string Cpf { get; set; }
 
+        [Required]
         public DateTime DtNascimento { get; set; }
 
         public Conta Conta { get; set; }

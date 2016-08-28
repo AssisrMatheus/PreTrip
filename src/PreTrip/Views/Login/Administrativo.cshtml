@@ -1,0 +1,98 @@
+﻿@model PreTrip.Model.Classes.Usuario
+
+<div class="bg-img-content">    
+    <ul class="nav nav-pills" style="margin-top:0.2%;margin-left:2%;">
+        <li role="presentation" class="dropdown">
+            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius:5px;">
+                Gerenciar Usuarios <span class="caret"></span>
+            </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a>Vizualizar Todos Usuários</a>
+                    </li>
+                </ul>
+        </li>
+        <li role="presentation" class="dropdown">
+            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius:5px;">
+                Gerenciar Viagens <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a>Visualizar Todas Viagens</a>
+                </li>
+            </ul>
+        </li> 
+        <li role="presentation" class="dropdown">
+            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius:5px;">
+                Gerenciar Históricos <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a>Pesquisar Históricos</a>
+                </li>
+            </ul>
+        </li>        
+    </ul>
+    
+    <!--Pesquisa-->
+    <div class="col-md-12" style="border-left: 1px solid #ccc">
+        <br />
+        <p class="text-center" style="font-size: 2rem; margin-top: 0.2em;">Olá Administrador [Nome].</p>        
+        <div class="row" style="margin-top: 3em;">
+            <div class="col-xs-5 wrapcenter">
+                <h3>Ultimas Viagens Registradas</h3>
+
+                <br/>
+
+                <table class="table">
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Descrição Viagem</th>
+                        <th>Origem </th>
+                        <th>Destino</th>
+                    </tr>
+
+                    <tr>
+                        <td>Xablau</td>
+                        <td>Lugar maravilhoso, que todos um dia devem conhecer</td>
+                        <td>Brasil</td>
+                        <td>Cancún</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 10em;"></div>
+
+
+<div class="row row-sep " style="background: #333;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
+
+            <h2 style="color: #fff;">Evento de Destaque</h2>
+            <p>
+                Abaixo está o evento mais lucrativo atualmente.
+            </p>
+
+            <div style="padding: 2em;">
+                <p style="color:white;font-weight:bolder;font-size:20px;">[Lucro atual do evento]</p>
+                    <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_very_satisfied</i><!--Lucro alto/ lucro > 8.000-->
+                <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_satisfied</i><!--Lucro Médio >/ lucro > 4.000 e lucro < 8.000-->
+                <i class="material-icons" style="font-size: 8rem; color: #e28400">sentiment_dissatisfied</i><!--Lucro baixo/lucro < 4.000 -->
+              
+                <br/>
+                <p style="color:white;">[Origem Viagem] promovido por [Nome Usuário]</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-sep" style="padding: 3em 0;">    
+    <div class="col-md-12">
+        <h2>Lucro da Empresa: <span style="color:green">[Lucro Atual da Empresa] </span> </h2>  
+    </div> 
+</div>
+
+<div class="clearfix"></div>

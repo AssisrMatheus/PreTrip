@@ -14,7 +14,8 @@ namespace PreTrip.Controllers
         {            
             using(var db = new PreTripDB())
             {
-                ViewBag.QuantidadeViagens = db.Viagem.Count();
+                ViewBag.QuantidadeViagens = 0;
+                //db.Viagem.Count();
             }
 
             return View();
@@ -32,6 +33,27 @@ namespace PreTrip.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        /// <summary>
+        /// Action chamada ao clicar no botão cadastre-se no topo.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Cadastro()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Caso o usuário preencha na tela inicial os campos 'Usuario' e 'Senha'
+        /// Ele já direciona para a view de cadastro preenchendo os campos de usuário e senha.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Cadastro(Usuario usuario)
+        {
+            return View(usuario);
         }
     }
 }

@@ -14,6 +14,25 @@ namespace PreTrip.Controllers
         // GET: Administrador
         public ActionResult Administrativo()
         {
+            ViewBag.Usuarios = new UsuarioService().GetAll();
+            //return View();
+
+            //Por enquanto não teremos financeiro(inicial de administrativo)
+            //Então retornamos para viagens
+            return this.Viagens();
+        }
+
+        public ActionResult Usuarios()
+        {
+            ViewBag.Usuarios = new UsuarioService().GetAll();
+
+            return View();
+        }
+
+        public ActionResult Viagens()
+        {
+            ViewBag.Viagens = new ViagemService().GetAll();
+
             return View();
         }
 

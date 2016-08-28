@@ -11,6 +11,14 @@ namespace PreTrip.Services
 {
     public class UsuarioService
     {
+        public IEnumerable<Usuario> GetAll()
+        {
+            using (var db = new PreTripDB())
+            {
+                return db.Usuario.ToList();
+            }
+        }
+
         public Usuario GetWithLoginPass(string login, string password)
         {
             //Precisamos testar se o usuário é admin, se for, não podemos usar a senha para buscar do banco

@@ -1,55 +1,6 @@
-﻿@model PreTrip.Model.Classes.Usuario
+﻿
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoBefore.cshtml");
 
-<!-- Modal -->
-<div class="modal fade" id="modalCadastroUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Cadastro de Usuário</h4>
-            </div>
-            <div class="modal-body">
-                @using (Html.BeginForm("CadastrarUsuario", "Administrativo", FormMethod.Post))
-                {
-                    @Html.Partial("~/Views/Shared/Cadastro/_CadastroUsuarioPartialView.cshtml", @Model);
-                }
-            </div>
-            <br />
-            <div class="modal-footer"></div>
-        </div>
-    </div>
-</div>
-
-<div class="row" style="padding: 5em 0">
-    <div class="col-md-10 wrapcenter">
-        <div class="col-md-2">
-            <ul class="nav nav-pills nav-stacked ">
-                <li role="presentation" class="active"><a href="#">Financeiro</a></li>
-
-                <li role="presentation" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        Gerenciar Usuários <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Visualizar Usuários</a></li>
-                        <li><a data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar Novo Usuário</a></li>
-                    </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        Gerenciar Viagens <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Visualizar viagens</a></li>
-                        <li><a href="#">Cadastrar Viagem</a></li>
-                    </ul>
-                </li>
-
-                <li role="presentation"><a href="#">Histórico</a></li>
-            </ul>
-        </div>
-        <div class="col-md-10">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading">Ultimas Viagens Registradas</div>
@@ -67,33 +18,13 @@
                         <th>Origem </th>
                         <th>Destino</th>
                     </tr>
-                    <tr>
-                        <td>Xablau</td>
-                        <td>Lugar maravilhoso, que todos um dia devem conhecer</td>
-                        <td>Brasil</td>
-                        <td>Cancún</td>
-                    </tr>
+                    @foreach(var usuario in ViewBag.Usuarios)
+                    {
+                        <tr>
+                            <td>@usuario.Login</td>                            
+                        </tr>
+                    }
                 </table>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row row-sep" style="background: #333;">
-    <div class="wrapcenter col-md-7">
-        <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
-            <h2 style="color: #fff;">Evento Destaque</h2>
-            <p>
-                O evento [evento] é o evento mais recomendado pelos usuários.
-            </p>
-            <div style="padding: 2em;">
-                <p style="color:white;font-weight:bolder;font-size:20px;">[Lucro atual do evento]</p>
-                <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_very_satisfied</i><!--Lucro alto/ lucro > 8.000-->
-                <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_satisfied</i><!--Lucro Médio >/ lucro > 4.000 e lucro < 8.000-->
-                <i class="material-icons" style="font-size: 8rem; color: #e28400">sentiment_dissatisfied</i><!--Lucro baixo/lucro < 4.000 -->
-                <br />
-                <p style="color:white;">[Origem Viagem] promovido por [Nome Usuário]</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="clearfix"></div>
+
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoAfter.cshtml");

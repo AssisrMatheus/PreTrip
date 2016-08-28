@@ -1,0 +1,28 @@
+﻿@model PreTrip.Model.Classes.Empresa
+@Html.ValidationSummary()
+<div class="form-group">
+    <div class="input-group">        
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">label</i>            
+        </div>        
+        @Html.EditorFor(x => x.Cnpj, new { htmlAttributes = new { @class = "form-control", placeholder = "CNPJ" ,maxlength = 11} })
+    </div>   
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">face</i>
+        </div>
+        @Html.EditorFor(x => x.RazaoSocial, new { htmlAttributes = new { @class = "form-control", placeholder = "Razao Social" } })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">face</i>
+        </div>
+        @Html.EditorFor(x => x.NomeFantasia, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome Fantasia" } })
+    </div>
+</div>
+
+<div class="pull-right">
+    <button type="submit" class="btn btn-warning pull-right">Confirmar</button>
+</div>

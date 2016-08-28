@@ -136,6 +136,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EmpresaService.cs" />
     <Compile Include="Services\ViagemService.cs" />
     <Compile Include="Services\UsuarioService.cs" />
   </ItemGroup>
@@ -182,6 +183,8 @@
     <Content Include="Views\Shared\Administrativo\_AdministrativoBefore.cshtml" />
     <Content Include="Views\Shared\Administrativo\_AdministrativoAfter.cshtml" />
     <Content Include="Views\Administrativo\Viagens.cshtml" />
+    <Content Include="Views\Administrativo\CadastrarEmpresa.cshtml" />
+    <Content Include="Views\Shared\Cadastro\_CadastroEmpresaPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -194,6 +197,9 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PreTrip.Lib\PreTrip.Lib.csproj">

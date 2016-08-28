@@ -1,18 +1,12 @@
 ﻿using PreTrip.Model.Classes;
-using PreTrip.Model.Context;
-using PreTrip.Model.Services;
 using PreTrip.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using PreTrip.Services;
 
 namespace PreTrip.Controllers
 {
     public class LoginController : Controller
     {
-
         public ActionResult Index(Usuario usuario)
         {
             return View("Administrativo", usuario);
@@ -23,36 +17,41 @@ namespace PreTrip.Controllers
         {
             return View("Administrativo", usuario);
             //Se é um usuário real
-            //if (ValidarUsuario(usuario))
-            //{
-            //    if (usuario.IsAdmin)
-            //        return View("Administrativo", usuario);
-            //    else
-            //        return View("Painel", usuario);
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+            if (ValidarUsuario(ref usuario))
+            {
+                if (usuario.IsAdmin)
+                    return View("Administrativo", usuario);
+
+                return View("Painel", usuario);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-        private bool ValidarUsuario(Usuario usuario)
+        /// <summary>
+        /// Valida se é um usuário válido.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        private bool ValidarUsuario(ref Usuario usuario)
         {
-            var usuBanco = new UsuarioService().GetWithLoginPass(usuario.Login, usuario.Senha);
+            // Busca o usuário no banco
+            var usuarioBanco = new UsuarioService().GetWithLoginPass(usuario.Login, usuario.Senha);
 
-            //Se o usuário não existe não pode logar
-            if (usuBanco == null)
-            {
+            // Busca o usuário administrador caso tenha sido digitado a senha (Token) de administrador corretamente.
+            if (usuarioBanco == null && usuario.Senha.ToUpper() == CreatePass.Create().ToUpper())
+                usuarioBanco = new UsuarioService().GetWithLoginPassAdmin(usuario.Login);
+
+            // Se o usuário não existe não pode logar
+            if (usuarioBanco == null)
                 return false;
-            }
 
-            if (usuBanco.IsAdmin)
-            {
-                //Admins precisam logar com senha gerada automaticamente
+            if (usuarioBanco.IsAdmin)
+                // Admins precisam logar com senha (Token) gerada automaticamente no dia.
                 if (usuario.Senha.ToUpper() != CreatePass.Create().ToUpper())
                     return false;
-            }
 
+            usuario = usuarioBanco;
             return true;
         }
     }

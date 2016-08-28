@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PreTrip.Model.Services
+namespace PreTrip.Services
 {
     public class UsuarioService
     {
@@ -17,8 +17,16 @@ namespace PreTrip.Model.Services
             {
                 var senhaHash = CreateMD5.GetHash(password);
                 return db.Usuario
-                    .Where(u => u.Login == login && u.Senha == senhaHash)
-                    .FirstOrDefault();
+                    .FirstOrDefault(u => u.Login == login && u.Senha == senhaHash);
+            }
+        }
+
+        public Usuario GetWithLoginPassAdmin(string login)
+        {
+            using (var db = new PreTripDB())
+            {
+                return db.Usuario
+                    .FirstOrDefault(u => u.Login == login && u.IsAdmin);
             }
         }
     }

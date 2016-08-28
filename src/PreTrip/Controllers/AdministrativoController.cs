@@ -53,5 +53,16 @@ namespace PreTrip.Controllers
             
             return RedirectToAction("Administrativo", "Administrativo");
         }
+
+        public ActionResult CadastrarEmpresa(Empresa empresa)
+        {
+            var empresaService = new EmpresaService();
+            if (ModelState.IsValid)
+            {
+                empresaService.Gravar(empresa);
+            }
+
+            return RedirectToAction("Administrativo", "Administrativo");
+        }
     }
 }

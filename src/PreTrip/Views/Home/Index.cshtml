@@ -10,7 +10,7 @@
     <div class="row bg-img-content-ctn wrapcenter col-sm-10 col-md-8">
         <!--Login-->
         <div class="col-md-4" style="padding-right: 3em;">
-            @using (Html.BeginForm("Cadastro", "Home", FormMethod.Post, new { @class = "row" }))
+            @using (Html.BeginForm("Logar", "Login", FormMethod.Post, new { @class = "row" }))
             {
                 <div class="form-group">
                     <div class="input-group">
@@ -29,10 +29,11 @@
                 </div>
 
                 <div class="pull-right">
-                    @Html.ActionLink("Entrar", "Index", "Login", new { @class = "btn btn-primary" })
-                    <button type="submit" class="btn btn-warning">Cadastrar</button>
+                    @Html.ActionLink("Cadastre-se!", "Cadastro", "Home", new { @class = "btn btn-primary" })
+                    <button type="submit" class="btn btn-warning">Logar</button>
                 </div>
             }
+            
         </div>
 
         <!--Pesquisa-->

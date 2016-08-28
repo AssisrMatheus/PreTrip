@@ -35,8 +35,7 @@
 
                     <li>@Html.ActionLink("Home", "", "Home", attHome)</li>
                     <li>@Html.ActionLink("Logar", "Index", "Home", attLogin)
-                    <li>@Html.ActionLink("Cadastre-se!", "Cadastro", "Home", attCadastro)</li>
-                    
+                    <li>@Html.ActionLink("Cadastre-se!", "Cadastro", "Home", attCadastro)</li>                    
                 </ul>
             </div>
         </div>
@@ -49,12 +48,13 @@
         <hr />
         <!--Footer-->
         <footer class="wrapcenter row col-md-9">
-            <p>&copy; @DateTime.Now.Year - @ViewBag.Title</p>
+            <p>&copy; @DateTime.Now.Year - @ViewBag.Title   </p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/bootstrap")
+    
 </body>
 </html>

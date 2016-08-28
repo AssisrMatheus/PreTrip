@@ -52,6 +52,7 @@ namespace PreTrip.Controllers
                 return false;
 
             var usuBanco = new UsuarioService().GetWithLoginPass(usuario.Login, usuario.Senha);
+
             //Se o usuário existir não podemos deixar registrar
             if (usuBanco != null)
                 return false;

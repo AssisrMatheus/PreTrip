@@ -44,6 +44,7 @@ namespace PreTrip.Controllers
             // Se o usuário não existe não pode logar
             if (usuarioBanco == null)
                 return false;
+
             // Essa verificação foi necessária pois se alguém digitar o usuário e senha 
             // de quando o administrador foi cadastrado, é retornado falso.
             // É preciso que a senha do administrador seja igual a senha gerada no dia.

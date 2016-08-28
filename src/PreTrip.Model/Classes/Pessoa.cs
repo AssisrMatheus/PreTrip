@@ -22,10 +22,11 @@ namespace PreTrip.Model.Classes
         [Required]
         public string Nome { get; set; }
 
-        public int Telefone { get; set; }
+        public long Telefone { get; set; }
 
         [Required]
-        public int Cpf { get; set; }
+        [RegularExpression("^[0-9]{11}$")]
+        public string Cpf { get; set; }
 
         [Required]
         public DateTime DtNascimento { get; set; }

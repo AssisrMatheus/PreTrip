@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div class="navbar-collapse collapse">             
+            <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     @{
                         //Atributos comuns de cada botão do menu
@@ -30,15 +30,15 @@
                         //Pegos os atributos padrão à todos e adiciono o único a cada item
                         var attLogin = new { @class = att.@class + " btn-success" };
                         var attCadastro = new { @class = att.@class + " btn-warning" };
-                        var attHome = new { @class = att.@class + " btn-danger" };                     
+                        var attHome = new { @class = att.@class + " btn-danger" };
                     }
-                
+
                     <li>@Html.ActionLink("Home", "", "Home", attHome)</li>
                     <li>@Html.ActionLink("Logar", "Index", "Home", attLogin)
                     <li>@Html.ActionLink("Cadastre-se!", "Cadastro", "Home", attCadastro)</li>                    
                 </ul>
             </div>
-        </div>       
+        </div>
     </div>
 
     

@@ -4,21 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PreTrip.Model.Classes;
+using PreTrip.Model.Context;
 
 namespace PreTrip.Controllers
 {
     public class CadastroController : Controller
     {
         [HttpPost]
-        public ActionResult Cadastrar(Usuario user)
+        public ActionResult Cadastrar(Usuario usuario)
         {
-            if (this.VerificaDadosUsuario(user))
+            if (this.VerificaDadosUsuario(usuario))
             {
-#warning Adicionar os dados no banco.
+                using (var db = new PreTripDB())
+                {
+                    db.Usuario.Add(usuario);
+                    db.SaveChanges();
+                }
+                
+                return RedirectToAction("Index", "Home", usuario);
             }
-
-#warning Verificar como retorna essa view.
-            return View("Home/Index.cshtml", new Usuario());
+            else
+            {
+                var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
+                ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
+                return RedirectToAction("Cadastro", "Home", usuario);
+            }
         }
 
         /// <summary>
@@ -28,6 +38,9 @@ namespace PreTrip.Controllers
         /// <returns></returns>
         private bool VerificaDadosUsuario(Usuario user)
         {
+            if (!ModelState.IsValid)
+                return false;
+
             if (string.IsNullOrEmpty(user.Login))
                 return false;
 
@@ -35,12 +48,6 @@ namespace PreTrip.Controllers
                 return false;
 
             if(string.IsNullOrEmpty(user.Pessoa.Nome))
-                return false;
-
-            if (user.Pessoa.Cpf == 0 || user.Pessoa.Cpf.ToString().Length != 11)
-                return false;
-
-            if (user.Pessoa.DtNascimento == default(DateTime))
                 return false;
 
             return true;

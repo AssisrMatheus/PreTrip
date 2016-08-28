@@ -26,6 +26,8 @@ namespace PreTrip.Model.Classes
         [Required]
         public string Senha { get; set; }
 
+        public string Email { get; set; }
+
         public bool IsAdmin { get; set; }
 
         public Pessoa Pessoa { get; set; }

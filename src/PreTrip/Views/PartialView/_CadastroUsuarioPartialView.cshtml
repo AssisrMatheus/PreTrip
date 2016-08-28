@@ -1,0 +1,56 @@
+﻿@model PreTrip.Model.Classes.Usuario
+@Html.ValidationSummary(true)
+<div class="form-group">
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">person</i>
+        </div>
+        @Html.EditorFor(x => x.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuário" } })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">lock</i>
+        </div>
+        @Html.PasswordFor(x => x.Senha, new { @class = "form-control", placeholder = "Senha" })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">face</i>
+        </div>
+        @Html.EditorFor(x => x.Pessoa.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome" } })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">contact_mail</i>
+        </div>
+        @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">local_phone</i>
+        </div>
+        @Html.EditorFor(x => x.Pessoa.Telefone, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefone" } })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">subtitles</i>
+        </div>
+        @Html.EditorFor(x => x.Pessoa.Cpf, new { htmlAttributes = new { @class = "form-control", placeholder = "Cpf" } })
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="material-icons" style="font-size: 16px">date_range</i>
+        </div>
+        @Html.EditorFor(x => x.Pessoa.DtNascimento, new { htmlAttributes = new { @class = "form-control", placeholder = "Data", type = "date" } })
+    </div>
+</div>
+
+<div class="pull-right">
+    <button type="submit" class="btn btn-warning pull-right">Confirmar</button>
+</div>

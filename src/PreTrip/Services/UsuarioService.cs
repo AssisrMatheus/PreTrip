@@ -15,7 +15,21 @@ namespace PreTrip.Services
         {
             using (var db = new PreTripDB())
             {
-                return db.Usuario.ToList();
+                return db.Usuario.ToList() //Converte para lista para materializar e ser link to object e poder usar "new usuario" em baixo
+                    .Join(db.Pessoa, //Join na tabela pessoa
+                        usu => usu.Pessoa, //Onde o usuario.pessoa
+                        pes => pes, //precisa ser a pessoa da tabela pessoa
+                        (usu, pes) => new Usuario() //preenche o usuario com os novos parametros
+                        {
+                            IsAdmin = usu.IsAdmin,
+                            Pessoa = pes,
+                            Email = usu.Email,
+                            Login = usu.Login,
+                            Id = usu.Id,
+                            Pedidos = usu.Pedidos,
+                            Senha = usu.Senha
+                        }
+                     ).ToList();
             }
         }
 

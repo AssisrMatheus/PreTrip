@@ -1,5 +1,7 @@
 ﻿@model PreTrip.Model.Classes.Empresa
-@Html.ValidationSummary()
+
+@Html.Partial("~/Views/Shared/Validacao/_ValidacaoBasica.cshtml");
+
 <div class="form-group">
     <div class="input-group">        
         <div class="input-group-addon">

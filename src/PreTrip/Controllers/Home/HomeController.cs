@@ -44,7 +44,7 @@ namespace PreTrip.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            return View("Index", usuario);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace PreTrip.Controllers
                 var service = new UsuariosService();
                 service.Gravar(usuario);
 
-                return RedirectToAction("Index", "Home", usuario);
+                return View("Index", usuario);
             }
             else
             {

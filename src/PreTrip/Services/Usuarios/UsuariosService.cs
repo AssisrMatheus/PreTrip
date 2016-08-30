@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PreTrip.Services
+namespace PreTrip.Services.Usuarios
 {
-    public class UsuarioService
+    public class UsuariosService
     {
         public IEnumerable<Usuario> GetAll()
         {

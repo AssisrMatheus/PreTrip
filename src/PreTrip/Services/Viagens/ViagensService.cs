@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PreTrip.Services
+namespace PreTrip.Services.Viagens
 {
-    public class ViagemService
+    public class ViagensService
     {
         public IEnumerable<Viagem> GetAll()
         {

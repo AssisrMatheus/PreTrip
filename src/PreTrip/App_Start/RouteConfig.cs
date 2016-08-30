@@ -18,6 +18,13 @@ namespace PreTrip
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            //Se não passar nenhum controller. Ex: site.com/login .
+            routes.MapRoute(
+                name: "NoController",
+                url: "{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -1,20 +1,22 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
-using PreTrip.Services;
+using PreTrip.Services.Empresas;
+using PreTrip.Services.Usuarios;
+using PreTrip.Services.Viagens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PreTrip.Controllers
+namespace PreTrip.Controllers.Administrativo
 {
     public class AdministrativoController : Controller
     {
         // GET: Administrador
         public ActionResult Administrativo()
         {
-            ViewBag.Usuarios = new UsuarioService().GetAll();
+            ViewBag.Usuarios = new UsuariosService().GetAll();
             //return View();
 
             //Por enquanto não teremos financeiro(inicial de administrativo)
@@ -24,14 +26,14 @@ namespace PreTrip.Controllers
 
         public ActionResult Usuarios()
         {
-            ViewBag.Usuarios = new UsuarioService().GetAll();
+            ViewBag.Usuarios = new UsuariosService().GetAll();
 
             return View();
         }
 
         public ActionResult Viagens()
         {
-            ViewBag.Viagens = new ViagemService().GetAll();
+            ViewBag.Viagens = new ViagensService().GetAll();
 
             return View();
         }
@@ -39,10 +41,9 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult CadastrarUsuario(Usuario usuario)
         {
-            var service = new UsuarioService();
-
             if (ModelState.IsValid)
             {
+                var service = new UsuariosService();
                 service.Gravar(usuario);
             }
             else
@@ -56,9 +57,9 @@ namespace PreTrip.Controllers
 
         public ActionResult CadastrarEmpresa(Empresa empresa)
         {
-            var empresaService = new EmpresaService();
             if (ModelState.IsValid)
             {
+                var empresaService = new EmpresasService();
                 empresaService.Gravar(empresa);
             }
 

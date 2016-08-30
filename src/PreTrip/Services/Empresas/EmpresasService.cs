@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PreTrip.Services
+namespace PreTrip.Services.Empresas
 {
-    public class EmpresaService
+    public class EmpresasService
     {
         public void Gravar(Empresa empresa)
         { 

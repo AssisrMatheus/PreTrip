@@ -2,16 +2,15 @@
 /*Início do css*/
 /*******************************************/
 
-/*Barra de menu no topo*/
-.navbar {
-    border-bottom: 1px solid;
-    background-color: #fff;
-    margin: 0;
+/*-----------------------------------------*/
+/* ########## Css para tudo*/
+/*-----------------------------------------*/
+
+/* Remove bug de barra Horizontal */
+.row {
+   margin-right: 0;
+   margin-left: 0;
 }
-    /*Item de menu da barra*/
-    .navbar li{
-        padding: 0 0.3em;
-    }
 
 /*Todos os botões*/
 .btn {
@@ -47,26 +46,6 @@ a .open .dropdown-toggle.btn-warning{
     border-color: #ac2925 !important;
 }
 
-/*Header com imagem e conteúdo no meio da imagem*/
-.bg-img-content .bg-img-content-img {
-    min-height: 30em;
-    background-size: cover;
-    background-position: center;
-}
-
-.bg-img-content .bg-img-content-ctn {
-    padding: 4em;
-    background-color: #fff;
-    margin-top: -20em;
-    margin-bottom: 5em;
-
-
-    /*Shadow*/
-    -webkit-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
-    -moz-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
-    box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3);
-}
-
 .wrapcenter {
     float: none;
     margin: 0 auto;
@@ -86,3 +65,38 @@ a .open .dropdown-toggle.btn-warning{
     margin: 0;
 }
 
+/*-----------------------------------------*/
+/* ########## Css para as páginas*/
+/*-----------------------------------------*/
+
+/*Barra de menu no topo*/
+.navbar {
+    border-bottom: 1px solid;
+    background-color: #fff;
+    margin: 0;
+}
+    /*Item de menu da barra*/
+    .navbar li{
+        padding: 0 0.3em;
+    }
+
+
+/*Header com imagem e conteúdo no meio da imagem (Index)*/
+.bg-img-content .bg-img-content-img {
+    min-height: 30em;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-img-content .bg-img-content-ctn {
+    padding: 4em;
+    background-color: #fff;
+    margin-top: -20em;
+    margin-bottom: 5em;
+
+
+    /*Shadow*/
+    -webkit-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
+    -moz-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
+    box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3);
+}

@@ -21,7 +21,6 @@ namespace PreTrip.Controllers
             return View();
         }
 
-
         /// <summary>
         /// Ação de fazer a autenticação de usuário
         /// </summary>

@@ -13,8 +13,7 @@ namespace PreTrip.Controllers.Administrativo
 {
     public class AdministrativoController : Controller
     {
-        // GET: Administrador
-        public ActionResult Administrativo()
+        public ActionResult Index()
         {
             ViewBag.Usuarios = new UsuariosService().GetUsers();
             //return View();
@@ -46,15 +45,11 @@ namespace PreTrip.Controllers.Administrativo
                 var service = new UsuariosService();
                 service.Inserir(usuario);
             }
-            else
-            {
-                var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
-                ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
-            }
             
-            return RedirectToAction("Administrativo", "Administrativo");
+            return View("Index");
         }
 
+        [HttpPost]
         public ActionResult CadastrarEmpresa(Empresa empresa)
         {
             if (ModelState.IsValid)
@@ -63,7 +58,7 @@ namespace PreTrip.Controllers.Administrativo
                 empresaService.Gravar(empresa);
             }
 
-            return RedirectToAction("Administrativo", "Administrativo");
+            return View("Index");
         }
     }
 }

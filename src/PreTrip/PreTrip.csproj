@@ -183,6 +183,9 @@
     <Content Include="Views\Shared\Cadastro\_CadastroEmpresaPartialView.cshtml" />
     <Content Include="Views\Home\Cadastrar.cshtml" />
     <Content Include="Views\Shared\Validacao\_ValidacaoBasica.cshtml" />
+    <Content Include="Views\Shared\Usuario\_UsuarioBeforePartialView.cshtml" />
+    <Content Include="Views\Shared\Usuario\_UsuarioAfterPartialView.cshtml" />
+    <Content Include="Views\Usuario\CadastroEmpresa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,16 @@
+﻿@*Adiciona box de validação*@
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger validation-box" role="alert">
+
+        <p style="margin: 0; padding: 0;">
+            <i class="material-icons" style="vertical-align: middle;">error</i>
+            <strong>Oops!</strong>
+        <p style="margin: 0; padding: 0;">
+            Parece que você preencheu algo errado:
+        </p>
+        </p>
+
+        @Html.ValidationSummary(false)
+    </div>
+}

@@ -11,3 +11,4 @@
 #Ignora alguns defaults do visual studio
 /src/.vs/PreTrip/v14/.suo
 /src/.vs/config/applicationhost.config
+/src/.vs/PreTrip.v12.suo

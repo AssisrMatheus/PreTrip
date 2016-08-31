@@ -1,8 +1,102 @@
-﻿@model dynamic
-
-@{
+﻿@{
     ViewBag.Title = "title";
-    Layout = "_Layout";
 }
 
-<h2>title</h2>
+@using System.Web.UI.WebControls
+@model PreTrip.Model.Classes.Usuario
+
+<div class="bg-img-content">    
+    <aside class="bg-img-content-img">
+        <div id="imagensBanner" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#imagensBanner" data-slide-to="0" class="active"></li>
+                <li data-target="#imagensBanner" data-slide-to="1"></li>
+                <li data-target="#imagensBanner" data-slide-to="2"></li>
+                <li data-target="#imagensBanner" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+
+                <div class="item active">
+                    <img src="http://img.wallpaperfolder.com/f/474D529180B3/crop-image.jpg" alt="Cancún" style="height:600px!important;width:1600px;">
+                </div>
+
+                <div class="item">
+                    <img src="http://tub.tubgit.com/reimg/resize-img.php?src=http://tub.tubgit.com/images/gu5iji2xl2d.jpg&h=1080&w=1920" alt="Cancún" style="height:600px!important;width:1600px;">
+                </div>
+
+                <div class="item">
+                    <img src="http://wallpapercave.com/wp/FM1M7Mf.jpg" alt="Las Vegas" style="height:600px!important;width:1600px;">
+                </div>
+
+                <div class="item">
+                    <img src="http://hdpic.org/wp-content/uploads/2015/03/Tokyo-High-Resolution-Windows-HD-Wallpapers.jpg" alt="Tokyo" style="height:600px!important;width:1600px;">
+                </div>
+            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#imagensBanner" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#imagensBanner" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </aside>    
+</div>
+  <br/>
+<div class="row" style="margin-bottom: 3em;">     
+    <div class="wrapcenter col-md-7">          
+        
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius:4px;">
+                Empresa
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">                
+                <li><a href="#">Cadastrar Empresa</a></li>
+                <li><a href="#">Consultar Minhas Empresas</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row row-sep " style="background: #333;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
+
+            <h2 style="color: #fff;">Simplicidade para encontrar o melhor serviço</h2>
+            <p>
+                Você pode separar por avaliação, duração da viagem, lugares disponíveis... Facilitando sua busca na hora de encontrar a passagem ideal.
+            </p>
+
+            <div style="padding: 2em;">
+                <i class="material-icons" style="font-size: 8rem; color: #000">sentiment_very_dissatisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #e28400">sentiment_dissatisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #dcd100">sentiment_neutral</i>
+                <i class="material-icons" style="font-size: 8rem; color: #00d480">sentiment_satisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_very_satisfied</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-sep" style="padding: 3em 0;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-5">
+            <i style="font-size: 13rem;" class="material-icons pull-left">lock</i>
+            <i style="font-size: 13rem;" class="material-icons pull-left">shopping_cart</i>
+        </div>
+        <div class="col-md-7">
+            <h2>100% Segurança</h2>
+            <p>
+                Fique tranquilo! Garantimos sua segurança na hora da compra, contamos com criptografias e não guardamos seus dados.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>

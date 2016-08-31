@@ -16,9 +16,9 @@ namespace PreTrip.Controllers.Administrativo
         // GET: Administrador
         public ActionResult Administrativo()
         {
-            ViewBag.Usuarios = new UsuariosService().GetAll();
+            ViewBag.Usuarios = new UsuariosService().GetUsers();
             //return View();
-
+            
             //Por enquanto não teremos financeiro(inicial de administrativo)
             //Então retornamos para viagens
             return this.Viagens();
@@ -26,7 +26,7 @@ namespace PreTrip.Controllers.Administrativo
 
         public ActionResult Usuarios()
         {
-            ViewBag.Usuarios = new UsuariosService().GetAll();
+            ViewBag.Usuarios = new UsuariosService().GetUsers();
 
             return View();
         }
@@ -44,7 +44,7 @@ namespace PreTrip.Controllers.Administrativo
             if (ModelState.IsValid)
             {
                 var service = new UsuariosService();
-                service.Gravar(usuario);
+                service.Inserir(usuario);
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
+using PreTrip.Services.Autenticacao;
 using PreTrip.Services.Usuarios;
 using System;
 using System.Collections.Generic;
@@ -29,20 +30,19 @@ namespace PreTrip.Controllers
         {
             if(ModelState.IsValid)
             {
-                var service = new UsuariosService();
-                var usuBanco = service.GetWithLoginPass(usuario.Login, usuario.Senha);
+                var service = new AutenticacaoService();
+                var autenticado = service.Autenticar(usuario.Login, usuario.Senha);
 
-                //Se é um usuário real
-                if (usuBanco != null)
+                if (autenticado)
                 {
-                    if (usuBanco.IsAdmin)
-                        return RedirectToAction("Administrativo", "Administrativo", usuario);
+                    if ((Session["Usuario"] as Usuario).IsAdmin)
+                        return RedirectToAction("Administrativo", "Administrativo");
                     else
                         return RedirectToAction("PaginalPrincipalUsuario", "Usuario", usuario);
                 }
             }
 
-            return View("Index", usuario);
+            return View("Index");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var service = new UsuariosService();
-                service.Gravar(usuario);
+                service.Inserir(usuario);
 
                 return View("Index", usuario);
             }

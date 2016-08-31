@@ -16,5 +16,10 @@ namespace PreTrip.Controllers
         {
             return View();
         }
+
+        public ActionResult PaginalPrincipalUsuario()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }

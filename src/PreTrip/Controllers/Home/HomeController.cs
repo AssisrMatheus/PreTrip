@@ -38,8 +38,7 @@ namespace PreTrip.Controllers
                     if (usuBanco.IsAdmin)
                         return RedirectToAction("Administrativo", "Administrativo", usuario);
                     else
-                    // Fazer o redirecionamento para o controller de usuário passando a action necessária.
-                    return RedirectToAction("Painel", "Usuario", usuario);
+                        return RedirectToAction("PaginalPrincipalUsuario", "Usuario", usuario);
                 }
             }
 

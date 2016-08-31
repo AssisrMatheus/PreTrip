@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "title";
+}
+
+@using System.Web.UI.WebControls
+@model PreTrip.Model.Classes.Usuario
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml");
+
+<!-- Tela de cadastro de empresas-->
+<div class="row row-sep " style="background:white;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
+            <div class="form-group">
+                @Html.Partial("~/Views/Shared/Cadastro/_CadastroEmpresaPartialView.cshtml");
+            </div>
+            <br />
+            <p>
+                Realize o cadastro de sua empresa e fique a um passo para promover suas caravanas!!.
+            </p>
+
+            <div style="padding: 2em;">
+                <i class="material-icons" style="font-size: 8rem; color: #000">sentiment_very_dissatisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #e28400">sentiment_dissatisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #dcd100">sentiment_neutral</i>
+                <i class="material-icons" style="font-size: 8rem; color: #00d480">sentiment_satisfied</i>
+                <i class="material-icons" style="font-size: 8rem; color: #1fbb01">sentiment_very_satisfied</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml");

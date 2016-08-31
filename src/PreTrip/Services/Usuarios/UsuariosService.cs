@@ -6,77 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PreTrip.Services.Usuarios
 {
     public class UsuariosService
     {
-        public IEnumerable<Usuario> GetAll()
+        public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
             using (var db = new PreTripDB())
             {
-                return db.Usuario.ToList() //Converte para lista para materializar e ser link to object e poder usar "new usuario" em baixo
-                    .Join(db.Pessoa, //Join na tabela pessoa
-                        usu => usu.Pessoa, //Onde o usuario.pessoa
-                        pes => pes, //precisa ser a pessoa da tabela pessoa
-                        (usu, pes) => new Usuario() //preenche o usuario com os novos parametros
-                        {
-                            IsAdmin = usu.IsAdmin,
-                            Pessoa = pes,
-                            Email = usu.Email,
-                            Login = usu.Login,
-                            Id = usu.Id,
-                            Pedidos = usu.Pedidos,
-                            Senha = usu.Senha
-                        }
-                     ).ToList();
-            }
-        }
-
-        public Usuario GetWithLoginPass(string login, string password)
-        {
-            //Precisamos testar se o usuário é admin, se for, não podemos usar a senha para buscar do banco
-            using (var db = new PreTripDB())
-            {
-                //Pegamos somente por login e somente se for admin.
-                var usuAdmin = db.Usuario.ToList() //Converte para lista para materializar e ser link to object e poder usar "new usuario" em baixo
-                    .Join(db.Pessoa, //Join na tabela pessoa
-                        usu => usu.Pessoa, //Onde o usuario.pessoa
-                        pes => pes, //precisa ser a pessoa da tabela pessoa
-                        (usu, pes) => new Usuario() //preenche o usuario com os novos parametros
-                        {
-                            IsAdmin = usu.IsAdmin,
-                            Pessoa = pes,
-                            Email = usu.Email,
-                            Login = usu.Login,
-                            Id = usu.Id,
-                            Pedidos = usu.Pedidos,
-                            Senha = usu.Senha
-                        }
-                     )
-                    .FirstOrDefault(u => u.Login == login && u.IsAdmin);
-
-                //Se existe um usuario admin com o login
-                if (usuAdmin != null)
-                {
-                    //A senha do admin é a senha gerada, se for diferente da digitada
-                    //ele não é um usuario válido, retorne nulo.
-                    if (usuAdmin.Senha != password)
-                        return null;
-                    else
-                        //Se a senha digitada foi correta com a gerada é um login de admin válido
-                        return usuAdmin;
-                }
-                else
-                {
-                    //Se não encontrou nenhum usuario admin com aquele login, é um usuário normal
-                    //então precisa ter digitado a senha correta também, e retornará nulo se inválido
-                    var senhaHash = CreateMD5.GetHash(password);
-                    return db.Usuario.ToList() //Converte para lista para materializar e ser link to object e poder usar "new usuario" em baixo
-                        .Join(db.Pessoa, //Join na tabela pessoa
-                            usu => usu.Pessoa, //Onde o usuario.pessoa
-                            pes => pes, //precisa ser a pessoa da tabela pessoa
-                            (usu, pes) => new Usuario() //preenche o usuario com os novos parametros
+                //Pega um usuário com seu objeto pessoa preenchido
+                var usuarios = from usu in db.Usuario.ToList()
+                            join pes in db.Pessoa.ToList()
+                            on usu.Pessoa equals pes
+                            select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
                             {
                                 IsAdmin = usu.IsAdmin,
                                 Pessoa = pes,
@@ -85,18 +29,21 @@ namespace PreTrip.Services.Usuarios
                                 Id = usu.Id,
                                 Pedidos = usu.Pedidos,
                                 Senha = usu.Senha
-                            }
-                         )
-                         .FirstOrDefault(u => u.Login == login && u.Senha == senhaHash);
-                }
+                            };
+
+                //Como castei na query acima, posso fazer o filtro usando o model Usuario
+                if (filtro != null && usuarios.Any())
+                    return usuarios.Where(filtro);
+                else
+                    return usuarios;
             }
         }
-
+        
         /// <summary>
         /// Grava o usuário no banco
         /// </summary>
         /// <param name="usuario"></param>
-        public void Gravar(Usuario usuario)
+        public void Inserir(Usuario usuario)
         {
             //Se o usuário não é valido, cancela.
             if (!this.ValidaNovoUsuario(usuario))
@@ -119,11 +66,13 @@ namespace PreTrip.Services.Usuarios
         /// <returns></returns>
         public bool ValidaNovoUsuario(Usuario usuario)
         {
-            var usuBanco = this.GetWithLoginPass(usuario.Login, usuario.Senha);
+            var usuBanco = this.GetUsers(u => u.Login == usuario.Login);
 
             //Se o usuário existir não podemos deixar registrar
-            if (usuBanco != null)
+            if (usuBanco.Any())
+            {
                 return false;
+            }   
 
             return true;
         }

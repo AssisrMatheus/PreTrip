@@ -2,6 +2,7 @@
 using PreTrip.Model.Context;
 using PreTrip.Services.Autenticacao;
 using PreTrip.Services.Usuarios;
+using PreTrip.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,11 +36,11 @@ namespace PreTrip.Controllers
 
                 if (autenticado)
                 {
-                    if ((Session["Usuario"] as Usuario).IsAdmin)
+                    if (PreTripSession.Usuario.IsAdmin)
                         return RedirectToAction("Index", "Administrativo");
                     else
                         // Fazer o redirecionamento para o controller de usuário passando a action necessária.
-                        return RedirectToAction("Index", "Usuario");
+                        return RedirectToAction("Index", "Usuarios");
                 }
             }
 

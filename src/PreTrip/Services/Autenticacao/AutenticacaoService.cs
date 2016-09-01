@@ -1,5 +1,6 @@
 ﻿using PreTrip.Lib.Utils;
 using PreTrip.Services.Usuarios;
+using PreTrip.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace PreTrip.Services.Autenticacao
                 else
                 {
                     //Se a senha digitada foi correta com a gerada é um login de admin válido
-                    HttpContext.Current.Session["Usuario"] = usuAdmin;
+                    PreTripSession.Usuario = usuAdmin;
                     return true;
                 }   
             }
@@ -38,7 +39,7 @@ namespace PreTrip.Services.Autenticacao
                 var usuario = service.GetUsers(u => u.Login == login && u.Senha == senhaHash).FirstOrDefault();
 
                 if(usuario != null)
-                    HttpContext.Current.Session["Usuario"] = usuario;
+                    PreTripSession.Usuario = usuario;
 
                 return usuario != null;
             }

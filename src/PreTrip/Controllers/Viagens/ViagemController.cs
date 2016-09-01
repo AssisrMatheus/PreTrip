@@ -25,6 +25,7 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Index(ViagensViewModel viewModel)
         {
+            viewModel.Viagens = new ViagensService().GetAll();
             viewModel.HeaderViagens = "Resultados da pesquisa";
 
             return View(viewModel);

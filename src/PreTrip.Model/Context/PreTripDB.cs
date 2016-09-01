@@ -11,11 +11,7 @@ namespace PreTrip.Model.Context
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class PreTripDB : DbContext
     {
-        public PreTripDB()
-            :base()
-        {
-
-        }
+        public PreTripDB() :base() {}
 
         public DbSet<Viagem> Viagem { get; set; }
 
@@ -34,5 +30,7 @@ namespace PreTrip.Model.Context
         public DbSet<Empresa> Empresa { get; set; }
 
         public DbSet<Conta> Conta { get; set; }
+
+        public DbSet<Busca> Busca { get; set; }
     }
 }

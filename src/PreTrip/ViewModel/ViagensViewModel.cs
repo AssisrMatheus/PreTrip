@@ -11,5 +11,7 @@ namespace PreTrip.ViewModel
         public IEnumerable<Viagem> Viagens { get; set; }
 
         public string HeaderViagens { get; set; }
+
+        public Busca BuscaViagens { get; set; }
     }
 }

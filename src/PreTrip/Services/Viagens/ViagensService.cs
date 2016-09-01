@@ -18,6 +18,8 @@ namespace PreTrip.Services.Viagens
                        on viag.Destino equals dest
                        select new Viagem()
                        {
+                           Id = viag.Id,
+                           PrecoPassagem = viag.PrecoPassagem,
                            Descricao = viag.Descricao,
                            Destino = dest
                        };

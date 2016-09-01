@@ -4,19 +4,41 @@
 }
 
 <div class="row">
- @*pesquisa*@	
-</div>
-
-<div class="row">
-	<div class="col-md-10 wrapcenter">
-		<h3>@Model.HeaderViagens</h3>
-
-		@foreach (var viagem in Model.Viagens)
-		{
-			<div>
-				<h3>@Html.Label(viagem.Descricao)</h3>
-				<p>@Html.Label(viagem.Destino.Cidade) - @Html.Label(viagem.Destino.Bairro)</p>
+@using (Html.BeginForm("Index", "Viagem", FormMethod.Post))
+{
+	<div class="row" style="margin-top: 3em;">
+		<div class="col-xs-8 wrapcenter">
+			<h3>Pesquise por mais conteúdo</h3>
+			<div class="input-group">
+				@Html.EditorFor(x => x.BuscaViagens.Termo, new { htmlAttributes = new { @class = "form-control" } })
+				<span class="input-group-btn">
+					<button style="height: 34px;" class="btn btn-default" type="submit">Pesquisar</button>
+				</span>
 			</div>
-		}
+		</div>
 	</div>
+}
 </div>
+
+@if (Model.Viagens.Any())
+{
+	<div class="row">
+		<div class="col-md-10 wrapcenter">
+			<h3 class="text-center">@Model.HeaderViagens</h3>
+
+			<hr />
+
+			@foreach (var viagem in Model.Viagens)
+			{
+				<div class="viagem-box">
+					<div class="adds pull-right">
+						R$ @viagem.PrecoPassagem
+					</div>
+
+					<h3>@viagem.Descricao</h3>
+					<p>@viagem.Destino.Cidade - @viagem.Destino.Bairro</p>
+				</div>
+			}
+		</div>
+	</div>
+}

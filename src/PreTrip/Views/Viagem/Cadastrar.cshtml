@@ -9,7 +9,7 @@
     <aside class="bg-img-content-img" style="background-color: deepskyblue;"></aside>
 
     <div class="row bg-img-content-ctn wrapcenter col-md-10 wrapcenter card">
-        @using (Html.BeginForm("Cadastrar", "Viagens", FormMethod.Post, new { @class = "row" }))
+        @using (Html.BeginForm("Cadastrar", "Viagem", FormMethod.Post, new { @class = "row" }))
         {
             if (!Html.ViewData.ModelState.IsValid)
             {

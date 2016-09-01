@@ -2,8 +2,6 @@
     ViewBag.Title = "title";
 }
 
-@using System.Web.UI.WebControls
-@model PreTrip.Model.Classes.Usuario
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml");
 
@@ -12,7 +10,11 @@
     <div class="wrapcenter col-md-7">
         <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
             <div class="form-group">
-                @Html.Partial("~/Views/Shared/Cadastro/_CadastroEmpresaPartialView.cshtml");
+
+             @using (Html.BeginForm("CadastrarEmpresa", "Usuario", FormMethod.Post, new { @class = "row" }))
+             { 
+                @Html.Partial("~/Views/Shared/Cadastro/_CadastroEmpresaPartialView.cshtml",new PreTrip.Model.Classes.Empresa());             
+             }
             </div>
             <br />
             <p>

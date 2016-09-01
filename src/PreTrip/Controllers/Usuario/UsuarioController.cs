@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PreTrip.Model.Classes;
+using PreTrip.Services.Empresas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,7 @@ namespace PreTrip.Controllers
     /// </summary>
     public class UsuarioController : Controller
     {
+        
         // GET: Usuario
         public ActionResult Index()
         {
@@ -20,6 +23,18 @@ namespace PreTrip.Controllers
         public ActionResult CadastroEmpresa()
         {
             return View("CadastroEmpresa");
+        }
+
+        [HttpPost]
+        public ActionResult CadastrarEmpresa(Empresa empresa)
+        {
+            if (ModelState.IsValid)
+            {
+                var empresaService = new EmpresasService();
+                empresaService.Gravar(empresa);
+            }
+            //sem o redirect os dados do formulário nao estavam limpando.
+            return Redirect("CadastroEmpresa");
         }
     }
 }

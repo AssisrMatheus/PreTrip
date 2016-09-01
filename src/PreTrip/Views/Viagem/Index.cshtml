@@ -1,8 +1,22 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model PreTrip.ViewModel.ViagensViewModel
+@{  
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="row">
+ @*pesquisa*@	
+</div>
 
+<div class="row">
+	<div class="col-md-10 wrapcenter">
+		<h3>@Model.HeaderViagens</h3>
+
+		@foreach (var viagem in Model.Viagens)
+		{
+			<div>
+				<h3>@Html.Label(viagem.Descricao)</h3>
+				<p>@Html.Label(viagem.Destino.Cidade) - @Html.Label(viagem.Destino.Bairro)</p>
+			</div>
+		}
+	</div>
+</div>

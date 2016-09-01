@@ -13,7 +13,14 @@ namespace PreTrip.Services.Viagens
         {
             using (var db = new PreTripDB())
             {
-                return db.Viagem.ToList();
+                return from viag in db.Viagem.ToList()
+                       join dest in db.Endereco.ToList()
+                       on viag.Destino equals dest
+                       select new Viagem()
+                       {
+                           Descricao = viag.Descricao,
+                           Destino = dest
+                       };
             }
         }
 

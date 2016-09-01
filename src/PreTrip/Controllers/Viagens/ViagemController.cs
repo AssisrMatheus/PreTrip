@@ -1,5 +1,6 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Services.Viagens;
+using PreTrip.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,20 @@ namespace PreTrip.Controllers
         // GET: Viagem
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new ViagensViewModel();
+
+            viewModel.Viagens = new ViagensService().GetAll();
+            viewModel.HeaderViagens = "Últimas viagens";
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        //POR ENQUANTO USUARIO SÓ ESTÁ COMO UM PLACEHOLDER, SERÁ SUBSTITUÍDO PARA "BUSCA"
-        //a BUSCA É FEITA QUANDO PASSADA UM OBJETO PARA O POST
-        public ActionResult Index(Usuario usuario)
+        public ActionResult Index(ViagensViewModel viewModel)
         {
-            return View();
+            viewModel.HeaderViagens = "Resultados da pesquisa";
+
+            return View(viewModel);
         }
 
 
@@ -36,7 +42,7 @@ namespace PreTrip.Controllers
             if(ModelState.IsValid)
             {
                 new ViagensService().Inserir(viagem);
-                return View("Index");
+                return RedirectToAction("Index");
             }
 
             return View();

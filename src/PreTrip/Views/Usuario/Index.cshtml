@@ -1,7 +1,14 @@
-﻿@using System.Web.UI.WebControls
+﻿@{
+    ViewBag.Title = "title";
+}
 
-@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
+@using System.Web.UI.WebControls
+@model PreTrip.Model.Classes.Usuario
 
-Usuário Index
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml");
 
-@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")
+<!-- Tela de cadastro de empresas-->
+TELA INICIAL
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml");
+

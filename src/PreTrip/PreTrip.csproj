@@ -130,7 +130,7 @@
     <Compile Include="Controllers\Adminstrativo\AdministrativoController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Usuario\UsuarioController.cs" />
-    <Compile Include="Controllers\Viagens\ViagemController.cs" />
+    <Compile Include="Controllers\Viagem\ViagemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +188,7 @@
     <Content Include="Views\Shared\Validacao\_ValidacaoBasica.cshtml" />
     <Content Include="Views\Shared\Usuario\_UsuarioBeforePartialView.cshtml" />
     <Content Include="Views\Shared\Usuario\_UsuarioAfterPartialView.cshtml" />
+    <Content Include="Views\Usuario\VisualizarEmpresas.cshtml" />
     <Content Include="Views\Usuario\CadastroEmpresa.cshtml" />
     <Content Include="Views\Viagem\Cadastrar.cshtml" />
     <Content Include="Views\Viagem\Index.cshtml" />

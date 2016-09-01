@@ -13,7 +13,7 @@ namespace PreTrip.Controllers
     /// </summary>
     public class UsuarioController : Controller
     {
-        
+
         // GET: Usuario
         public ActionResult Index()
         {
@@ -22,7 +22,7 @@ namespace PreTrip.Controllers
 
         public ActionResult CadastroEmpresa()
         {
-            return View("CadastroEmpresa");
+            return View();
         }
 
         [HttpPost]
@@ -32,9 +32,12 @@ namespace PreTrip.Controllers
             {
                 var empresaService = new EmpresasService();
                 empresaService.Gravar(empresa);
+                Response.Write("<script>alert('Empresa Cadastrada');</script>");
+
+                ModelState.Clear();//sem esse metodo os campos do form nao estavam limpando
             }
-            //sem o redirect os dados do formulário nao estavam limpando.
-            return Redirect("CadastroEmpresa");
+
+            return View("CadastroEmpresa");
         }
     }
 }

@@ -1,0 +1,191 @@
+﻿@model PreTrip.Model.Classes.Viagem
+
+@{
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-img-content">
+    <aside class="bg-img-content-img" style="background-color: deepskyblue;"></aside>
+
+    <div class="row bg-img-content-ctn wrapcenter col-md-10 wrapcenter card">
+        @using (Html.BeginForm("Cadastrar", "Viagens", FormMethod.Post, new { @class = "row" }))
+        {
+            if (!Html.ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger validation-box" role="alert">
+
+                    <p style="margin: 0; padding: 0;">
+                        <i class="material-icons" style="vertical-align: middle;">error</i>
+                        <strong>Oops!</strong>
+                    <p style="margin: 0; padding: 0;">
+                        Parece que você preencheu algo errado:
+                    </p>
+                    </p>
+
+                    @Html.ValidationSummary(false)
+                </div>
+            }
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { placeholder = "Que tal... \"Turismo em Copacabana - Rio de Janeiro\"?", @class = "form-control" } })
+                <span class="help-block">Para onde vai a viagem? Talvez colocar um nome chamativo ou uma pequena lista dos locais ajude :)</span>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Preço da passagem</label>
+                @Html.EditorFor(model => model.PrecoPassagem, new { htmlAttributes = new { placeholder = "R$ 40,00", @class = "form-control" } })
+                <span class="help-block">Coloque o preço estimado da passagem.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Quantidade de lugares disponíveis</label>
+                @Html.EditorFor(model => model.QuantidadeLugaresDisponiveis, new { htmlAttributes = new { placeholder = "18", @class = "form-control" } })
+                <span class="help-block">Quantos lugares estarão disponíveis inicialmente?</span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" style="padding: 0;">
+                    <label for="descricao">Data/hora de saída</label>
+                    @Html.EditorFor(model => model.DtHrSaida, new { htmlAttributes = new { type = "datetime-local", @class = "form-control" } })
+                </div>
+
+                <div class="col-md-6" style="padding: 0;">
+                    <label for="descricao">Data/hora da chegada estimada</label>
+                    @Html.EditorFor(model => model.DtHrChegadaEstimada, new { htmlAttributes = new { type = "datetime-local", @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <h3>Endereço de Saída</h3>
+                    <hr />
+
+                    <div class="input-group">
+                        <div class="row">
+                            <label for="descricao">Rua</label>
+                            @Html.EditorFor(model => model.Origem.Rua, new { htmlAttributes = new { placeholder = "Rua Tiradentes...", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Bairro</label>
+                            @Html.EditorFor(model => model.Origem.Bairro, new { htmlAttributes = new { placeholder = "Bairro Almanaque", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Cidade</label>
+                            @Html.EditorFor(model => model.Origem.Cidade, new { htmlAttributes = new { placeholder = "São Paulo", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Estado</label>
+                            @Html.EditorFor(model => model.Origem.Estado, new { htmlAttributes = new { placeholder = "São Paulo", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6" style="padding: 0;">
+                                <label for="descricao">Número</label>
+                                @Html.EditorFor(model => model.Origem.Numero, new { htmlAttributes = new { placeholder = "301. Ou pode deixar vazio ;)", @class = "form-control" } })
+                            </div>
+
+                            <div class="col-md-6" style="padding: 0;">
+                                <label for="descricao">Complemento</label>
+                                @Html.EditorFor(model => model.Origem.Complemento, new { htmlAttributes = new { placeholder = "Casa 02", @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <h3>Endereço de Destino</h3>
+                    <hr />
+
+                    <div class="input-group" style="display: inherit;">
+                        <div class="row">
+                            <label for="descricao">Rua</label>
+                            @Html.EditorFor(model => model.Destino.Rua, new { htmlAttributes = new { placeholder = "Calçadão de copacabana...", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Bairro</label>
+                            @Html.EditorFor(model => model.Destino.Bairro, new { htmlAttributes = new { placeholder = "Bairro Copacabana", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Cidade</label>
+                            @Html.EditorFor(model => model.Destino.Cidade, new { htmlAttributes = new { placeholder = "Rio de Janeiro", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Estado</label>
+                            @Html.EditorFor(model => model.Destino.Estado, new { htmlAttributes = new { placeholder = "Rio de Janeiro", @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <h3>Empresa</h3>
+                    <hr />
+                    <p>Empresa a qual esta viagem está vinculada! Pode ser quem está patrocinando esta viagem, ou somente à quem você trabalha :)</p>
+
+                    <div class="input-group">
+                        <div class="row">
+                            <label for="descricao">Nome fantasia</label>
+                            @Html.EditorFor(model => model.Empresa.NomeFantasia, new { htmlAttributes = new { placeholder = "Viagens Sonhadoras", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Razão social</label>
+                            @Html.EditorFor(model => model.Empresa.RazaoSocial, new { htmlAttributes = new { placeholder = "Viagens Sonhadoras & Sócios Ltda.", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Cnpj</label>
+                            @Html.EditorFor(model => model.Empresa.Cnpj, new { htmlAttributes = new { placeholder = "Cnpj", @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <h3>Veículo</h3>
+                    <hr />
+
+                    <div class="input-group" style="display: inherit;">
+                        <div class="row">
+                            <label for="descricao">Modelo</label>
+                            @Html.EditorFor(model => model.Veiculo.Modelo, new { htmlAttributes = new { placeholder = "Ducato ", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label for="descricao">Tipo</label>
+                            @Html.EditorFor(model => model.Veiculo.Tipo, new { htmlAttributes = new { placeholder = "Van", @class = "form-control" } })
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6" style="padding: 0;">
+                                <label for="descricao">Placa</label>
+                                @Html.EditorFor(model => model.Veiculo.Placa, new { htmlAttributes = new { placeholder = "BAN-1010", @class = "form-control" } })
+                            </div>
+
+                            <div class="col-md-6" style="padding: 0;">
+                                <label for="descricao">Quantidade de lugares para passageiros</label>
+                                @Html.EditorFor(model => model.Veiculo.QuantidadeLugares, new { htmlAttributes = new { placeholder = "20", @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <hr />
+
+            <div class="pull-right">
+                @Html.ActionLink("Cancelar", "Index", "Usuario", new { @class = "btn btn-danger" })
+                <button type="submit" class="btn btn-warning">Cadastrar</button>
+            </div>
+        }
+    </div>
+</div>

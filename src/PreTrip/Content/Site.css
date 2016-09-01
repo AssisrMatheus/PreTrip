@@ -65,6 +65,20 @@ a .open .dropdown-toggle.btn-warning{
     margin: 0;
 }
 
+.form-control {
+    border-radius: 0px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 1.3em;
+
+    /*Shadow*/
+    -webkit-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
+    -moz-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
+    box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3);
+}
+
 /*-----------------------------------------*/
 /* ########## Css para as páginas*/
 /*-----------------------------------------*/
@@ -100,3 +114,4 @@ a .open .dropdown-toggle.btn-warning{
     -moz-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3); 
     box-shadow: 0px 0px 30px 3px rgba(0, 0, 0,0.3);
 }
+

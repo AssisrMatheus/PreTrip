@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PreTrip.Controllers
+namespace PreTrip.Controllers.Usuarios
 {
     /// <summary>
     /// Controller das views do usuário comum
     /// </summary>
-    public class UsuarioController : Controller
+    public class UsuariosController : Controller
     {
         // GET: Usuario
         public ActionResult Index()

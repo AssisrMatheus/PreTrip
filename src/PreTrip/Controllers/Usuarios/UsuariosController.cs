@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PreTrip.Model.Classes;
+using PreTrip.Services.Empresas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +22,26 @@ namespace PreTrip.Controllers.Usuarios
         public ActionResult CadastroEmpresa()
         {
             return View("CadastroEmpresa");
+        }
+
+        [HttpPost]
+        public ActionResult CadastrarEmpresa(Empresa empresa)
+        {
+            if (ModelState.IsValid)
+            {
+                var empresaService = new EmpresasService();
+                empresaService.Gravar(empresa);
+                Response.Write("<script>alert('Empresa inserida!!') </script>");
+                ModelState.Clear();
+            }
+
+            return View("CadastroEmpresa");
+        }
+
+        public ActionResult VisualizarEmpresas()
+        {
+            ViewBag.Empresas = new EmpresasService().GetAll();
+            return View();
         }
     }
 }

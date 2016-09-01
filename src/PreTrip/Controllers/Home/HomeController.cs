@@ -40,7 +40,7 @@ namespace PreTrip.Controllers
                         return RedirectToAction("Index", "Administrativo");
                     else
                         // Fazer o redirecionamento para o controller de usuário passando a action necessária.
-                        return RedirectToAction("Index", "Usuarios");
+                        return RedirectToAction("Index", "Usuario");
                 }
             }
 

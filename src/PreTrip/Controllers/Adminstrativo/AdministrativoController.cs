@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PreTrip.Controllers.Administrativo
+namespace PreTrip.Controllers
 {
     public class AdministrativoController : Controller
     {

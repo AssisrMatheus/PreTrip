@@ -14,7 +14,7 @@ namespace PreTrip.Model.Classes
         [Key]
         public int Id { get; set; }
 
-        public int Cnpj { get; set; }
+        public long Cnpj { get; set; }
 
         public string RazaoSocial { get; set; }
 

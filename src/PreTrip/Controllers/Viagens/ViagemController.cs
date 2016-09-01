@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PreTrip.Controllers.Viagens
+namespace PreTrip.Controllers
 {
-    public class ViagensController : Controller
+    public class ViagemController : Controller
     {
         // GET: Viagem
         public ActionResult Index()

@@ -25,6 +25,12 @@ namespace PreTrip.Controllers
             return View();
         }
 
+        public ActionResult VisualizarEmpresas()
+        {
+            ViewBag.Empresas = new EmpresasService().GetAll();
+            return View();
+        }
+
         [HttpPost]
         public ActionResult CadastrarEmpresa(Empresa empresa)
         {

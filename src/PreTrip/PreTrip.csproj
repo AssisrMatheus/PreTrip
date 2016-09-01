@@ -139,6 +139,8 @@
     <Compile Include="Services\Empresas\EmpresasService.cs" />
     <Compile Include="Services\Viagens\ViagensService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
+    <Compile Include="Session\PreTripSession.cs" />
+    <Compile Include="ViewModel\ViagensViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

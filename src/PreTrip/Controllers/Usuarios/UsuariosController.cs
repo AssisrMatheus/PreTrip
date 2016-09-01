@@ -1,6 +1,4 @@
-﻿using PreTrip.Model.Classes;
-using PreTrip.Services.Empresas;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +11,6 @@ namespace PreTrip.Controllers.Usuarios
     /// </summary>
     public class UsuariosController : Controller
     {
-
         // GET: Usuario
         public ActionResult Index()
         {
@@ -22,27 +19,6 @@ namespace PreTrip.Controllers.Usuarios
 
         public ActionResult CadastroEmpresa()
         {
-            return View();
-        }
-
-        public ActionResult VisualizarEmpresas()
-        {
-            ViewBag.Empresas = new EmpresasService().GetAll();
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CadastrarEmpresa(Empresa empresa)
-        {
-            if (ModelState.IsValid)
-            {
-                var empresaService = new EmpresasService();
-                empresaService.Gravar(empresa);
-                Response.Write("<script>alert('Empresa Cadastrada');</script>");
-
-                ModelState.Clear();//sem esse metodo os campos do form nao estavam limpando
-            }
-
             return View("CadastroEmpresa");
         }
     }

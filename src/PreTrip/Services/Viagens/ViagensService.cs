@@ -16,5 +16,14 @@ namespace PreTrip.Services.Viagens
                 return db.Viagem.ToList();
             }
         }
+
+        public void Inserir(Viagem viagem)
+        {
+            using (var db = new PreTripDB())
+            {
+                db.Viagem.Add(viagem);
+                db.SaveChanges();
+            }
+        }
     }
 }

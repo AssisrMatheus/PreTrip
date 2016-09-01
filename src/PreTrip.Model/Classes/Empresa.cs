@@ -21,6 +21,6 @@ namespace PreTrip.Model.Classes
         public string NomeFantasia { get; set; }
 
         //[ForeignKey("IdEndereco")]
-        public Endereco Endereco { get; set; }
+        //public Endereco Endereco { get; set; }
     }
 }

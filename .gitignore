@@ -6,9 +6,9 @@
 */obj/
 
 #Permite tudo dentro de packages onde quer que ela esteja(para dependencias)
-!*/packages/*
+**/packages
 
 #Ignora alguns defaults do visual studio
 /src/.vs/PreTrip/v14/.suo
 /src/.vs/config/applicationhost.config
-/src/.vs/PreTrip.v12.suo
+*/PreTrip.v12.suo

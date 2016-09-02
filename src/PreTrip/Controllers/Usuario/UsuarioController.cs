@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PreTrip.Model.Classes;
 
 namespace PreTrip.Controllers
 {
@@ -20,6 +21,11 @@ namespace PreTrip.Controllers
         public ActionResult CadastroEmpresa()
         {
             return View("CadastroEmpresa");
+        }
+
+        public ActionResult AlterarUsuario()
+        {
+            return View();
         }
     }
 }

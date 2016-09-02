@@ -30,6 +30,12 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
+        public ActionResult AlterarUsuario(Usuario Usuario)
+        {
+            return RedirectToAction("Index", "Usuario");
+        }
+
+        [HttpPost]
          public ActionResult CadastrarEmpresa(Empresa empresa)
          {
              if (ModelState.IsValid)

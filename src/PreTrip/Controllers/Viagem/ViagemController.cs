@@ -43,7 +43,7 @@ namespace PreTrip.Controllers
             if(ModelState.IsValid)
             {
                 new ViagensService().Inserir(viagem);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Usuario");
             }
 
             return View();

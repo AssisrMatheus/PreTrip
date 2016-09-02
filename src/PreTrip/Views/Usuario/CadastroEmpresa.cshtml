@@ -13,7 +13,7 @@
         <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
             <div class="form-group">
 
-             @using (Html.BeginForm("CadastrarEmpresa", "Usuarios", FormMethod.Post, new { @class = "row" }))
+             @using (Html.BeginForm("CadastrarEmpresa", "Usuario", FormMethod.Post, new { @class = "row" }))
              { 
                 @Html.Partial("~/Views/Shared/Cadastro/_CadastroEmpresaPartialView.cshtml",new PreTrip.Model.Classes.Empresa());             
              }

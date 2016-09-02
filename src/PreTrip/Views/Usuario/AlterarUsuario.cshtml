@@ -1,0 +1,52 @@
+﻿@using PreTrip.Session
+
+@using (Html.BeginForm("AlterarUsuario", "Usuario", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">person</i>
+            </div>
+            @Html.EditorFor(x => PreTripSession.Usuario.Login, new {htmlAttributes = new {@class = "form-control", placeholder = "Usuário"}})
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">lock</i>
+            </div>
+            @Html.PasswordFor(x => PreTripSession.Usuario.Senha, new {@class = "form-control", placeholder = "Senha"})
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">face</i>
+            </div>
+            @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Nome, new {htmlAttributes = new {@class = "form-control", placeholder = "Nome"}})
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">contact_mail</i>
+            </div>
+            @Html.EditorFor(x => PreTripSession.Usuario.Email, new {htmlAttributes = new {@class = "form-control", placeholder = "Email"}})
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">local_phone</i>
+            </div>
+            @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Telefone, new {htmlAttributes = new {@class = "form-control", placeholder = "Telefone"}})
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">subtitles</i>
+            </div>
+            @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Cpf, new {htmlAttributes = new {@class = "form-control", placeholder = "Cpf"}})
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="material-icons" style="font-size: 16px">date_range</i>
+            </div>
+            @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.DtNascimento, new {htmlAttributes = new {@class = "form-control", placeholder = "Data", type = "date"}})
+        </div>
+    </div>
+    <div class="pull-right">
+        <button type="submit" class="btn btn-warning pull-right">Confirmar</button>
+    </div>
+}

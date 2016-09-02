@@ -14,10 +14,17 @@ namespace PreTrip.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {            
+        {           
             using(var db = new PreTripDB())
             {
-                ViewBag.QuantidadeViagens = db.Viagem.Count();
+                try
+                {
+                    ViewBag.QuantidadeViagens = db.Viagem.Count();
+                }
+                catch (Exception)
+                {
+                    ViewBag.QuantidadeViagens = 0;
+                }
             }
 
             return View();

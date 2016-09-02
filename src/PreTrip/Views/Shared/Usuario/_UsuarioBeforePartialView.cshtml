@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-md-6 text-right">
-                @Html.ActionLink("Meu Perfil", "Alterar", "Usuario", new { @class = "btn" })
+                @Html.ActionLink("Meu Perfil", "AlterarUsuario", "Usuario", new { @class = "btn" })
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="panel panel-default panel-body">
             <div class="col-md-4">
                 <div class="btn-group-vertical" role="group" style="width: 100%;">
-                    <button type="button" class="btn btn-default">Empresa</button>
+                    @Html.ActionLink("Empresas", "CadastroEmpresa", "Usuario", new { @class = "btn btn-default" })
 					@Html.ActionLink("Viagens", "Index", "Viagem", new { @class = "btn btn-default" })
                 </div>
             </div>

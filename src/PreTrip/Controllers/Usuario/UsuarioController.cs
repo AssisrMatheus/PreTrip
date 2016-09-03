@@ -41,7 +41,7 @@ namespace PreTrip.Controllers
         public ActionResult Empresas()
         {
 
-#warning Aqui o usuário está podendo ver TODAS as empresas. Não podemos deixar ele cadastrar empresa somente, ele precisa cadastrar uma viagem, para poder fazer o join de Viagens que ele tem pra poder pegar as empresas e poder listar
+#warning Aqui o usuário está podendo ver TODAS as empresas. Não podemos deixar ele cadastrar empresa sozinha, ele precisa cadastrar uma viagem com empresa, para poder fazer o join de Viagens que ele tem pra poder pegar as empresas e poder listar
             ViewBag.Empresas = new EmpresasService().GetAll();
 
             return View();

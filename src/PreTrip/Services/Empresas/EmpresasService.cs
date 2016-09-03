@@ -14,7 +14,7 @@ namespace PreTrip.Services.Empresas
         {
             using (var db = new PreTripDB())
             {
-                return db.Empresa.ToList();
+                return db.Empresas.ToList();
             }
         }
 
@@ -22,7 +22,7 @@ namespace PreTrip.Services.Empresas
         {
             using (var db = new PreTripDB())
             {
-                db.Empresa.Add(empresa);
+                db.Empresas.Add(empresa);
                 db.SaveChanges();
             }
         }

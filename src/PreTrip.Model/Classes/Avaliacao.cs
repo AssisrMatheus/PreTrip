@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Evento")]
-    public class Evento
+    [Table("Avaliacao")]
+    public class Avaliacao
     {
         [Key]
         public int Id { get; set; }
 
-        public string Nome { get; set; }
+        public int Nota { get; set; }
 
-        public string Tags { get; set; }
+        public string Comentario { get; set; }
 
+        public Usuario Usuario { get; set; }
 
         //Foreign keys
         public int ViagemId { get; set; }

@@ -18,8 +18,8 @@ namespace PreTrip.Services.Usuarios
             using (var db = new PreTripDB())
             {
                 //Pega um usuário com seu objeto pessoa preenchido
-                var usuarios = from usu in db.Usuario.ToList()
-                               join pes in db.Pessoa.ToList()
+                var usuarios = from usu in db.Usuarios.ToList()
+                               join pes in db.Pessoas.ToList()
                                on usu.Pessoa equals pes
                                select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
                                {
@@ -52,7 +52,7 @@ namespace PreTrip.Services.Usuarios
                     //Converte para md5
                     usuario.Senha = CreateMD5.GetHash(usuario.Senha);
 
-                    db.Usuario.Add(usuario);
+                    db.Usuarios.Add(usuario);
                     db.SaveChanges();
                 }
         }
@@ -69,7 +69,7 @@ namespace PreTrip.Services.Usuarios
                     // Converte para md5
                     usuario.Senha = CreateMD5.GetHash(usuario.Senha);
 
-                    db.Usuario.AddOrUpdate(usuario);
+                    db.Usuarios.AddOrUpdate(usuario);
                     db.SaveChanges();
                 }
         }

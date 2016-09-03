@@ -1,11 +1,7 @@
 ﻿@model PreTrip.Model.Classes.Viagem
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 <div class="bg-img-content">
-    <aside class="bg-img-content-img" style="background-color: deepskyblue; background-size:cover; background: url(@Model.UrlImagem) center"></aside>
+    <aside id="bgImgViagem" class="bg-img-content-img" style="background-color: deepskyblue; background-size:cover; background: url(@Model.UrlImagem) center"></aside>
 
     <div class="row bg-img-content-ctn wrapcenter col-md-10 wrapcenter card">
         @using (Html.BeginForm("Cadastrar", "Viagem", FormMethod.Post, new { @class = "row" }))
@@ -13,13 +9,12 @@
             if (!Html.ViewData.ModelState.IsValid)
             {
                 <div class="alert alert-danger validation-box" role="alert">
-
                     <p style="margin: 0; padding: 0;">
                         <i class="material-icons" style="vertical-align: middle;">error</i>
                         <strong>Oops!</strong>
+                    </p>
                     <p style="margin: 0; padding: 0;">
                         Parece que você preencheu algo errado:
-                    </p>
                     </p>
 
                     @Html.ValidationSummary(false)
@@ -34,8 +29,17 @@
 
             <div class="form-group">
                 <label for="descricao">URL para Imagem</label>
-                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { placeholder = "Url", @class = "form-control" } })
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { placeholder = "Url", @class = "form-control", id="urlField" } })
                 <span class="help-block">Insira uma imagem de demonstre o lugar para qual você vai</span>
+
+                <script>
+                    var img = $('#bgImgViagem')
+                    var field = $('#urlField')
+
+                    field.focusout(function () {
+                        img.css('background-image', 'url(' + field.val + ') center')
+                    })
+                </script>
             </div>
 
             <div class="form-group">

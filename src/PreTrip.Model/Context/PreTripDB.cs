@@ -13,24 +13,26 @@ namespace PreTrip.Model.Context
     {
         public PreTripDB() :base() {}
 
-        public DbSet<Viagem> Viagem { get; set; }
+        public DbSet<Viagem> Viagens { get; set; }
 
-        public DbSet<Veiculo> Veiculo { get; set; }
+        public DbSet<Veiculo> Veiculos { get; set; }
 
-        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
-        public DbSet<Pessoa> Pessoa { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
 
-        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
 
-        public DbSet<Evento> Evento { get; set; }
+        public DbSet<Evento> Eventos { get; set; }
 
-        public DbSet<Endereco> Endereco { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
 
-        public DbSet<Empresa> Empresa { get; set; }
+        public DbSet<Empresa> Empresas { get; set; }
 
-        public DbSet<ContaBancaria> Conta { get; set; }
+        public DbSet<ContaBancaria> ContasBancarias { get; set; }
 
-        public DbSet<Busca> Busca { get; set; }
+        public DbSet<Busca> Buscas { get; set; }
+
+        public DbSet<Avaliacao> Avaliacoes { get; set; }
     }
 }

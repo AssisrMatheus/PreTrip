@@ -31,6 +31,15 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Visualizar(int viagemId)
+        {
+            var viewModel = new ViagensViewModel();
+
+            viewModel.Viagem = new ViagensService().GetViagem(viagemId);
+
+            return View(viewModel);
+        }
+
 
         public ActionResult Cadastrar()
         {

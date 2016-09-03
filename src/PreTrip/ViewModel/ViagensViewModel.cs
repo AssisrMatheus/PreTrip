@@ -13,5 +13,8 @@ namespace PreTrip.ViewModel
         public string HeaderViagens { get; set; }
 
         public Busca BuscaViagens { get; set; }
+
+        //Essa viagem pode ser usada tanto para alterar quanto para criar, depende de que view estamos
+        public Viagem Viagem { get; set; }
     }
 }

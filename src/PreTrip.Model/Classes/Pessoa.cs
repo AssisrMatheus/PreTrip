@@ -13,7 +13,7 @@ namespace PreTrip.Model.Classes
     {
         public Pessoa()
         {
-            this.Conta = new Conta();
+            this.Conta = new ContaBancaria();
         }
 
         [Key]
@@ -31,6 +31,8 @@ namespace PreTrip.Model.Classes
         [Required]
         public DateTime DtNascimento { get; set; }
 
-        public Conta Conta { get; set; }
+        public ContaBancaria Conta { get; set; }
+
+        public string UrlImagem { get; set; }
     }
 }

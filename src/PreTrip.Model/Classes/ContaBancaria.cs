@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Conta")]
-    public class Conta
+    [Table("ContaBancaria")]
+    public class ContaBancaria
     {
         [Key]
         public int Id { get; set; }

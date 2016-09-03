@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Busca.cs" />
-    <Compile Include="Classes\Conta.cs" />
+    <Compile Include="Classes\ContaBancaria.cs" />
     <Compile Include="Classes\Empresa.cs" />
     <Compile Include="Classes\Endereco.cs" />
     <Compile Include="Classes\Evento.cs" />

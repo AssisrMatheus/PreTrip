@@ -29,7 +29,7 @@ namespace PreTrip.Model.Context
 
         public DbSet<Empresa> Empresa { get; set; }
 
-        public DbSet<Conta> Conta { get; set; }
+        public DbSet<ContaBancaria> Conta { get; set; }
 
         public DbSet<Busca> Busca { get; set; }
     }

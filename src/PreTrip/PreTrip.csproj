@@ -189,10 +189,10 @@
     <Content Include="Views\Usuario\VisualizarEmpresas.cshtml" />
     <Content Include="Views\Usuario\CadastroEmpresa.cshtml" />
     <Content Include="Views\Viagem\Cadastrar.cshtml" />
-    <Content Include="Views\Viagem\Index.cshtml" />
     <Content Include="Views\Usuario\AlterarUsuario.cshtml" />
     <Content Include="Views\Shared\Cadastro\_CadastroEmpresaPartialView.cshtml" />
     <Content Include="Views\Shared\Cadastro\_CadastroUsuarioPartialView.cshtml" />
+    <Content Include="Views\Viagem\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

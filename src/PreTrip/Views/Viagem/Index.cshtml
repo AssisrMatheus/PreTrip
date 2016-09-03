@@ -30,14 +30,17 @@
 
             @foreach (var viagem in Model.Viagens)
             {
-                <div class="viagem-box">
-                    <div class="adds pull-right">
-                        R$ @viagem.PrecoPassagem
-                    </div>
+                <a href="/Viagem/Visualizar/@viagem.Id">                    
+                    <div class="viagem-box">
+                        <div class="adds pull-right">
+                            R$ @viagem.PrecoPassagem
+                        </div>
 
-                    <h3>@viagem.Descricao</h3>
-                    <p>@viagem.Destino.Cidade - @viagem.Destino.Bairro</p>
-                </div>}
+                        <h3>@viagem.Descricao</h3>
+                        <p>@viagem.Destino.Cidade - @viagem.Destino.Bairro</p>
+                    </div>
+                </a>
+            }
         </div>
     </div>
 }

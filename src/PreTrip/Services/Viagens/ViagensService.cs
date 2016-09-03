@@ -52,10 +52,10 @@ namespace PreTrip.Services.Viagens
                                  UrlImagem = viag.UrlImagem
                              }).FirstOrDefault();
 
-                viagem.Avaliacoes = db.Avaliacoes.Where(a => a.ViagemId == viagem.Id);
-                viagem.Eventos = db.Eventos.Where(e => e.ViagemId == viagem.Id);
+                viagem.Avaliacoes = db.Avaliacoes.Where(a => a.ViagemId == viagem.Id).ToList();
+                viagem.Eventos = db.Eventos.Where(e => e.ViagemId == viagem.Id).ToList();
 
-                return viagem;                   
+                return viagem;                    
             }
         }
 

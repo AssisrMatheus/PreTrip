@@ -1,3 +1,22 @@
 ﻿@model PreTrip.ViewModel.ViagensViewModel
 
-<h3>@Model.Viagem.Titulo</h3>
+<div class="row" style="background-size: cover; background: url(@Model.Viagem.UrlImagem) center; min-height: 23em;">    
+</div>
+
+<div class="row">
+    <div class="col-md-10 wrapcenter" style="padding: 2em;">
+
+        <div class="col-md-8">
+            <h3>@Model.Viagem.Titulo</h3>
+            <hr />
+            <p>
+                @Model.Viagem.Descricao
+            </p>
+        </div>
+
+        <div class="col-md-4" style="border-left: 1px solid #808080">
+            Avaliações:
+            20
+        </div>
+    </div>
+</div>

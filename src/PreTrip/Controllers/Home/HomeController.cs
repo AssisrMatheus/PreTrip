@@ -3,6 +3,7 @@ using PreTrip.Model.Context;
 using PreTrip.Services.Autenticacao;
 using PreTrip.Services.Usuarios;
 using PreTrip.Session;
+using PreTrip.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,11 @@ namespace PreTrip.Controllers
         /// Ação de fazer a autenticação de usuário
         /// </summary>
         [HttpPost]
-        public ActionResult Login(Usuario usuario)
+        public ActionResult Login(HomeViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var usuario = viewModel.Usuario;
                 var service = new AutenticacaoService();
                 var autenticado = service.Autenticar(usuario.Login, usuario.Senha);
 
@@ -41,6 +43,10 @@ namespace PreTrip.Controllers
                     else
                         // Fazer o redirecionamento para o controller de usuário passando a action necessária.
                         return RedirectToAction("Index", "Usuario");
+                }
+                else
+                {
+                    ModelState.AddModelError("Login", "Login ou senha inválidos!");
                 }
             }
 
@@ -61,12 +67,17 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Cadastrar(Usuario usuario)
         {
+            var viewModel = new HomeViewModel()
+            {
+                Usuario = usuario
+            };
+
             if (ModelState.IsValid)
             {
                 var service = new UsuariosService();
                 service.Inserir(usuario);
 
-                return View("Index", usuario);
+                return View("Index", viewModel);
             }
             else
             {
@@ -74,7 +85,7 @@ namespace PreTrip.Controllers
                 var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
                 ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
 
-                return View(usuario);
+                return View(viewModel);
             }
         }
     }

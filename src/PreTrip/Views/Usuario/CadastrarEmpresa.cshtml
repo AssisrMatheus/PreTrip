@@ -1,8 +1,4 @@
-﻿@{
-    ViewBag.Title = "title";
-}
-
-@using System.Web.UI.WebControls
+﻿@using System.Web.UI.WebControls
 @model PreTrip.Model.Classes.Usuario
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
@@ -15,7 +11,7 @@
 
              @using (Html.BeginForm("CadastrarEmpresa", "Usuario", FormMethod.Post, new { @class = "row" }))
              { 
-                @Html.Partial("~/Views/Shared/Cadastro/_CadastroEmpresaPartialView.cshtml",new PreTrip.Model.Classes.Empresa());             
+                @Html.Partial("~/Views/Shared/Cadastro/_CadastroEmpresaPartialView.cshtml",new PreTrip.Model.Classes.Empresa())             
              }
             </div>
             <br />

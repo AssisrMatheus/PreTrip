@@ -55,7 +55,7 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var empresaService = new EmpresasService();
-                empresaService.Gravar(empresa);
+                empresaService.Inserir(empresa);
             }
 
             return View("Index");

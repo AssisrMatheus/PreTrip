@@ -186,8 +186,8 @@
     <Content Include="Views\Shared\Validacao\_ValidacaoBasica.cshtml" />
     <Content Include="Views\Shared\Usuario\_UsuarioBeforePartialView.cshtml" />
     <Content Include="Views\Shared\Usuario\_UsuarioAfterPartialView.cshtml" />
-    <Content Include="Views\Usuario\VisualizarEmpresas.cshtml" />
-    <Content Include="Views\Usuario\CadastroEmpresa.cshtml" />
+    <Content Include="Views\Usuario\Empresas.cshtml" />
+    <Content Include="Views\Usuario\CadastrarEmpresa.cshtml" />
     <Content Include="Views\Viagem\Cadastrar.cshtml" />
     <Content Include="Views\Usuario\AlterarUsuario.cshtml" />
     <Content Include="Views\Shared\Cadastro\_CadastroEmpresaPartialView.cshtml" />

@@ -17,7 +17,13 @@ namespace PreTrip.Session
         {
             get
             {
-                return (Usuario)HttpContext.Current.Session["Usuario"];
+                if (HttpContext.Current.Session != null)
+                {
+                    var usu = HttpContext.Current.Session["Usuario"];
+                    if (usu != null)
+                        return (Usuario)usu;
+                }
+                return null;
             }
 
             set

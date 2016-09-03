@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "VisualizarEmpresas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml");
+
+<div class="pull-right">
+    @Html.ActionLink("Cadastrar", "CadastrarEmpresa", "Usuario", new { @class = "btn btn-success" })
+</div>
+
+<table class="table table-hover" style="width:50%;margin:0 auto;">
+
+    <thead>
+        <tr>
+            <th colspan="4" style="text-align:center;">Minhas Empresas Cadastradas</th>
+        </tr>
+        <tr>
+            <th>CNPJ</th>
+        </tr>
+        <tr>
+            <th>Razao Social</th>
+        </tr>
+        <tr>
+            <th>Nome Fantasia</th>
+        </tr>
+        <tr>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var empresa in (IEnumerable<PreTrip.Model.Classes.Empresa>)ViewBag.Empresas)
+        {
+            <tr>
+                <td>@empresa.Cnpj</td>
+                <td>@empresa.RazaoSocial</td>
+                <td>@empresa.NomeFantasia</td>
+                <td>
+                    <a title="Adicionar Endereços">
+                        <i style="font-size: 3rem;" class="material-icons pull-left">note_add</i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")

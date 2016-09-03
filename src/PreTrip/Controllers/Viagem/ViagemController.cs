@@ -43,15 +43,18 @@ namespace PreTrip.Controllers
 
         public ActionResult Cadastrar()
         {
-            return View();
+            var viewModel = new ViagensViewModel();
+            viewModel.Viagem = new Viagem();
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Cadastrar(Viagem viagem)
+        public ActionResult Cadastrar(ViagensViewModel viewModel)
         {
             if(ModelState.IsValid)
             {
-                new ViagensService().Inserir(viagem);
+                new ViagensService().Inserir(viewModel.Viagem);
                 return RedirectToAction("Index","Usuario");
             }
 

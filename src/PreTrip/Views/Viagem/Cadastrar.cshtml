@@ -1,7 +1,10 @@
-﻿@model PreTrip.Model.Classes.Viagem
+﻿@model PreTrip.ViewModel.ViagensViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <div class="bg-img-content">
-    <aside id="bgImgViagem" class="bg-img-content-img" style="background-color: deepskyblue; background-size:cover; background: url(@Model.UrlImagem) center"></aside>
+    <aside id="bgImgViagem" class="bg-img-content-img" style="background-color: deepskyblue;"></aside>
 
     <div class="row bg-img-content-ctn wrapcenter col-md-10 wrapcenter card">
         @using (Html.BeginForm("Cadastrar", "Viagem", FormMethod.Post, new { @class = "row" }))
@@ -23,52 +26,64 @@
 
             <div class="form-group">
                 <label for="descricao">Título</label>
-                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { placeholder = "Que tal... \"Turismo em Copacabana - Rio de Janeiro\"?", @class = "form-control" } })
+                @Html.EditorFor(model => model.Viagem.Titulo, new { htmlAttributes = new { placeholder = "Que tal... \"Turismo em Copacabana - Rio de Janeiro\"?", @class = "form-control" } })
                 <span class="help-block">Para onde vai a viagem? Talvez colocar um nome chamativo ou uma pequena lista dos locais ajude :)</span>
             </div>
 
             <div class="form-group">
                 <label for="descricao">URL para Imagem</label>
-                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { placeholder = "Url", @class = "form-control", id="urlField" } })
-                <span class="help-block">Insira uma imagem de demonstre o lugar para qual você vai</span>
+                @Html.EditorFor(model => model.Viagem.UrlImagem, new { htmlAttributes = new { placeholder = "Url", @class = "form-control", id = "urlField" } })
+                <span class="help-block">Insira uma imagem que demonstre o lugar para qual você vai</span>
 
                 <script>
-                    var img = $('#bgImgViagem')
-                    var field = $('#urlField')
+                    var img = document.getElementById('bgImgViagem')
+                    var field = document.getElementById('urlField')
 
-                    field.focusout(function () {
-                        img.css('background-image', 'url(' + field.val + ') center')
-                    })
+                    var url = "@Model.Viagem.UrlImagem"
+
+                    if(url != "")
+                    {
+                        $('bgImgViagem').css('background-image', 'url(' + @Model.Viagem.UrlImagem + ') center')
+                    }
+
+                    field.onblur = function () {
+                        if (document.getElementById("urlField").value != "")
+                            img.setAttribute("style", "background-image: url(" + document.getElementById("urlField").value + ");");
+                        else if(url != "")
+                            img.setAttribute("style", "background-image: url(" + url + ");");
+                        else
+                            img.setAttribute("style", "background-color: deepskyblue;");
+                    }
                 </script>
             </div>
 
             <div class="form-group">
                 <label for="descricao">Descrição</label>
-                @Html.TextAreaFor(model => model.Descricao, new { htmlAttributes = new { Value = "Viagem com tudo pago para Hopi Hari, caminho por são paulo...", @class = "form-control" } })
-                <span class="help-block">Para onde vai a viagem? Talvez colocar um nome chamativo ou uma pequena lista dos locais ajude :)</span>
+                @Html.TextAreaFor(model => model.Viagem.Descricao, new { @class = "form-control" })
+                <span class="help-block">Para onde vai a viagem? Talvez colocar um nome chamativo ou uma pequena lista dos locais ajude :) Ex: Viagem com tudo pago para Hopi Hari, caminho por são paulo...</span>
             </div>
 
             <div class="form-group">
                 <label for="descricao">Preço da passagem</label>
-                @Html.EditorFor(model => model.PrecoPassagem, new { htmlAttributes = new { placeholder = "R$ 40,00", @class = "form-control" } })
+                @Html.EditorFor(model => model.Viagem.PrecoPassagem, new { htmlAttributes = new { placeholder = "R$ 40,00", @class = "form-control" } })
                 <span class="help-block">Coloque o preço estimado da passagem.</span>
             </div>
 
             <div class="form-group">
                 <label for="descricao">Quantidade de lugares disponíveis</label>
-                @Html.EditorFor(model => model.QuantidadeLugaresDisponiveis, new { htmlAttributes = new { placeholder = "18", @class = "form-control" } })
+                @Html.EditorFor(model => model.Viagem.QuantidadeLugaresDisponiveis, new { htmlAttributes = new { placeholder = "18", @class = "form-control" } })
                 <span class="help-block">Quantos lugares estarão disponíveis inicialmente?</span>
             </div>
 
             <div class="row">
                 <div class="col-md-6" style="padding: 0;">
                     <label for="descricao">Data/hora de saída</label>
-                    @Html.EditorFor(model => model.DtHrSaida, new { htmlAttributes = new { type = "datetime-local", @class = "form-control" } })
+                    @Html.EditorFor(model => model.Viagem.DtHrSaida, new { htmlAttributes = new { type = "datetime-local", @class = "form-control" } })
                 </div>
 
                 <div class="col-md-6" style="padding: 0;">
                     <label for="descricao">Data/hora da chegada estimada</label>
-                    @Html.EditorFor(model => model.DtHrChegadaEstimada, new { htmlAttributes = new { type = "datetime-local", @class = "form-control" } })
+                    @Html.EditorFor(model => model.Viagem.DtHrChegadaEstimada, new { htmlAttributes = new { type = "datetime-local", @class = "form-control" } })
                 </div>
             </div>
 
@@ -80,33 +95,33 @@
                     <div class="input-group">
                         <div class="row">
                             <label for="descricao">Rua</label>
-                            @Html.EditorFor(model => model.Origem.Rua, new { htmlAttributes = new { placeholder = "Rua Tiradentes...", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Origem.Rua, new { htmlAttributes = new { placeholder = "Rua Tiradentes...", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Bairro</label>
-                            @Html.EditorFor(model => model.Origem.Bairro, new { htmlAttributes = new { placeholder = "Bairro Almanaque", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Origem.Bairro, new { htmlAttributes = new { placeholder = "Bairro Almanaque", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Cidade</label>
-                            @Html.EditorFor(model => model.Origem.Cidade, new { htmlAttributes = new { placeholder = "São Paulo", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Origem.Cidade, new { htmlAttributes = new { placeholder = "São Paulo", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Estado</label>
-                            @Html.EditorFor(model => model.Origem.Estado, new { htmlAttributes = new { placeholder = "São Paulo", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Origem.Estado, new { htmlAttributes = new { placeholder = "São Paulo", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <div class="col-md-6" style="padding: 0;">
                                 <label for="descricao">Número</label>
-                                @Html.EditorFor(model => model.Origem.Numero, new { htmlAttributes = new { placeholder = "301. Ou pode deixar vazio ;)", @class = "form-control" } })
+                                @Html.EditorFor(model => model.Viagem.Origem.Numero, new { htmlAttributes = new { placeholder = "301. Ou pode deixar vazio ;)", @class = "form-control" } })
                             </div>
 
                             <div class="col-md-6" style="padding: 0;">
                                 <label for="descricao">Complemento</label>
-                                @Html.EditorFor(model => model.Origem.Complemento, new { htmlAttributes = new { placeholder = "Casa 02", @class = "form-control" } })
+                                @Html.EditorFor(model => model.Viagem.Origem.Complemento, new { htmlAttributes = new { placeholder = "Casa 02", @class = "form-control" } })
                             </div>
                         </div>
                     </div>
@@ -119,22 +134,22 @@
                     <div class="input-group" style="display: inherit;">
                         <div class="row">
                             <label for="descricao">Rua</label>
-                            @Html.EditorFor(model => model.Destino.Rua, new { htmlAttributes = new { placeholder = "Calçadão de copacabana...", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Destino.Rua, new { htmlAttributes = new { placeholder = "Calçadão de copacabana...", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Bairro</label>
-                            @Html.EditorFor(model => model.Destino.Bairro, new { htmlAttributes = new { placeholder = "Bairro Copacabana", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Destino.Bairro, new { htmlAttributes = new { placeholder = "Bairro Copacabana", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Cidade</label>
-                            @Html.EditorFor(model => model.Destino.Cidade, new { htmlAttributes = new { placeholder = "Rio de Janeiro", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Destino.Cidade, new { htmlAttributes = new { placeholder = "Rio de Janeiro", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Estado</label>
-                            @Html.EditorFor(model => model.Destino.Estado, new { htmlAttributes = new { placeholder = "Rio de Janeiro", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Destino.Estado, new { htmlAttributes = new { placeholder = "Rio de Janeiro", @class = "form-control" } })
                         </div>
                     </div>
                 </div>
@@ -149,17 +164,17 @@
                     <div class="input-group">
                         <div class="row">
                             <label for="descricao">Nome fantasia</label>
-                            @Html.EditorFor(model => model.Empresa.NomeFantasia, new { htmlAttributes = new { placeholder = "Viagens Sonhadoras", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Empresa.NomeFantasia, new { htmlAttributes = new { placeholder = "Viagens Sonhadoras", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Razão social</label>
-                            @Html.EditorFor(model => model.Empresa.RazaoSocial, new { htmlAttributes = new { placeholder = "Viagens Sonhadoras & Sócios Ltda.", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Empresa.RazaoSocial, new { htmlAttributes = new { placeholder = "Viagens Sonhadoras & Sócios Ltda.", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Cnpj</label>
-                            @Html.EditorFor(model => model.Empresa.Cnpj, new { htmlAttributes = new { placeholder = "Cnpj", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Empresa.Cnpj, new { htmlAttributes = new { placeholder = "Cnpj", @class = "form-control" } })
                         </div>
                     </div>
                 </div>
@@ -171,23 +186,23 @@
                     <div class="input-group" style="display: inherit;">
                         <div class="row">
                             <label for="descricao">Modelo</label>
-                            @Html.EditorFor(model => model.Veiculo.Modelo, new { htmlAttributes = new { placeholder = "Ducato ", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Veiculo.Modelo, new { htmlAttributes = new { placeholder = "Ducato ", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <label for="descricao">Tipo</label>
-                            @Html.EditorFor(model => model.Veiculo.Tipo, new { htmlAttributes = new { placeholder = "Van", @class = "form-control" } })
+                            @Html.EditorFor(model => model.Viagem.Veiculo.Tipo, new { htmlAttributes = new { placeholder = "Van", @class = "form-control" } })
                         </div>
                         <br />
                         <div class="row">
                             <div class="col-md-6" style="padding: 0;">
                                 <label for="descricao">Placa</label>
-                                @Html.EditorFor(model => model.Veiculo.Placa, new { htmlAttributes = new { placeholder = "BAN-1010", @class = "form-control" } })
+                                @Html.EditorFor(model => model.Viagem.Veiculo.Placa, new { htmlAttributes = new { placeholder = "BAN-1010", @class = "form-control" } })
                             </div>
 
                             <div class="col-md-6" style="padding: 0;">
                                 <label for="descricao">Quantidade de lugares para passageiros</label>
-                                @Html.EditorFor(model => model.Veiculo.QuantidadeLugares, new { htmlAttributes = new { placeholder = "20", @class = "form-control" } })
+                                @Html.EditorFor(model => model.Viagem.Veiculo.QuantidadeLugares, new { htmlAttributes = new { placeholder = "20", @class = "form-control" } })
                             </div>
                         </div>
                     </div>

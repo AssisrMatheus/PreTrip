@@ -3,6 +3,7 @@ using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,18 +19,18 @@ namespace PreTrip.Services.Usuarios
             {
                 //Pega um usuário com seu objeto pessoa preenchido
                 var usuarios = from usu in db.Usuario.ToList()
-                            join pes in db.Pessoa.ToList()
-                            on usu.Pessoa equals pes
-                            select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
-                            {
-                                IsAdmin = usu.IsAdmin,
-                                Pessoa = pes,
-                                Email = usu.Email,
-                                Login = usu.Login,
-                                Id = usu.Id,
-                                Pedidos = usu.Pedidos,
-                                Senha = usu.Senha
-                            };
+                               join pes in db.Pessoa.ToList()
+                               on usu.Pessoa equals pes
+                               select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
+                               {
+                                   IsAdmin = usu.IsAdmin,
+                                   Pessoa = pes,
+                                   Email = usu.Email,
+                                   Login = usu.Login,
+                                   Id = usu.Id,
+                                   Pedidos = usu.Pedidos,
+                                   Senha = usu.Senha
+                               };
 
                 //Como castei na query acima, posso fazer o filtro usando o model Usuario
                 if (filtro != null && usuarios.Any())
@@ -38,43 +39,52 @@ namespace PreTrip.Services.Usuarios
                     return usuarios;
             }
         }
-        
+
         /// <summary>
         /// Grava o usuário no banco
         /// </summary>
         /// <param name="usuario"></param>
         public void Inserir(Usuario usuario)
         {
-            //Se o usuário não é valido, cancela.
+            //Se é um usuário válido, cadastra.
+            if (this.ValidaNovoUsuario(usuario))
+                using (var db = new PreTripDB())
+                {
+                    //Converte para md5
+                    usuario.Senha = CreateMD5.GetHash(usuario.Senha);
+
+                    db.Usuario.Add(usuario);
+                    db.SaveChanges();
+                }
+        }
+
+        /// <summary>
+        /// Altera um usuário no banco
+        /// </summary>
+        /// <param name="usuario"></param>
+        public void Alterar(Usuario usuario)
+        {
             if (!this.ValidaNovoUsuario(usuario))
-                return;
+                using (var db = new PreTripDB())
+                {
+                    // Converte para md5
+                    usuario.Senha = CreateMD5.GetHash(usuario.Senha);
 
-            using (var db = new PreTripDB())
-            {
-                //Converte para md5
-                usuario.Senha = CreateMD5.GetHash(usuario.Senha);
-
-                db.Usuario.Add(usuario);
-                db.SaveChanges();
-            }
+                    db.Usuario.AddOrUpdate(usuario);
+                    db.SaveChanges();
+                }
         }
 
         /// <summary>
         /// Verifica se é um usuário válido.
+        /// Retorna True caso não exista o usuário no banco
+        /// retorna False caso exista.
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
         public bool ValidaNovoUsuario(Usuario usuario)
         {
-            var usuBanco = this.GetUsers(u => u.Login == usuario.Login);
-
-            //Se o usuário existir não podemos deixar registrar
-            if (usuBanco.Any())
-            {
-                return false;
-            }   
-
-            return true;
+            return !this.GetUsers(u => u.Login == usuario.Login).Any();
         }
     }
 }

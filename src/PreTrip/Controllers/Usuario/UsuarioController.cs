@@ -64,5 +64,10 @@ namespace PreTrip.Controllers
             //sem o redirect os dados do formulário nao estavam limpando.
             return RedirectToAction("Empresas");
         }
+
+        public ActionResult Interesses()
+        {
+            return View();
+        }
     }
 }

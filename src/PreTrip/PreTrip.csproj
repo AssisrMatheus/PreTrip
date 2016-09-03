@@ -197,6 +197,7 @@
     <Content Include="Views\Shared\Navbar\_PartialDefault.cshtml" />
     <Content Include="Views\Shared\Navbar\_PartialUsuarioLogado.cshtml" />
     <Content Include="Views\Viagem\Visualizar.cshtml" />
+    <Content Include="Views\Usuario\Interesses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

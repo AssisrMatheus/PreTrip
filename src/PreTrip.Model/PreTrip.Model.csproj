@@ -64,6 +64,7 @@
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Usuario.cs" />
+    <Compile Include="Classes\UsuarioInteresse.cs" />
     <Compile Include="Classes\Veiculo.cs" />
     <Compile Include="Classes\Viagem.cs" />
     <Compile Include="Context\PreTripDB.cs" />

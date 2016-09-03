@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PreTrip.Model.Classes;
 using PreTrip.Services.Empresas;
+using PreTrip.Services.Usuarios;
 
 namespace PreTrip.Controllers
 {
@@ -25,8 +26,15 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
-        public ActionResult AlterarUsuario(Usuario Usuario)
+        public ActionResult AlterarUsuario(Usuario usuario, string oldSenha)
         {
+#warning Falta terminar muita coisa aqui ainda.
+            if (string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = oldSenha;
+
+            var serviceUsuario = new UsuariosService();
+            serviceUsuario.Alterar(usuario);
+
             return RedirectToAction("Index", "Usuario");
         }
 

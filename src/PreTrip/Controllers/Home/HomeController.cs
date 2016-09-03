@@ -14,17 +14,10 @@ namespace PreTrip.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {           
-            using(var db = new PreTripDB())
+        {
+            using (var db = new PreTripDB())
             {
-                try
-                {
-                    ViewBag.QuantidadeViagens = db.Viagem.Count();
-                }
-                catch (Exception)
-                {
-                    ViewBag.QuantidadeViagens = 0;
-                }
+                ViewBag.QuantidadeViagens = db.Viagem.Count();
             }
 
             return View();
@@ -36,7 +29,7 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Login(Usuario usuario)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var service = new AutenticacaoService();
                 var autenticado = service.Autenticar(usuario.Login, usuario.Senha);

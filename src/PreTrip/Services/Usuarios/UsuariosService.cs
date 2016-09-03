@@ -31,7 +31,6 @@ namespace PreTrip.Services.Usuarios
                                 Senha = usu.Senha
                             };
 
-                //Como castei na query acima, posso fazer o filtro usando o model Usuario
                 if (filtro != null && usuarios.Any())
                     return usuarios.Where(filtro);
                 else

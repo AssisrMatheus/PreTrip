@@ -1,0 +1,23 @@
+﻿@using PreTrip.Session
+<div class="navbar">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                @{
+                    //Atributos comuns de cada botão do menu
+                    var att = new
+                    {
+                        @class = "btn navbar-btn btn"
+                    };
+                }
+
+                <li>@Html.ActionLink(PreTripSession.Usuario.Pessoa.Nome, "Index", "Usuario", att)</li>
+            </ul>
+        </div>
+    </div>
+</div>

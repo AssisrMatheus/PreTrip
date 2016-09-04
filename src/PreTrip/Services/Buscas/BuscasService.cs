@@ -1,4 +1,5 @@
-﻿using PreTrip.Model.Classes;
+﻿using PreTrip.Lib.Utils;
+using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,12 @@ namespace PreTrip.Services.Buscas
         {
             using (var db = new PreTripDB())
             {
-                db.Buscas.Add(busca);
-                db.SaveChanges();
+                if (ValidationsUtils.AlgumCampoPreenchido(busca))
+                {
+                    db.Buscas.Add(busca);
+                    db.SaveChanges();
+                }               
             }
-        }
+        }       
     }
 }

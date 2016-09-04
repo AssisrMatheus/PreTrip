@@ -5,6 +5,21 @@
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
 
-Escolher os principais interesses
+@using PreTrip.Session
+
+<span class="text-center">Escolha os principais destinos de seu interesse</span>
+
+@using (Html.BeginForm("AlterarUsuario", "Usuario", FormMethod.Post))
+{
+    <div class="container">
+
+        Falta fazer um FOR mostrando os interesses para o usuario escolher.
+
+        <div class="pull-right">
+            <input type="hidden" name="oldSenha" value="@PreTripSession.Usuario.Senha" />
+            <button type="submit" class="btn btn-warning pull-right">Confirmar</button>
+        </div>
+    </div>
+}
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")

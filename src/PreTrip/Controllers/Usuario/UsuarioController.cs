@@ -67,7 +67,16 @@ namespace PreTrip.Controllers
 
         public ActionResult Interesses()
         {
+#warning Terminar esse método. Precisa passar por viewbag a lista de interesses do usuario e uma lista com todas as cidades já cadastradas
+            var listaInteresses = new UsuariosService().GetUsuarioInteresses();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Interesses(Usuario usuario, IEnumerable<UsuarioInteresse> listaInteresses)
+        {
+#warning Pesquisar como recebe uma lista da view.
+            return RedirectToAction("Index", "Usuario");
         }
     }
 }

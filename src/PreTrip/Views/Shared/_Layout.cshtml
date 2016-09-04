@@ -1,5 +1,5 @@
 ﻿@{
-	ViewBag.Title = "PreTrip - Seu sonho no seu alcance!";
+    ViewBag.Title = "PreTrip - Seu sonho no seu alcance!";
 }
 @using PreTrip.Session
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <!--Navbar-->
@@ -38,10 +38,16 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     <style>
-        a:hover{
-            cursor:pointer;
+        a:hover {
+            cursor: pointer;
         }
     </style>
-    
+
+    <script>
+        $(document).ready(function () {
+            $('[datatoggle="tooltip"]').tooltip();
+        });
+    </script>
+
 </body>
 </html>

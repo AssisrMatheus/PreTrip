@@ -39,6 +39,17 @@ namespace PreTrip.Services.Usuarios
             }
         }
 
+        public IEnumerable<UsuarioInteresse> GetUsuarioInteresses(Func<Usuario, bool> filtro = null)
+        {
+#warning Falta terminar. Verificar no banco pq não está trazendo o id do usuario.
+            using (var db = new PreTripDB())
+            {
+                var listaInteresses = db.UsuarioInteresses.ToList();
+
+                return listaInteresses;
+            }
+        }
+
         /// <summary>
         /// Grava o usuário no banco
         /// </summary>

@@ -14,34 +14,30 @@
 
             <div class="input-group">
                 <div class="input-group-addon">
-                    <i class="material-icons" style="font-size: 16px">face</i>
+                    <i class="material-icons" style="font-size: 16px" datatoggle="tooltip" title="Nome">face</i>
                 </div>
-                <span>Nome</span>
-                @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome" } })
+                @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome", datatoggle = "tooltip", title = "Nome" } })
             </div>
             <div class="input-group">
                 <div class="input-group-addon">
-                    <i class="material-icons" style="font-size: 16px">contact_mail</i>
+                    <i class="material-icons" style="font-size: 16px" datatoggle="tooltip" title="Email">contact_mail</i>
                 </div>
-                <span>Email</span>
-                @Html.EditorFor(x => PreTripSession.Usuario.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                @Html.EditorFor(x => PreTripSession.Usuario.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", datatoggle = "tooltip", title = "Email" } })
             </div>
             <div class="input-group">
                 <div class="input-group-addon">
-                    <i class="material-icons" style="font-size: 16px">local_phone</i>
+                    <i class="material-icons" style="font-size: 16px" datatoggle="tooltip" title="Telefone">local_phone</i>
                 </div>
-                <span>Telefone</span>
-                @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Telefone, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefone" } })
+                @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Telefone, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefone", datatoggle = "tooltip", title = "Telefone" } })
             </div>
 
             <hr />
 
             <div class="input-group">
                 <div class="input-group-addon">
-                    <i class="material-icons" style="font-size: 16px">lock</i>
+                    <i class="material-icons" style="font-size: 16px" datatoggle="tooltip" title="Senha">lock</i>
                 </div>
-                <span>Senha</span>
-                @Html.PasswordFor(x => PreTripSession.Usuario.Senha, new { @class = "form-control", placeholder = "Senha" })
+                @Html.PasswordFor(x => PreTripSession.Usuario.Senha, new { @class = "form-control", placeholder = "Senha", datatoggle = "tooltip", title = "Senha" })
             </div>
         </div>
 

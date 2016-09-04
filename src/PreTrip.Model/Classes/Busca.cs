@@ -29,5 +29,8 @@ namespace PreTrip.Model.Classes
         public DateTime DtHrBusca { get; set; }
 
         public Usuario Usuario { get; set; }
+
+        [ForeignKey("Usuario")]
+        public int UsuarioId { get; set; }
     }
 }

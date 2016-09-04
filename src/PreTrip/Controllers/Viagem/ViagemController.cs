@@ -28,7 +28,7 @@ namespace PreTrip.Controllers
             if (PreTripSession.Usuario != null)
             {
                 var buscasService = new BuscasService();
-                viagensVM.BuscaViagens.Usuario = PreTripSession.Usuario;
+                viagensVM.BuscaViagens.UsuarioId = PreTripSession.Usuario.Id;
                 buscasService.Inserir(viagensVM.BuscaViagens);
             }            
         }

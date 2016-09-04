@@ -1,5 +1,4 @@
 ﻿using PreTrip.Model.Classes;
-using PreTrip.Services.Buscas;
 using PreTrip.Services.Viagens;
 using PreTrip.Session;
 using PreTrip.ViewModel;
@@ -27,9 +26,9 @@ namespace PreTrip.Controllers
         {
             if (PreTripSession.Usuario != null)
             {
-                var buscasService = new BuscasService();
+                var viagensService = new ViagensService();
                 viagensVM.BuscaViagens.UsuarioId = PreTripSession.Usuario.Id;
-                buscasService.Inserir(viagensVM.BuscaViagens);
+                viagensService.InserirBusca(viagensVM.BuscaViagens);
             }            
         }
 

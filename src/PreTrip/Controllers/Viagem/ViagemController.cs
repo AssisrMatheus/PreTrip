@@ -1,11 +1,13 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Services.Viagens;
+using PreTrip.Session;
 using PreTrip.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace PreTrip.Controllers
 {
@@ -57,7 +59,22 @@ namespace PreTrip.Controllers
                 return RedirectToAction("Index","Usuario");
             }
 
-            return View();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Avaliar(ViagensViewModel viewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                var service = new ViagensService();
+                viewModel.Avaliacao.ViagemId = viewModel.Viagem.Id;
+                viewModel.Avaliacao.Usuario = PreTripSession.Usuario;
+
+                service.InserirAvaliacao(viewModel.Avaliacao);
+            }
+
+            return RedirectToAction("Visualizar", new RouteValueDictionary(new { id = viewModel.Viagem.Id }));
         }
     }
 }

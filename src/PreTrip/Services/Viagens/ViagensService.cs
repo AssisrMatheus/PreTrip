@@ -68,6 +68,18 @@ namespace PreTrip.Services.Viagens
             }
         }
 
+        public void InserirAvaliacao(Avaliacao avaliacao)
+        {
+            if (avaliacao.ViagemId == 0) throw new ArgumentNullException("Id viagem não pode ser nulo ou 0");
+            if (avaliacao.Usuario == null) throw new ArgumentNullException("Avaliacao precisa ter um usuário!");
+
+            using (var db = new PreTripDB())
+            {
+                db.Avaliacoes.Add(avaliacao);
+                db.SaveChanges();
+            }
+        }
+
         public AvaliacaoMedia GetAvaliacaoMedia(IEnumerable<Avaliacao> avaliacoes)
         {
             //Se não existe nenhuma já retorna

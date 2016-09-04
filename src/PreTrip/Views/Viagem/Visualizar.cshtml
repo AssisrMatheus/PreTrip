@@ -1,4 +1,6 @@
-﻿@model PreTrip.ViewModel.ViagensViewModel
+﻿@using PreTrip.Session
+
+@model PreTrip.ViewModel.ViagensViewModel
 
 <div class="row" style="background-size: cover; background: url(@Model.Viagem.UrlImagem) center; min-height: 23em;">    
 </div>
@@ -37,6 +39,71 @@
                 @Model.Viagem.Veiculo.Modelo <br />
                 @Model.Viagem.Veiculo.Tipo <br />
             </div>
+
+            <hr />
+
+            @if (Model.Viagem.Avaliacoes.Any())
+            {
+                <div>
+                    <h3>
+                        Comentários
+                    </h3>
+                    @foreach (var avaliacao in Model.Viagem.Avaliacoes)
+                    {
+                        <div>
+                            <h4>@avaliacao.Usuario.Pessoa.Nome</h4>
+                            <h5>@avaliacao.Nota</h5>
+                            <div>
+                                <p>
+                                    @avaliacao.Comentario
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div>
+                    <h3>
+                        Ainda não existem avaliações
+                    </h3>
+                </div>
+            }
+
+            @if (PreTripSession.Usuario != null)
+            {
+                <div>
+                @using (Html.BeginForm("Avaliar", "Viagem", FormMethod.Post))
+                {
+                    @Html.Partial("~/Views/Shared/Validacao/_ValidacaoBasica.cshtml")
+
+                    @Html.HiddenFor(x => x.Viagem.Id)
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        @Html.TextAreaFor(x => x.Avaliacao.Comentario, new { @class = "form-control" })
+                        <span class="help-block">Conte-nos como foi sua experiência com essa viagem</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Nota</label>
+                        @Html.EditorFor(x => x.Avaliacao.Nota, new { htmlAttributes = new { placeholder = "R$ 40,00", @class = "form-control" } })
+                        <span class="help-block">Qualifique a qualidade do serviço</span>
+                    </div>
+
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-warning">Comentar!</button>
+                    </div>
+                }
+                </div>
+            }
+            else
+            {
+                <div>
+                    Você não pode comentar :/. @Html.ActionLink("Cadastre-se", "Cadastrar", "Home") ou @Html.ActionLink("Entre", "Index", "Home")
+                </div>
+            }
         </div>
 
         <div class="col-md-4" style="border-left: 1px solid #808080">

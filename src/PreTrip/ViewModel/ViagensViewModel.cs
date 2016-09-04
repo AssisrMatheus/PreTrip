@@ -16,5 +16,7 @@ namespace PreTrip.ViewModel
 
         //Essa viagem pode ser usada tanto para alterar quanto para criar, depende de que view estamos
         public Viagem Viagem { get; set; }
+
+        public Avaliacao Avaliacao { get; set; }
     }
 }

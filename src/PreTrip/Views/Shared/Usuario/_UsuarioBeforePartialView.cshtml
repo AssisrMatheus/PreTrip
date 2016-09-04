@@ -20,10 +20,12 @@
         <div class="panel panel-default panel-body">
             <div class="col-md-4">
                 <div class="btn-group-vertical" role="group" style="width: 100%;">
-                    @Html.ActionLink("Empresas", "Empresas", "Usuario", new { @class = "btn btn-default" })
-                    @Html.ActionLink("Viagens", "Index", "Viagem", new { @class = "btn btn-default" })
-                    @Html.ActionLink("Principais Interesses", "Interesses", "Usuario", new { @class = "btn btn-default" })
+                    @Html.ActionLink("Alterar Meus Dados", "AlterarUsuario", "Usuario", new { @class = "btn btn-default" })
+                    @Html.ActionLink("Empresas", "Empresas", "Usuario", new {@class = "btn btn-default"})
+                    @Html.ActionLink("Viagens", "Index", "Viagem", new {@class = "btn btn-default"})
+                    @Html.ActionLink("Principais Interesses", "Interesses", "Usuario", new {@class = "btn btn-default"})
                 </div>
             </div>
 
-            <div class="col-md-8">
+        <div class="col-md-8">
+

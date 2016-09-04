@@ -1,41 +1,55 @@
 ﻿@using PreTrip.Session
+
+@{
+    ViewBag.Title = "AlterarUsuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
+
 @using (Html.BeginForm("AlterarUsuario", "Usuario", FormMethod.Post))
 {
     <div class="container">
         <div class="form-group">
-            
+
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="material-icons" style="font-size: 16px">face</i>
                 </div>
+                <span>Nome</span>
                 @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome" } })
             </div>
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="material-icons" style="font-size: 16px">contact_mail</i>
                 </div>
+                <span>Email</span>
                 @Html.EditorFor(x => PreTripSession.Usuario.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
             </div>
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="material-icons" style="font-size: 16px">local_phone</i>
                 </div>
+                <span>Telefone</span>
                 @Html.EditorFor(x => PreTripSession.Usuario.Pessoa.Telefone, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefone" } })
             </div>
-            
-            <hr/>
-            
+
+            <hr />
+
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="material-icons" style="font-size: 16px">lock</i>
                 </div>
+                <span>Senha</span>
                 @Html.PasswordFor(x => PreTripSession.Usuario.Senha, new { @class = "form-control", placeholder = "Senha" })
             </div>
         </div>
 
         <div class="pull-right">
-            <input type="hidden" name="oldSenha" value="@PreTripSession.Usuario.Senha"/>
+            <input type="hidden" name="oldSenha" value="@PreTripSession.Usuario.Senha" />
             <button type="submit" class="btn btn-warning pull-right">Confirmar</button>
         </div>
     </div>
 }
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")

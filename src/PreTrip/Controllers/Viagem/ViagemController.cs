@@ -1,4 +1,5 @@
 ﻿using PreTrip.Model.Classes;
+using PreTrip.Services.Buscas;
 using PreTrip.Services.Viagens;
 using PreTrip.Session;
 using PreTrip.ViewModel;
@@ -13,6 +14,25 @@ namespace PreTrip.Controllers
 {
     public class ViagemController : Controller
     {
+        [HttpPost]
+        public ActionResult Buscar(ViagensViewModel v)
+        {           
+            v.Viagens = new ViagensService().GetAllFilter(v.BuscaViagens);
+            SalvarHistoricoBusca(v);
+            v.HeaderViagens = "Viagens Encontradas";
+            return View("Index",v);
+        }
+
+        public void SalvarHistoricoBusca(ViagensViewModel viagensVM)        
+        {
+            if (PreTripSession.Usuario != null)
+            {
+                var buscasService = new BuscasService();
+                viagensVM.BuscaViagens.UsuarioId = PreTripSession.Usuario.Id;
+                buscasService.Inserir(viagensVM.BuscaViagens);
+            }            
+        }
+
         // GET: Viagem
         public ActionResult Index()
         {

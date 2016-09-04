@@ -3,12 +3,52 @@ using PreTrip.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace PreTrip.Services.Viagens
 {
     public class ViagensService
     {
+        public IEnumerable<Viagem> GetAllFilter(Busca filtros)
+        {                     
+            using (var db = new PreTripDB())
+            {
+                var viagens = (from viag in db.Viagens.ToList()
+                               join destino in db.Enderecos on viag.Destino.Id equals destino.Id
+                               join origem in db.Enderecos on viag.Origem.Id equals origem.Id
+                               join emp in db.Empresas on viag.Empresa.Id equals emp.Id
+
+                               where
+                               //se o filtro estiver nulo, ele busca o que esta no banco,exemplo, se filtro origem estiver nulo, para cada linha ira buscar origem = origem do banco
+                               origem.Cidade == (string.IsNullOrEmpty(filtros.Origem) ? origem.Cidade: filtros.Origem) 
+                               && destino.Cidade == (string.IsNullOrEmpty(filtros.Destino) ? destino.Cidade: filtros.Destino)
+                               && viag.Titulo == (string.IsNullOrEmpty(filtros.Titulo) ? viag.Titulo: filtros.Titulo)
+                               && viag.PrecoPassagem == (NumeroNaoPreenchido(filtros.Preco) ? viag.PrecoPassagem : filtros.Preco)
+                               && viag.QuantidadeLugaresDisponiveis == (NumeroNaoPreenchido(filtros.QuantidadeLugares) ? viag.QuantidadeLugaresDisponiveis : filtros.QuantidadeLugares)
+
+                               select new Viagem()
+                               {
+                                   Origem = origem,
+                                   Id = viag.Id,
+                                   PrecoPassagem = viag.PrecoPassagem,
+                                   Descricao = viag.Descricao,
+                                   Destino = destino
+                               }).ToList();
+
+                 return viagens;
+            }
+        }
+                
+        private bool NumeroNaoPreenchido(Object numero)
+        {
+            if (Convert.ToDouble(numero) == 0)
+            {
+                return true;
+            }
+            return false;
+        }  
+
         public IEnumerable<Viagem> GetAll()
         {
             using (var db = new PreTripDB())

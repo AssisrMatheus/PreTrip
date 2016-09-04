@@ -20,7 +20,7 @@ namespace PreTrip.Session
                 if (HttpContext.Current.Session != null)
                 {
                     var usu = HttpContext.Current.Session["Usuario"];
-                    if (usu != null)
+                    if (usu != null)                        
                         return (Usuario)usu;
                 }
                 return null;

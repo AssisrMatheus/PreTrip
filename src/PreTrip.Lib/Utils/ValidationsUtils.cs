@@ -9,35 +9,44 @@ namespace PreTrip.Lib.Utils
 {
     public class ValidationsUtils
     {
-        public static bool TodosCamposValidos(Object objeto)
+        public static bool AlgumCampoPreenchido(Object objeto)
         {           
             PropertyInfo[] atributos = objeto.GetType().GetProperties();
 
             foreach (PropertyInfo atributo in atributos)
             {                
                 Object atributoObjeto = atributo.GetValue(objeto);
-
-                if (!(isAtributoEndereco(atributo))) //adicionado apenas para nao validar o campo endereco no caso de empresa
+                atributo.GetType().ToString();
+                if (atributo.GetType().ToString() != "string")
                 {
-                    if (atributoObjeto == null || string.IsNullOrWhiteSpace(atributoObjeto.ToString()))
-                    {
-                        return false;
-                    }
-                }                
+                    return AlgumCampoNumericoPreenchido(atributoObjeto);
+                }
+                else
+                {
+                    return AlgumCampoStringPreenchido(atributoObjeto);
+                }     
+                                             
             }
 
-            return true;
+            return false;
         }
 
-        private static bool isAtributoEndereco(PropertyInfo atributo)
+        private static bool AlgumCampoStringPreenchido(Object atributoObjeto)
         {
-            //adicionado apenas para nao validar o campo endereco no caso de empresa
-              if ((atributo.PropertyType.ToString().Equals("PreTrip.Model.Classes.Endereco"))) 
-              {
-                  return true;
-              }
-
-              return false;
+            if (atributoObjeto != null || !string.IsNullOrWhiteSpace(atributoObjeto.ToString()) || !atributoObjeto.ToString().Equals("0"))
+            {
+                return true;
+            }
+            return false;
         }
+
+        private static bool AlgumCampoNumericoPreenchido(Object atributoObjeto)
+        {
+            if (atributoObjeto != null || Convert.ToDouble(atributoObjeto) != 0)
+            {
+                return true;
+            }
+            return false;
+        }     
     }
 }

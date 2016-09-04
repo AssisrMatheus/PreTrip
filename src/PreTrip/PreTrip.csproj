@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Autenticacao\AutenticacaoService.cs" />
+    <Compile Include="Services\Buscas\BuscasService.cs" />
     <Compile Include="Services\Empresas\EmpresasService.cs" />
     <Compile Include="Services\Viagens\ViagensService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />

@@ -96,5 +96,13 @@ namespace PreTrip.Services.Usuarios
         {
             return !this.GetUsers(u => u.Login == usuario.Login).Any();
         }
+
+        public IEnumerable<Busca> GetBuscas(int id)
+        {
+            using (var db = new PreTripDB())
+            {
+                return db.Buscas.Where(b => b.UsuarioId == id).ToList();
+            }
+        }
     }
 }

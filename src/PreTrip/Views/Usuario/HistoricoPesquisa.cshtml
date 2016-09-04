@@ -1,0 +1,33 @@
+﻿@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
+
+<h3 style="text-align:center;">Minhas Últimas Buscas</h3>
+
+<table class="table table-hover" style="width:50%;margin:0 auto;">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Qtd Lugares</th>
+            <th>Preco</th>
+            <th>Lugares disp</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Data/Hora da Busca</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var busca in (IEnumerable<PreTrip.Model.Classes.Busca>)ViewBag.Buscas)
+        {
+            <tr>
+                <td>@busca.Titulo</td>
+                <td>@busca.QuantidadeLugares</td>
+                <td>R$ @busca.Preco</td>
+                <td>@busca.LugaresDisponiveis</td>
+                <td>@busca.Origem</td>
+                <td>@busca.Destino</td>
+                <td>@busca.DtHrBusca</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")

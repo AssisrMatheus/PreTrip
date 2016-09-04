@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PreTrip.Model.Classes;
 using PreTrip.Services.Empresas;
 using PreTrip.Services.Usuarios;
+using PreTrip.Session;
 
 namespace PreTrip.Controllers
 {
@@ -61,13 +62,14 @@ namespace PreTrip.Controllers
                 empresaService.Inserir(empresa);
                 ModelState.Clear();
             }
-            //sem o redirect os dados do formulário nao estavam limpando.
+
+            //Sem o redirect os dados do formulário nao estavam limpando.
             return RedirectToAction("Empresas");
         }
 
         public ActionResult Interesses()
         {
-#warning Terminar esse método. Precisa passar por viewbag a lista de interesses do usuario e uma lista com todas as cidades já cadastradas
+#warning Terminar esse método. Precisa passar por (~~~~viewbag~~~~NÃO USE VIEWBAG, USE VIEWMODEL). a lista de interesses do usuario e uma lista com todas as cidades já cadastradas
             var listaInteresses = new UsuariosService().GetUsuarioInteresses();
             return View();
         }
@@ -77,6 +79,14 @@ namespace PreTrip.Controllers
         {
 #warning Pesquisar como recebe uma lista da view.
             return RedirectToAction("Index", "Usuario");
+        }
+
+        public ActionResult HistoricoPesquisa()
+        {
+#warning Usar uma viewmodel aqui, e não viewbag, só usei viewbag por falta de tempo
+            ViewBag.Buscas = new UsuariosService().GetBuscas(PreTripSession.Usuario.Id);
+
+            return View();
         }
     }
 }

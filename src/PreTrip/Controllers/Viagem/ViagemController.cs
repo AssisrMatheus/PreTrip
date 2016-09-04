@@ -11,6 +11,14 @@ namespace PreTrip.Controllers
 {
     public class ViagemController : Controller
     {
+        [HttpPost]
+        public ActionResult Buscar(ViagensViewModel v)
+        {
+            
+            v.Viagens = new ViagensService().GetAllFilter(v.BuscaViagens);
+            v.HeaderViagens = "Viagens Encontradas";
+            return View("Index",v);
+        }
         // GET: Viagem
         public ActionResult Index()
         {
@@ -58,6 +66,6 @@ namespace PreTrip.Controllers
             }
 
             return View();
-        }
+        }      
     }
 }

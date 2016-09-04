@@ -19,10 +19,15 @@ namespace PreTrip.Model.Classes
         [Key]
         public int Id { get; set; }
 
-        public string Termo { get; set; }
+        public string Titulo { get; set; }
+        public double Preco { get; set; }
+        public int QuantidadeLugares { get; set; }
+        public int LugaresDisponiveis { get; set; }
+        public string Origem { get; set; }
+        public string Destino { get; set; }
 
         public DateTime DtHrBusca { get; set; }
 
-        public Usuario Usuario;
+        public Usuario Usuario { get; set; }
     }
 }

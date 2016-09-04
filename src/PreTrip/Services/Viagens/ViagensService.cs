@@ -92,7 +92,25 @@ namespace PreTrip.Services.Viagens
                                  UrlImagem = viag.UrlImagem
                              }).FirstOrDefault();
 
-                viagem.Avaliacoes = db.Avaliacoes.Where(a => a.ViagemId == viagem.Id).ToList();
+                viagem.Avaliacoes = (from aval in db.Avaliacoes.ToList()
+                                     join usua in db.Usuarios on aval.Usuario.Id equals usua.Id
+                                     join pess in db.Pessoas on usua.Pessoa.Id equals pess.Id
+                                     where aval.ViagemId == viagem.Id
+                                     select new Avaliacao()//Pego tudo da avaliacao
+                                     {
+                                         Comentario = aval.Comentario,
+                                         Nota = aval.Nota,
+                                         Usuario = new Usuario() //Somente o que preciso do usuario(Não preciso do login e senha dele por exemplo)
+                                         { 
+                                             Pessoa = pess,
+                                             Id = usua.Id,
+                                             Email = usua.Email
+                                         },
+                                         ViagemId = aval.ViagemId,
+                                         Viagem = aval.Viagem,
+                                         Id = aval.Id
+                                     }).ToList();
+
                 viagem.Eventos = db.Eventos.Where(e => e.ViagemId == viagem.Id).ToList();
 
                 return viagem;                    
@@ -108,6 +126,18 @@ namespace PreTrip.Services.Viagens
             }
         }
 
+        public void InserirAvaliacao(Avaliacao avaliacao)
+        {
+            if (avaliacao.ViagemId == 0) throw new ArgumentNullException("Id viagem não pode ser nulo ou 0");
+            if (avaliacao.Usuario == null) throw new ArgumentNullException("Avaliacao precisa ter um usuário!");
+
+            using (var db = new PreTripDB())
+            {
+                db.Avaliacoes.Add(avaliacao);
+                db.SaveChanges();
+            }
+        }
+
         public AvaliacaoMedia GetAvaliacaoMedia(IEnumerable<Avaliacao> avaliacoes)
         {
             //Se não existe nenhuma já retorna
@@ -115,7 +145,7 @@ namespace PreTrip.Services.Viagens
             {
                 return new AvaliacaoMedia()
                 {
-                    Cor = "#fff",
+                    Cor = "#000",
                     Icon = "speaker_notes_off",
                     TextoResultado = "Não existe nenhuma avaliação :("
                 };

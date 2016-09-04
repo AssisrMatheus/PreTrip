@@ -1,36 +1,137 @@
-﻿@model PreTrip.ViewModel.ViagensViewModel
+﻿@using PreTrip.Session
 
-<div class="row" style="background-size: cover; background: url(@Model.Viagem.UrlImagem) center; min-height: 23em;">    
+@model PreTrip.ViewModel.ViagensViewModel
+
+<div class="row" style="background-size: cover; background: url(@Model.Viagem.UrlImagem) center; min-height: 23em;">
 </div>
 
 <div class="row">
     <div class="col-md-10 wrapcenter" style="padding: 2em;">
 
         <div class="col-md-8">
-            <h3>@Model.Viagem.Titulo</h3>
+            <!--Título-->
+            <h3><i class="material-icons" style="vertical-align:middle;font-size: 4rem;">directions_bus</i> @Model.Viagem.Titulo</h3>
             <hr />
-            <p>
+
+            <!--Cidades-->
+            <div class="pull-right col-md-5" style="color: #868686">
+                <div>
+                    <i class="material-icons" style="vertical-align: middle">location_on</i>
+                    @Model.Viagem.Origem.Cidade - @Model.Viagem.Origem.Estado
+                </div>
+                <div>
+                    <i class="material-icons" style="vertical-align: middle">directions</i>
+                    @Model.Viagem.Destino.Cidade - @Model.Viagem.Destino.Estado
+                </div>
+            </div>
+
+            <!--Descrição-->
+            <div class="col-md-7">
                 @Model.Viagem.Descricao
-            </p>
+            </div>
+
+            <div class="clearfix"></div>
+            <hr />
+
+            <!--Veículo-->
+            <div>
+                <h3>Veículo. @Model.Viagem.Veiculo.Placa</h3>
+                @Model.Viagem.Veiculo.Modelo <br />
+                @Model.Viagem.Veiculo.Tipo <br />
+            </div>
+
+            <hr />
+
+            <!--Comentários-->
+            @if (Model.Viagem.Avaliacoes.Any())
+            {
+                <div>
+                    <h3>
+                        Comentários
+                    </h3>
+                    @foreach (var avaliacao in Model.Viagem.Avaliacoes)
+                    {
+                        <div style="padding: 2em; border-top: 1px solid #b6b6b6; border-bottom: 1px solid #b6b6b6;">
+                            <h4>@avaliacao.Usuario.Pessoa.Nome</h4>
+                            <h5>@avaliacao.Nota</h5>
+                            <div>
+                                <p>
+                                    @avaliacao.Comentario
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div>
+                    <h3>
+                        Ainda não existem avaliações
+                    </h3>
+                </div>
+            }
+
+            <div style="margin-top: 3em;">
+                <!--Postar comentário-->
+                @if (PreTripSession.Usuario != null)
+                {
+                    <div>
+                        @using (Html.BeginForm("Avaliar", "Viagem", FormMethod.Post))
+                        {
+                            @Html.Partial("~/Views/Shared/Validacao/_ValidacaoBasica.cshtml")
+
+                            @Html.HiddenFor(x => x.Viagem.Id)
+
+                            <div class="form-group">
+                                <label for="descricao">Descrição</label>
+                                @Html.TextAreaFor(x => x.Avaliacao.Comentario, new { @class = "form-control" })
+                                <span class="help-block">Conte-nos como foi sua experiência com essa viagem</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descricao">Nota</label>
+                                @Html.EditorFor(x => x.Avaliacao.Nota, new { htmlAttributes = new { placeholder = "R$ 40,00", @class = "form-control" } })
+                                <span class="help-block">Qualifique a qualidade do serviço</span>
+                            </div>
+
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-warning">Comentar!</button>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        Você não pode comentar :/. @Html.ActionLink("Cadastre-se", "Cadastrar", "Home") ou @Html.ActionLink("Entre", "Index", "Home")
+                    </div>
+                }
+            </div>
         </div>
 
+        <!--Lateral-->
         <div class="col-md-4" style="border-left: 1px solid #808080">
             <div>
-                <div class="standard-infos">
-                    <span>
-                        <i class="material-icons">event_seat</i>
+                <div class="standard-infos" style="padding: 1em 2em; font-size: 2rem;">
+                    <div>
+                        <i class="material-icons" style="vertical-align: middle; font-size: 5rem;">event_seat</i>
                         @Model.Viagem.QuantidadeLugaresDisponiveis
-                    </span>
+                    </div>
                     <span>
+                        <i class="material-icons" style="vertical-align: middle;  font-size: 5rem;">monetization_on</i>
                         R$ @Model.Viagem.PrecoPassagem
                     </span>
                 </div>
-                <div>
-                    @{ 
+
+                <div class="clearfix"></div>
+
+                <div class="text-center" style="border-top: 1px solid #808080; padding: 1.3em;">
+                    @{
                         var avaliacaoMedia = new PreTrip.Services.Viagens.ViagensService().GetAvaliacaoMedia(Model.Viagem.Avaliacoes);
                     }
-                    <span style="vertical-align: middle">
-                        <i class="material-icons" style="font-size: 8rem; color: @avaliacaoMedia.Cor">
+                    <span style="vertical-align: middle;">
+                        <i class="material-icons" style="font-size: 5rem; vertical-align: middle; color: @avaliacaoMedia.Cor">
                             @avaliacaoMedia.Icon
                         </i>
                         @avaliacaoMedia.TextoResultado

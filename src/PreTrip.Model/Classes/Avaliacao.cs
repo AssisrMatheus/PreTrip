@@ -20,10 +20,9 @@ namespace PreTrip.Model.Classes
 
         public Usuario Usuario { get; set; }
 
-        //Foreign keys
+        [ForeignKey("Viagem")]
         public int ViagemId { get; set; }
-
-        [ForeignKey("ViagemId")]
+        
         public Viagem Viagem { get; set; }
     }
 }

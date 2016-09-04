@@ -67,5 +67,79 @@ namespace PreTrip.Services.Viagens
                 db.SaveChanges();
             }
         }
+
+        public AvaliacaoMedia GetAvaliacaoMedia(IEnumerable<Avaliacao> avaliacoes)
+        {
+            //Se não existe nenhuma já retorna
+            if(!avaliacoes.Any())
+            {
+                return new AvaliacaoMedia()
+                {
+                    Cor = "#fff",
+                    Icon = "speaker_notes_off",
+                    TextoResultado = "Não existe nenhuma avaliação :("
+                };
+            }
+            
+            var total = 0.0;
+
+            avaliacoes
+                .Select(a => a.Nota).ToList()//Para cada Nota dentro de uma avaliacao
+                .ForEach(n => total+=n);//Soma o total
+
+            //Média é a soma total pela quantidade existente
+            var media = total / avaliacoes.Count();
+
+            //Isso tá horrivel ¯\_(ツ)_/¯
+            AvaliacaoMedia avaliacao;
+
+            if (media < 10)
+            {
+                avaliacao = new AvaliacaoMedia()
+                {
+                    Cor = "#fff",
+                    Icon = "sentiment_very_dissatisfied",
+                    TextoResultado = "Muito Ruim"
+                };
+            }                
+            else if (media < 25)
+            {
+                avaliacao = new AvaliacaoMedia()
+                {
+                    Cor = "#e28400",
+                    Icon = "sentiment_dissatisfied",
+                    TextoResultado = "Ruim"
+                };
+            }
+            else if (media < 50)
+            {
+                avaliacao = new AvaliacaoMedia()
+                {
+                    Cor = "#dcd100",
+                    Icon = "sentiment_neutral",
+                    TextoResultado = "Neutro"
+                };
+            }
+            else if (media < 90)
+            {
+                avaliacao = new AvaliacaoMedia()
+                {
+                    Cor = "#00d480",
+                    Icon = "sentiment_satisfied",
+                    TextoResultado = "Bom"
+                };
+            }
+            else
+            {
+                avaliacao = new AvaliacaoMedia()
+                {
+                    Cor = "#1fbb01",
+                    Icon = "sentiment_very_satisfied",
+                    TextoResultado = "Excelente!"
+                };
+            }
+
+            return avaliacao;
+        }
     }
 }

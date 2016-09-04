@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Avaliacao.cs" />
+    <Compile Include="Classes\AvaliacaoMedia.cs" />
     <Compile Include="Classes\Busca.cs" />
     <Compile Include="Classes\ContaBancaria.cs" />
     <Compile Include="Classes\Empresa.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Usuario.cs" />
-    <Compile Include="Classes\UsuarioInteresse.cs" />
+    <Compile Include="Classes\Interesse.cs" />
     <Compile Include="Classes\Veiculo.cs" />
     <Compile Include="Classes\Viagem.cs" />
     <Compile Include="Context\PreTripDB.cs" />

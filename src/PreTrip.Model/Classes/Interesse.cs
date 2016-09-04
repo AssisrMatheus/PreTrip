@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("UsuarioInteresse")]
-    public class UsuarioInteresse
+    [Table("Interesse")]
+    public class Interesse
     {
-        public UsuarioInteresse()
+        public Interesse()
         {
             Usuario = new Usuario();
         }
@@ -20,7 +20,10 @@ namespace PreTrip.Model.Classes
         public int Id { get; set; }
         
         public string Cidade { get; set; }
-        
-        public virtual Usuario Usuario { get; set; }
+
+        [ForeignKey("Usuario")]
+        public int UsuarioId { get; set; }
+
+        public Usuario Usuario { get; set; }
     }
 }

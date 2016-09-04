@@ -73,7 +73,7 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
-        public ActionResult Interesses(Usuario usuario, IEnumerable<UsuarioInteresse> listaInteresses)
+        public ActionResult Interesses(Usuario usuario, IEnumerable<Interesse> listaInteresses)
         {
 #warning Pesquisar como recebe uma lista da view.
             return RedirectToAction("Index", "Usuario");

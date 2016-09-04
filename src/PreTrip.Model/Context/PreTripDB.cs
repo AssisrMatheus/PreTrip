@@ -35,6 +35,6 @@ namespace PreTrip.Model.Context
 
         public DbSet<Avaliacao> Avaliacoes { get; set; }
 
-        public DbSet<UsuarioInteresse> UsuarioInteresses { get; set; }
+        public DbSet<Interesse> UsuarioInteresses { get; set; }
     }
 }

@@ -15,8 +15,28 @@
         </div>
 
         <div class="col-md-4" style="border-left: 1px solid #808080">
-            Avaliações:
-            20
+            <div>
+                <div class="standard-infos">
+                    <span>
+                        <i class="material-icons">event_seat</i>
+                        @Model.Viagem.QuantidadeLugaresDisponiveis
+                    </span>
+                    <span>
+                        R$ @Model.Viagem.PrecoPassagem
+                    </span>
+                </div>
+                <div>
+                    @{ 
+                        var avaliacaoMedia = new PreTrip.Services.Viagens.ViagensService().GetAvaliacaoMedia(Model.Viagem.Avaliacoes);
+                    }
+                    <span style="vertical-align: middle">
+                        <i class="material-icons" style="font-size: 8rem; color: @avaliacaoMedia.Cor">
+                            @avaliacaoMedia.Icon
+                        </i>
+                        @avaliacaoMedia.TextoResultado
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

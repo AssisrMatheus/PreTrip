@@ -9,44 +9,50 @@ namespace PreTrip.Lib.Utils
 {
     public class ValidationsUtils
     {
-        public static bool AlgumCampoPreenchido(Object objeto)
-        {           
+        public static bool AlgumCampoPreenchido(object objeto)
+        {
             PropertyInfo[] atributos = objeto.GetType().GetProperties();
 
             foreach (PropertyInfo atributo in atributos)
-            {                
+            {
                 Object atributoObjeto = atributo.GetValue(objeto);
-                atributo.GetType().ToString();
-                if (atributo.GetType().ToString() != "string")
+                
+                if (!atributo.ToString().Contains("System.String"))
                 {
-                    return AlgumCampoNumericoPreenchido(atributoObjeto);
+                    if (!atributo.ToString().Contains("DateTime") && AlgumCampoNumericoPreenchido(atributoObjeto))
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
-                    return AlgumCampoStringPreenchido(atributoObjeto);
-                }     
-                                             
+                    if (!atributo.ToString().Contains("DateTime") && AlgumCampoStringPreenchido(atributoObjeto))
+                    {
+                        return true;
+                    }
+                }
+
             }
 
             return false;
         }
 
-        private static bool AlgumCampoStringPreenchido(Object atributoObjeto)
+        private static bool AlgumCampoStringPreenchido(object atributoObjeto)
         {
-            if (atributoObjeto != null || !string.IsNullOrWhiteSpace(atributoObjeto.ToString()) || !atributoObjeto.ToString().Equals("0"))
+            if (atributoObjeto != null && !string.IsNullOrWhiteSpace(atributoObjeto.ToString()))
             {
                 return true;
             }
             return false;
         }
 
-        private static bool AlgumCampoNumericoPreenchido(Object atributoObjeto)
+        private static bool AlgumCampoNumericoPreenchido(object atributoObjeto)
         {
-            if (atributoObjeto != null || Convert.ToDouble(atributoObjeto) != 0)
+            if (atributoObjeto != null && Convert.ToDouble(atributoObjeto) != 0)
             {
                 return true;
             }
             return false;
-        }     
+        }
     }
 }

@@ -10,6 +10,31 @@ namespace PreTrip.Services.Viagens
 {
     public class ViagensService
     {
+        public void InserirBusca(Busca busca)
+        {
+            using (var db = new PreTripDB())
+            {
+                if (AlgumCampoPreenchido(busca))
+                {
+                    db.Buscas.Add(busca);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        private bool AlgumCampoPreenchido(Busca busca)
+        {
+            if (!string.IsNullOrEmpty(busca.Titulo) 
+                || !string.IsNullOrEmpty(busca.Origem) 
+                || !string.IsNullOrEmpty(busca.Destino)
+                || busca.Preco!= 0 || busca.QuantidadeLugares != 0 
+                || busca.LugaresDisponiveis != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public IEnumerable<Viagem> GetAllFilter(Busca filtros)
         {                     
             using (var db = new PreTripDB())

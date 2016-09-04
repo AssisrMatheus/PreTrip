@@ -75,7 +75,7 @@ namespace PreTrip.Services.Viagens
             {
                 return new AvaliacaoMedia()
                 {
-                    Cor = "#fff",
+                    Cor = "#000",
                     Icon = "speaker_notes_off",
                     TextoResultado = "Não existe nenhuma avaliação :("
                 };

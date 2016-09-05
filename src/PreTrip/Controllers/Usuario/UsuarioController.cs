@@ -93,5 +93,11 @@ namespace PreTrip.Controllers
         {
             return RedirectToAction("Index","Viagem");
         }
+
+        public ActionResult Logout()
+        {
+            PreTripSession.Usuario = null;
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

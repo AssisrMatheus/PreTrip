@@ -16,8 +16,16 @@
                     };
                 }
 
-                <li>@Html.ActionLink(PreTripSession.Usuario.Pessoa.Nome, "Index", "Usuario", att)</li>
+                @{ 
+                    var nomeUsuario = PreTripSession.Usuario.Pessoa.Nome;
+                }
+
+                <li>
+                    <a href="/Usuario/Index" class="btn navbar-btn btn">@nomeUsuario</a>
+                </li>
+                
             </ul>
+
         </div>
     </div>
 </div>

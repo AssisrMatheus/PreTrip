@@ -59,11 +59,12 @@
                 <a href="/Viagem/Visualizar/@viagem.Id">                    
                     <div class="viagem-box">
                         <div class="adds pull-right">
-                            R$ @viagem.PrecoPassagem
+                            R$ @viagem.PrecoPassagem <br />
+                            Qtd @viagem.QuantidadeLugaresDisponiveis
                         </div>
 
-                        <h3>@viagem.Descricao</h3>
-                        <p>@viagem.Destino.Cidade - @viagem.Destino.Bairro</p>
+                        <h3>@viagem.Titulo</h3>
+                        <p>@viagem.Origem.Cidade - @viagem.Destino.Cidade</p>
                     </div>
                 </a>
             }

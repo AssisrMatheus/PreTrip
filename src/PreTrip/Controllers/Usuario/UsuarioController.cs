@@ -88,5 +88,10 @@ namespace PreTrip.Controllers
 
             return View();
         }
+
+        public ActionResult Viagens()
+        {
+            return RedirectToAction("Index","Viagem");
+        }
     }
 }

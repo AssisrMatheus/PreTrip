@@ -1,4 +1,5 @@
 ﻿@model PreTrip.ViewModel.ViagensViewModel
+@using PreTrip.Session
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -45,6 +46,24 @@
     }
 </div>
 <br />
+@{
+    var visivel = "";
+
+    if (PreTripSession.Usuario != null)
+    {
+         visivel = "display:block";
+    }
+    else
+    {
+        visivel = "display:none";
+    }
+}
+
+<ul class="nav navbar-nav navbar-right" style="margin-right:150px;">
+    <li>
+        @Html.ActionLink("Cadastrar", "Cadastrar", "Viagem", new { @class = "btn btn-success",style = visivel })
+    </li>
+</ul>
 
 @if (Model.Viagens.Any())
 {

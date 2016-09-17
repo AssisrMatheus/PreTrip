@@ -121,8 +121,8 @@ namespace PreTrip.Controllers
         }
 
         private Pedido pedidoExistente { get; set; }
-       
-        public void AddViagemCarrinho(Viagem viagem)
+        private List<Pedido> pedidos { get; set; }
+        public ActionResult AddViagemCarrinho(Viagem viagem)
         {
             if (CarrinhoContem(viagem))
             {
@@ -134,6 +134,7 @@ namespace PreTrip.Controllers
                 Pedido novoPedido = CriarNovoPedido(viagem);
                 PreTripSession.Carrinho.ToList().Add(novoPedido);
             }
+            return RedirectToAction("Index", "Viagem");
         }
        
         public bool CarrinhoContem(Viagem viagem)
@@ -151,7 +152,12 @@ namespace PreTrip.Controllers
                         return true;
                     }
                 }
-            }           
+            }
+            else
+            {
+                pedidos = new List<Pedido>();
+                PreTripSession.Carrinho = pedidos;
+            }
 
             return false;
         }

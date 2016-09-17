@@ -46,7 +46,7 @@ namespace PreTrip.Session
             }
 
             set
-            {
+            {                
                 HttpContext.Current.Session["Carrinho"] = value;
             }
         }

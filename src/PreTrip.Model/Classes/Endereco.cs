@@ -25,5 +25,10 @@ namespace PreTrip.Model.Classes
         public string Cidade { get; set; }
 
         public string Estado { get; set; }
+
+        [ForeignKey("Usuario")]
+        public int UsuarioId{get; set;}
+
+        public Usuario Usuario { get; set; }
     }
 }

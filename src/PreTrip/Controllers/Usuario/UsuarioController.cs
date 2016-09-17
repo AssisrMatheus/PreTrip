@@ -7,6 +7,7 @@ using PreTrip.Model.Classes;
 using PreTrip.Services.Empresas;
 using PreTrip.Services.Usuarios;
 using PreTrip.Session;
+using PreTrip.Services.Enderecos;
 
 namespace PreTrip.Controllers
 {
@@ -105,9 +106,17 @@ namespace PreTrip.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult GravarEndereco(Endereco endereco)
         {
+            if (ModelState.IsValid) 
+            {
+                var enderecoService = new EnderecosService();
+                endereco.UsuarioId = PreTripSession.Usuario.Id;
+                enderecoService.Gravar(endereco);
+            }
 
+            return RedirectToAction("Index", "Usuario");
         }
     }
 }

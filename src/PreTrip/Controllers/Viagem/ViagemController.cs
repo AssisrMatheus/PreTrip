@@ -1,4 +1,5 @@
 ﻿using PreTrip.Model.Classes;
+using PreTrip.Services.Enderecos;
 using PreTrip.Services.Viagens;
 using PreTrip.Session;
 using PreTrip.ViewModel;
@@ -35,8 +36,7 @@ namespace PreTrip.Controllers
         // GET: Viagem
         public ActionResult Index()
         {
-            var viewModel = new ViagensViewModel();
-
+            var viewModel = new ViagensViewModel();          
             viewModel.Viagens = new ViagensService().GetAll();
             viewModel.HeaderViagens = "Últimas viagens";
 
@@ -66,7 +66,16 @@ namespace PreTrip.Controllers
             var viewModel = new ViagensViewModel();
             viewModel.Viagem = new Viagem();
 
+            PopularComboEnderecos();
+
             return View(viewModel);
+        }
+
+
+        private void PopularComboEnderecos()
+        {
+            var viewModelEndereco = new EnderecosViewModel();
+            viewModelEndereco.Enderecos = new EnderecosService().GetAllByUser();
         }
 
         [HttpPost]

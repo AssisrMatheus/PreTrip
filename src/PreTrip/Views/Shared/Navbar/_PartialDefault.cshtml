@@ -25,6 +25,11 @@
                 <li>@Html.ActionLink("Home", "Index", "Home", attHome)</li>
                 <li>@Html.ActionLink("Logar", "Index", "Home", attLogin)
                 <li>@Html.ActionLink("Cadastre-se!", "Cadastrar", "Home", attCadastro)</li>
+                <li>
+                    <a href="@Url.Action("MeuCarrinho", "Usuario")">
+                        <img src="http://pt.seaicons.com/wp-content/uploads/2015/06/shopping-cart-add-icon.png" alt="Meus pedidos" style="width: 30px;" />
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

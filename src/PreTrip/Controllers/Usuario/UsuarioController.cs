@@ -127,12 +127,17 @@ namespace PreTrip.Controllers
             if (CarrinhoContem(viagem))
             {
                 pedidoExistente.Quantidade += 1;
-                PreTripSession.Carrinho.ToList().Add(pedidoExistente);
+                var pedidos = PreTripSession.Carrinho.ToList();
+                pedidos.Add(pedidoExistente);
+                PreTripSession.Carrinho = pedidos;
             }
             else
             {
                 Pedido novoPedido = CriarNovoPedido(viagem);
-                PreTripSession.Carrinho.ToList().Add(novoPedido);
+
+                var pedidos = PreTripSession.Carrinho.ToList();
+                pedidos.Add(novoPedido);
+                PreTripSession.Carrinho = pedidos;
             }
             return RedirectToAction("Index", "Viagem");
         }
@@ -168,8 +173,19 @@ namespace PreTrip.Controllers
             pedido.DtHrRealizacao = new DateTime();
             pedido.ViagemId = viagem.Id;
             pedido.Quantidade = 1;
+            pedido.Viagem = viagem;
 
             return pedido;
+        }
+        
+        public ActionResult MeuCarrinho()
+        {
+            if (PreTripSession.Carrinho == null)
+            {
+                pedidos = new List<Pedido>();
+                PreTripSession.Carrinho = pedidos;
+            }           
+            return View();
         }
     }
 }

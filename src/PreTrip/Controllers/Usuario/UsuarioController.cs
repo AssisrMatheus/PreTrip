@@ -8,6 +8,7 @@ using PreTrip.Services.Empresas;
 using PreTrip.Services.Usuarios;
 using PreTrip.Session;
 using PreTrip.Services.Enderecos;
+using PreTrip.Services.Viagens;
 
 namespace PreTrip.Controllers
 {
@@ -117,6 +118,52 @@ namespace PreTrip.Controllers
             }
 
             return RedirectToAction("Index", "Usuario");
+        }
+
+        private Pedido pedidoExistente { get; set; }
+       
+        public void AddViagemCarrinho(Viagem viagem)
+        {
+            if (CarrinhoContem(viagem))
+            {
+                pedidoExistente.Quantidade += 1;
+                PreTripSession.Carrinho.ToList().Add(pedidoExistente);
+            }
+            else
+            {
+                Pedido novoPedido = CriarNovoPedido(viagem);
+                PreTripSession.Carrinho.ToList().Add(novoPedido);
+            }
+        }
+       
+        public bool CarrinhoContem(Viagem viagem)
+        {
+            var pedidos = PreTripSession.Carrinho;
+
+            if (pedidos != null)
+            {
+                foreach (var pedido in pedidos)
+                {
+                    if (pedido.ViagemId == viagem.Id)
+                    {
+                        pedidos.ToList().Remove(pedido);
+                        pedidoExistente = pedido;
+                        return true;
+                    }
+                }
+            }           
+
+            return false;
+        }
+
+        public Pedido CriarNovoPedido(Viagem viagem)
+        {
+            Pedido pedido = new Pedido();
+            pedido.DtHrRealizacao = new DateTime();
+            pedido.ViagemId = viagem.Id;
+            pedido.Quantidade = 1;
+
+            return pedido;
         }
     }
 }

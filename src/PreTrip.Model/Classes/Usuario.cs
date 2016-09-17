@@ -48,10 +48,10 @@ namespace PreTrip.Model.Classes
 
         public bool IsAdmin { get; set; }
         
-        public Pessoa Pessoa { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
 
-        public IEnumerable<Pedido> Pedidos { get; set; }
+        public virtual IEnumerable<Pedido> Pedidos { get; set; }
 
-        public IEnumerable<Interesse> Interesses { get; set; }
+        public virtual IEnumerable<Interesse> Interesses { get; set; }
     }
 }

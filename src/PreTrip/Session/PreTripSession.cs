@@ -31,5 +31,24 @@ namespace PreTrip.Session
                 HttpContext.Current.Session["Usuario"] = value;
             }
         }
+
+        public static IEnumerable<Pedido> Carrinho
+        {
+            get
+            {
+                if (HttpContext.Current.Session != null)
+                {
+                    var carrinho = HttpContext.Current.Session["Carrinho"];
+                    if (carrinho != null)
+                        return (IEnumerable<Pedido>)carrinho;
+                }
+                return null;
+            }
+
+            set
+            {
+                HttpContext.Current.Session["Carrinho"] = value;
+            }
+        }
     }
 }

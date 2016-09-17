@@ -18,7 +18,19 @@ namespace PreTrip.Services.Usuarios
             using (var db = new PreTripDB())
             {
                 //Pega um usuário com seu objeto pessoa preenchido
-                var usuarios = db.Usuarios.ToList();
+                var usuarios = from usu in db.Usuarios.ToList()
+                                join pes in db.Pessoas.ToList()
+                                on usu.Pessoa equals pes
+                                select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
+                                {
+                                    IsAdmin = usu.IsAdmin,
+                                    Pessoa = pes,
+                                    Email = usu.Email,
+                                    Login = usu.Login,
+                                    Id = usu.Id,
+                                    Pedidos = usu.Pedidos,
+                                    Senha = usu.Senha
+                                };
 
                 if (filtro != null && usuarios.Any())
                     return usuarios.Where(filtro);

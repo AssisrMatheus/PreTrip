@@ -11,13 +11,12 @@
 
 <h3 style="text-align:center;">Minhas Empresas Cadastradas</h3>
 
-<table class="table table-hover" style="width:50%;margin:0 auto;">
+<table class="table table-hover" style="width:50%;margin:0 auto;text-align:center;">
     <thead>
         <tr>
-            <th>CNPJ</th>
-            <th>Razao Social</th>
-            <th>Nome Fantasia</th>
-            <th></th>
+            <th style="text-align:center;">CNPJ</th>
+            <th style="text-align:center;">Razao Social</th>
+            <th style="text-align:center;">Nome Fantasia</th>            
         </tr>
     </thead>
     <tbody>
@@ -26,12 +25,7 @@
             <tr>
                 <td>@empresa.Cnpj</td>
                 <td>@empresa.RazaoSocial</td>
-                <td>@empresa.NomeFantasia</td>
-                <td>
-                    <a title="Adicionar Endereços">
-                        <i style="font-size: 3rem;" class="material-icons pull-left">note_add</i>
-                    </a>
-                </td>
+                <td>@empresa.NomeFantasia</td>                
             </tr>
         }
     </tbody>

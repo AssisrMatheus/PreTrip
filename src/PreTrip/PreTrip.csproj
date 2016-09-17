@@ -130,6 +130,7 @@
     <Compile Include="Controllers\Adminstrativo\AdministrativoController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Usuario\UsuarioController.cs" />
+    <Compile Include="Controllers\Viagem\EnderecoViewModel.cs" />
     <Compile Include="Controllers\Viagem\ViagemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -137,9 +138,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Autenticacao\AutenticacaoService.cs" />
     <Compile Include="Services\Empresas\EmpresasService.cs" />
+    <Compile Include="Services\Enderecos\EnderecosService.cs" />
     <Compile Include="Services\Viagens\ViagensService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
     <Compile Include="Session\PreTripSession.cs" />
+    <Compile Include="ViewModel\EnderecosViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\ViagensViewModel.cs" />
   </ItemGroup>
@@ -199,6 +202,7 @@
     <Content Include="Views\Viagem\Visualizar.cshtml" />
     <Content Include="Views\Usuario\Interesses.cshtml" />
     <Content Include="Views\Usuario\HistoricoPesquisa.cshtml" />
+    <Content Include="Views\Usuario\CadastrarEndereco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

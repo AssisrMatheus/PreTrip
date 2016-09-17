@@ -18,11 +18,11 @@ namespace PreTrip.Model.Classes
 
         public string Comentario { get; set; }
 
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
 
         [ForeignKey("Viagem")]
         public int ViagemId { get; set; }
         
-        public Viagem Viagem { get; set; }
+        public virtual Viagem Viagem { get; set; }
     }
 }

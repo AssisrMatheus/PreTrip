@@ -28,16 +28,16 @@ namespace PreTrip.Model.Classes
 
         public int QuantidadeLugaresDisponiveis { get; set; }
 
-        public Endereco Origem { get; set; }
+        public virtual Endereco Origem { get; set; }
 
-        public Endereco Destino { get; set; }
+        public virtual Endereco Destino { get; set; }
 
-        public Empresa Empresa { get; set; }
+        public virtual Empresa Empresa { get; set; }
 
-        public Veiculo Veiculo { get; set; }
+        public virtual Veiculo Veiculo { get; set; }
 
-        public IEnumerable<Evento> Eventos { get; set; }
+        public virtual IEnumerable<Evento> Eventos { get; set; }
 
-        public IEnumerable<Avaliacao> Avaliacoes { get; set; }
+        public virtual IEnumerable<Avaliacao> Avaliacoes { get; set; }
     }
 }

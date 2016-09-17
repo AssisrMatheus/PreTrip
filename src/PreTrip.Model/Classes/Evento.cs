@@ -23,6 +23,6 @@ namespace PreTrip.Model.Classes
         public int ViagemId { get; set; }
 
         [ForeignKey("ViagemId")]
-        public Viagem Viagem { get; set; }
+        public virtual Viagem Viagem { get; set; }
     }
 }

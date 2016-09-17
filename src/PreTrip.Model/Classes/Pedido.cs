@@ -20,6 +20,9 @@ namespace PreTrip.Model.Classes
 
         public DateTime DtHrRealizacao { get; set; }
 
-        public Viagem Viagem { get; set; }
+        [ForeignKey("Viagem")]
+        public int ViagemId { get; set; }
+        
+        public virtual Viagem Viagem { get; set; }
     }
 }

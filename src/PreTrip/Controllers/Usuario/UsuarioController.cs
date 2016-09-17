@@ -99,5 +99,15 @@ namespace PreTrip.Controllers
             PreTripSession.Usuario = null;
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult CadastrarEndereco()
+        {
+            return View();
+        }
+
+        public ActionResult GravarEndereco(Endereco endereco)
+        {
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
+using PreTrip.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,9 +164,17 @@ namespace PreTrip.Services.Viagens
         public void Inserir(Viagem viagem)
         {
             using (var db = new PreTripDB())
-            {
-                db.Viagens.Add(viagem);
-                db.SaveChanges();
+            {               
+                if(PreTripSession.Usuario != null){
+                    int idUsuario = PreTripSession.Usuario.Id;
+
+                    viagem.Destino.UsuarioId = idUsuario;
+                    viagem.Origem.UsuarioId = idUsuario;
+
+                    db.Viagens.Add(viagem);
+                    db.SaveChanges();
+                }
+             
             }
         }
 

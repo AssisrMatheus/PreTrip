@@ -187,5 +187,10 @@ namespace PreTrip.Controllers
             }           
             return View();
         }
+
+        public ActionResult CadastroInteresses()
+        {
+            return View();
+        }
     }
 }

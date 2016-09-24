@@ -58,6 +58,7 @@
     <Compile Include="Classes\Avaliacao.cs" />
     <Compile Include="Classes\AvaliacaoMedia.cs" />
     <Compile Include="Classes\Busca.cs" />
+    <Compile Include="Classes\Cidade.cs" />
     <Compile Include="Classes\ContaBancaria.cs" />
     <Compile Include="Classes\Empresa.cs" />
     <Compile Include="Classes\Endereco.cs" />

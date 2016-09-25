@@ -48,9 +48,18 @@ namespace PreTrip.Services.Viagens
 
                                where
                                //se o filtro estiver nulo, ele busca o que esta no banco,exemplo, se filtro origem estiver nulo, para cada linha ira buscar origem = origem do banco
-                               origem.Cidade == (string.IsNullOrEmpty(filtros.Origem) ? origem.Cidade: filtros.Origem) 
-                               && destino.Cidade == (string.IsNullOrEmpty(filtros.Destino) ? destino.Cidade: filtros.Destino)
-                               && viag.Titulo == (string.IsNullOrEmpty(filtros.Titulo) ? viag.Titulo: filtros.Titulo)
+                               origem.Cidade
+                               .ToUpper()
+                               .Contains((string.IsNullOrEmpty(filtros.Origem) ? origem.Cidade.ToUpper() : filtros.Origem.ToUpper()))
+
+                               && destino.Cidade
+                               .ToUpper()
+                               .Contains((string.IsNullOrEmpty(filtros.Destino) ? destino.Cidade.ToUpper() : filtros.Destino.ToUpper()))
+
+                               && viag.Titulo
+                               .ToUpper()
+                               .Contains((string.IsNullOrEmpty(filtros.Titulo) ? viag.Titulo.ToUpper() : filtros.Titulo.ToUpper()))
+
                                && viag.PrecoPassagem == (NumeroNaoPreenchido(filtros.Preco) ? viag.PrecoPassagem : filtros.Preco)
                                && viag.QuantidadeLugaresDisponiveis == (NumeroNaoPreenchido(filtros.QuantidadeLugares) ? viag.QuantidadeLugaresDisponiveis : filtros.QuantidadeLugares)
 

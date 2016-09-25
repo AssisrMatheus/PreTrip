@@ -39,7 +39,7 @@ namespace PreTrip.Services.Usuarios
             }
         }
 
-        public IEnumerable<Interesse> GetUsuarioInteresses(Func<Usuario, bool> filtro = null)
+        public IEnumerable<Model.Classes.Interesse> GetUsuarioInteresses(Func<Usuario, bool> filtro = null)
         {
 #warning Falta terminar. Verificar no banco pq não está trazendo o id do usuario.
             using (var db = new PreTripDB())

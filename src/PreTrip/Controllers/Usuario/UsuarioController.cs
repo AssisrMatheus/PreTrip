@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PreTrip.Model.Classes;
+using PreTrip.Services.Cidades;
 using PreTrip.Services.Empresas;
 using PreTrip.Services.Usuarios;
 using PreTrip.Session;
 using PreTrip.Services.Enderecos;
+using PreTrip.Services.Interesse;
 using PreTrip.Services.Viagens;
 
 namespace PreTrip.Controllers
@@ -71,15 +73,32 @@ namespace PreTrip.Controllers
 
         public ActionResult Interesses()
         {
-#warning Terminar esse método. Precisa passar por (~~~~viewbag~~~~NÃO USE VIEWBAG, USE VIEWMODEL). a lista de interesses do usuario e uma lista com todas as cidades já cadastradas
-            var listaInteresses = new UsuariosService().GetUsuarioInteresses();
-            return View();
+            var listaInteresses = new CidadesService().GetAllDistinctCity();
+
+            return View(listaInteresses);
         }
 
         [HttpPost]
-        public ActionResult Interesses(Usuario usuario, IEnumerable<Interesse> listaInteresses)
+        public ActionResult Interesses(List<string> cidadesEscolhidas)
         {
-#warning Pesquisar como recebe uma lista da view.
+            var listaInteresses = new List<Interesse>();
+
+            var idUser = PreTripSession.Usuario.Id;
+
+            foreach (var cidade in cidadesEscolhidas)
+            {
+                var interesse = new Interesse()
+                {
+                    UsuarioId = idUser,
+                    Cidade = cidade,
+                    Usuario = PreTripSession.Usuario
+                };
+
+                listaInteresses.Add(interesse);
+            }
+
+            new InteresseService().InsertOrUpdate(listaInteresses);
+
             return RedirectToAction("Index", "Usuario");
         }
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PreTrip.Services.Viagens;
 
 namespace PreTrip.Services.Cidades
 {
@@ -13,8 +14,21 @@ namespace PreTrip.Services.Cidades
         {
             using (var db = new PreTripDB())
             {
-                return db.Cidades.ToList();
+#warning terminar depois.
             }
+
+            return null;
         }
-    }   
+
+        public IEnumerable<string> GetAllDistinctCity()
+        {
+            var allViagens = new ViagensService().GetAll();
+
+            var listaCidades = new List<string>();
+
+            listaCidades.AddRange(allViagens.Select(x => x.Origem.Cidade.ToLower()).Distinct());
+
+            return listaCidades;
+        }
+    }
 }

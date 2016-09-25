@@ -9,6 +9,7 @@ using PreTrip.Services.Usuarios;
 using PreTrip.Session;
 using PreTrip.Services.Enderecos;
 using PreTrip.Services.Viagens;
+using PreTrip.ViewModel;
 
 namespace PreTrip.Controllers
 {
@@ -124,12 +125,13 @@ namespace PreTrip.Controllers
         private List<Pedido> pedidos { get; set; }
         public ActionResult AddViagemCarrinho(Viagem viagem)
         {
-            if (CarrinhoContem(viagem))
+            //Se existe uma viagem igual
+            if (PreTripSession.Carrinho != null && PreTripSession.Carrinho.Where(p => p.Viagem.Id == viagem.Id).Any())
             {
-                pedidoExistente.Quantidade += 1;
-                var pedidos = PreTripSession.Carrinho.ToList();
-                pedidos.Add(pedidoExistente);
-                PreTripSession.Carrinho = pedidos;
+                PreTripSession.Carrinho //Para todos os pedidos
+                    .Where(p => p.Viagem.Id == viagem.Id) //Onde a viagem do pedido é a mesma da viagem sendo adicionada
+                    .FirstOrDefault() //Pego o primeiro pois sei que só veio 1(pelo id)
+                    .Quantidade += 1; //Adiciono 1 à quantidade
             }
             else
             {
@@ -142,41 +144,17 @@ namespace PreTrip.Controllers
 
             return RedirectToAction("MeuCarrinho", "Usuario");
         }
-       
-        public bool CarrinhoContem(Viagem viagem)
-        {
-            var pedidos = PreTripSession.Carrinho;
-
-            if (pedidos != null)
-            {
-                foreach (var pedido in pedidos)
-                {
-                    if (pedido.ViagemId == viagem.Id)
-                    {
-                        pedidos.ToList().Remove(pedido);
-                        pedidoExistente = pedido;
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                pedidos = new List<Pedido>();
-                PreTripSession.Carrinho = pedidos;
-            }
-
-            return false;
-        }
 
         public Pedido CriarNovoPedido(Viagem viagem)
         {
-            Pedido pedido = new Pedido();
-            pedido.DtHrRealizacao = new DateTime();
-            pedido.ViagemId = viagem.Id;
-            pedido.Quantidade = 1;
-            pedido.Viagem = viagem;
-
-            return pedido;
+            return new Pedido()
+            {
+                DtHrRealizacao = DateTime.Now,
+                Viagem = viagem,
+                ViagemId = viagem.Id,
+                Quantidade = 1,
+                PrecoFinal = viagem.PrecoPassagem
+            };
         }
         
         public ActionResult MeuCarrinho()
@@ -186,7 +164,7 @@ namespace PreTrip.Controllers
                 pedidos = new List<Pedido>();
                 PreTripSession.Carrinho = pedidos;
             }           
-            return View();
+            return View(new UsuariosViewModel());
         }
 
         public ActionResult CadastroInteresses()

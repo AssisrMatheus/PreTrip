@@ -1,4 +1,4 @@
-﻿@using PreTrip.Session;
+﻿@model PreTrip.ViewModel.UsuariosViewModel
 
 <style>
     .pedidosCarrinhoDiv {
@@ -43,7 +43,7 @@
     <h2>MeuCarrinho</h2>
 
     @*Se não contém nenhum item no carrinho*@
-    @if (!PreTripSession.Carrinho.Any())
+    @if (!Model.Carrinho.Any())
     {
         <p>
             Você precisa adicionar itens no carrinho! @Html.ActionLink("Clique aqui", "Index", "Viagem") para buscar viagens!
@@ -51,25 +51,36 @@
     }
     else
     {
-        foreach (var pedido in PreTripSession.Carrinho)
+        using (Html.BeginForm("ConfirmarCompra", "Usuario", FormMethod.Post))
         {
-            <div class="row viagem-box">
-                <a href="/Viagem/Visualizar/@pedido.ViagemId">
-                    <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover;     height: 7em;">
-                    </div>
-                </a>
+            foreach (var pedido in Model.Carrinho)
+            {
+                <div class="row viagem-box">
+                    <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                        <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover; height: 7em;">
+                        </div>
+                    </a>
 
-                <div class="viagem-body col-md-8">
-                    <div class="adds pull-right">
-                        R$ @pedido.Viagem.PrecoPassagem <br />
-                    </div>
+                    <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                        <div class="viagem-body col-md-8">
+                            <div class="col-md-8">
+                                <h3>@pedido.Viagem.Titulo</h3>
+                                @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@
+                            </div>
 
-                    <h3>@pedido.Viagem.Titulo</h3>
-                    @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@
+                            <div class="col-md-4">
+                                <input type="number" min="0" />
+                                R$ @pedido.Viagem.PrecoPassagem                                                                
+                            </div>
+                        </div>
+                    </a>
                 </div>
+            }
 
+
+            <div>
+                Total: @Model.PrecoTotal
             </div>
         }
     }
 </div>
-

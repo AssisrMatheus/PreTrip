@@ -36,11 +36,21 @@ namespace PreTrip.Session
         {
             get
             {
+                //Se a sessão ainda não foi iniciada
                 if (HttpContext.Current.Session != null)
                 {
                     var carrinho = HttpContext.Current.Session["Carrinho"];
+
+                    //Se já existe carrinho na sessão retorna
                     if (carrinho != null)
                         return (IEnumerable<Pedido>)carrinho;
+                    else
+                    {
+                        //Se não existe na sessão, cria um vazio
+                        HttpContext.Current.Session["Carrinho"] = new List<Pedido>();
+                        //Retorna o recém criado
+                        return (IEnumerable<Pedido>)HttpContext.Current.Session["Carrinho"];
+                    }
                 }
                 return null;
             }

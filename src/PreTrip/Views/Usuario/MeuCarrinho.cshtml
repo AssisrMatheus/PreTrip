@@ -1,8 +1,6 @@
-﻿@using PreTrip.Session;
-@{
-    ViewBag.Title = "MeuCarrinho";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model PreTrip.ViewModel.UsuariosViewModel
+@using PreTrip.Session
+
 <style>
     .pedidosCarrinhoDiv {
         width: 650px;
@@ -46,7 +44,7 @@
     <h2>MeuCarrinho</h2>
 
     @*Se não contém nenhum item no carrinho*@
-    @if (!PreTripSession.Carrinho.Any())
+    @if (!Model.Carrinho.Any())
     {
         <p>
             Você precisa adicionar itens no carrinho! @Html.ActionLink("Clique aqui", "Index", "Viagem") para buscar viagens!
@@ -54,38 +52,59 @@
     }
     else
     {
-        <table class="pedidosCarrinhoDiv">
-            @foreach (var pedido in @PreTripSession.Carrinho.ToList())
+        using (Html.BeginForm("ConfirmarCompra", "Usuario", FormMethod.Post))
+        {
+            foreach (var pedido in Model.Carrinho)
             {
+                <div class="row viagem-box">
+                    <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                        <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover; height: 7em;">
+                        </div>
+                    </a>
 
-                var urlImagem = pedido.Viagem.UrlImagem == null ? "https://www.raceentry.com/img/Race-Registration-Image-Not-Found.png" : pedido.Viagem.UrlImagem;
-                <div>
-                    <img src="@urlImagem" style="margin-left:35px;margin-top: 25px;width:150px;height:150px;" />
+
+                    <div class="viagem-body col-md-8">
+                        <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                            <div class="col-md-4">
+                                <h3>@pedido.Viagem.Titulo</h3>
+                                @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@
+                            </div>
+
+                        </a>
+
+                        <div class="col-md-6">
+                            Qtd:<br />
+                            <input type="number" min="@pedido.Quantidade" value="@pedido.Quantidade" />
+                        </div>
+
+                        <div class="col-md-2">
+                            R$ @pedido.Viagem.PrecoPassagem
+                        </div>
+                    </div>
                 </div>
-                    <div class="texto">
-                        <span>
-                            Descrição: @pedido.Viagem.Titulo
-                        </span>
-                        <br />
-                        <h6>@pedido.Viagem.Origem </h6>
-                        <br />
-                        <span>
-                            @pedido.Viagem.Destino
-                        </span>
-
-                        <br />
-                    </div>
-                    <div id="precoViagem">
-                        R$: @pedido.Viagem.PrecoPassagem
-                    </div>
-                    <div id="cancelarCompra">
-                        <button class="btn btn-danger">Cancelar Compra</button>
-                    </div>
-                    <div id="finalizarCompra">
-                        <button class="btn btn-success">Finalizar compra</button>
-                    </div>
             }
-        </table>
+
+            <hr />
+
+            <div class="pull-right">
+                <div style="font-size: 2rem; text-align: right">
+                    Total: R$ @Model.PrecoTotal <br />
+                    Desconto: @Model.PrecoDesconto != 0 ? Model.PrecoDesconto : "NENHUM"
+                    Preço Final: R$ @Model.PrecoTotal-Model.PrecoDesconto
+                </div>
+
+                <hr />
+                <div>
+                    @if (PreTripSession.Usuario != null)
+                    {
+                        <button type="submit" class="btn btn-success">Confirmar Compra</button>
+                    }
+                    else
+                    {
+                        <span>@Html.ActionLink("Logue-se", "Index", "Home") para confirmar a compra!</span>
+                    }
+                </div>
+            </div>
+        }
     }
 </div>
-

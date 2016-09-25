@@ -146,6 +146,7 @@
     <Compile Include="Session\PreTripSession.cs" />
     <Compile Include="ViewModel\EnderecosViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\UsuariosViewModel.cs" />
     <Compile Include="ViewModel\ViagensViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

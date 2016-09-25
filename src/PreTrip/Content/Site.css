@@ -116,12 +116,16 @@ a .open .dropdown-toggle.btn-warning{
 }
 
 .viagem-box {
-	margin: 0.4em;
-	padding: 0.8em;
-
 	border: 1px solid #d3d3d3;
 	border-bottom: 3px solid #d3d3d3;
+
+    margin-bottom: 1.3em;
 }
+
+    .viagem-box .viagem-body {
+	    margin: 0.4em;
+	    padding: 0.8em;
+    }
 
 	.viagem-box .adds {
 		color: #d3d3d3;

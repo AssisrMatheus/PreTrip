@@ -7,42 +7,42 @@
 <div class="row">
     @using (Html.BeginForm("Buscar", "Viagem", FormMethod.Post))
     {
-    <div class="row" style="margin-top: 3em;">
-        <div class="col-xs-8 wrapcenter">
-            <h3>Pesquise por mais conteúdo</h3>
-            <div class="form-inline">
-                <div class="form-group">
-                    Titulo: @Html.EditorFor(x => x.BuscaViagens.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="row" style="margin-top: 3em;">
+            <div class="col-xs-8 wrapcenter">
+                <h3>Pesquise por mais conteúdo</h3>
+                <div class="form-inline">
+                    <div class="form-group">
+                        Titulo: @Html.EditorFor(x => x.BuscaViagens.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group" style="margin-left:20px;">
+                        Preço: @Html.EditorFor(x => x.BuscaViagens.Preco, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
-                <div class="form-group" style="margin-left:20px;">
-                    Preço: @Html.EditorFor(x => x.BuscaViagens.Preco, new { htmlAttributes = new { @class = "form-control" } })
+                <br />
+                <div class="form-inline">
+                    <div class="form-group">
+                        Quantidade de Lugares: @Html.EditorFor(x => x.BuscaViagens.QuantidadeLugares, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group" style="margin-left:20px;">
+                        Lugares Disponíveis: @Html.EditorFor(x => x.BuscaViagens.LugaresDisponiveis, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
-            </div>
-            <br />
-            <div class="form-inline">
-                <div class="form-group">
-                    Quantidade de Lugares: @Html.EditorFor(x => x.BuscaViagens.QuantidadeLugares, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="form-group" style="margin-left:20px;">
-                    Lugares Disponíveis: @Html.EditorFor(x => x.BuscaViagens.LugaresDisponiveis, new { htmlAttributes = new { @class = "form-control"} })
-                </div>
-            </div>
-            <br />
+                <br />
 
-            <div class="form-inline">
-                <div class="form-group">
-                    Origem: @Html.EditorFor(x => x.BuscaViagens.Origem, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="form-group" style="margin-left:20px;">
-                    Destino: @Html.EditorFor(x => x.BuscaViagens.Destino, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        Origem: @Html.EditorFor(x => x.BuscaViagens.Origem, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group" style="margin-left:20px;">
+                        Destino: @Html.EditorFor(x => x.BuscaViagens.Destino, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
 
-                <div class="form-group" style="margin-left:20px;margin-top:18px;">
-                    <button style="height: 34px;" class="btn btn-default" type="submit">Pesquisar</button>
+                    <div class="form-group" style="margin-left:20px;margin-top:18px;">
+                        <button style="height: 34px;" class="btn btn-default" type="submit">Pesquisar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     }
 </div>
 <br />
@@ -52,7 +52,7 @@
 {
     <ul class="nav navbar-nav navbar-right" style="margin-right:150px;">
         <li>
-            @Html.ActionLink("Cadastrar", "Cadastrar", "Viagem", new { @class = "btn btn-success"})
+            @Html.ActionLink("Cadastrar", "Cadastrar", "Viagem", new { @class = "btn btn-success" })
         </li>
     </ul>
 }
@@ -63,19 +63,20 @@
         <div class="col-md-10 wrapcenter">
             <h3 class="text-center">@Model.HeaderViagens</h3>
 
-            <hr />
-
+            <hr />           
             @foreach (var viagem in Model.Viagens)
             {
                 <a href="/Viagem/Visualizar/@viagem.Id">
                     <div class="viagem-box">
-                        <div class="adds pull-right">
-                            R$ @viagem.PrecoPassagem <br />
-                            Qtd @viagem.QuantidadeLugaresDisponiveis
-                        </div>
+                        <div class="viagem-body">
+                            <div class="adds pull-right">
+                                R$ @viagem.PrecoPassagem <br />
+                                Qtd @viagem.QuantidadeLugaresDisponiveis
+                            </div>
 
-                        <h3>@viagem.Titulo</h3>
-                        <p>@viagem.Origem.Cidade - @viagem.Destino.Cidade</p>
+                            <h3>@viagem.Titulo</h3>
+                            <p>@viagem.Origem.Cidade - @viagem.Destino.Cidade</p>
+                        </div>
                     </div>
                 </a>
             }

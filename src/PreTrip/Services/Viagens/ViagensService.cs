@@ -183,8 +183,7 @@ namespace PreTrip.Services.Viagens
 
                     db.Viagens.Add(viagem);
                     db.SaveChanges();
-                }
-             
+                }             
             }
         }
 

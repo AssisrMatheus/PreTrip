@@ -1,8 +1,5 @@
 ﻿@using PreTrip.Session;
-@{
-    ViewBag.Title = "MeuCarrinho";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 <style>
     .pedidosCarrinhoDiv {
         width: 650px;
@@ -54,38 +51,25 @@
     }
     else
     {
-        <table class="pedidosCarrinhoDiv">
-            @foreach (var pedido in @PreTripSession.Carrinho.ToList())
-            {
+        foreach (var pedido in PreTripSession.Carrinho)
+        {
+            <div class="row viagem-box">
+                <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                    <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover;     height: 7em;">
+                    </div>
+                </a>
 
-                var urlImagem = pedido.Viagem.UrlImagem == null ? "https://www.raceentry.com/img/Race-Registration-Image-Not-Found.png" : pedido.Viagem.UrlImagem;
-                <div>
-                    <img src="@urlImagem" style="margin-left:35px;margin-top: 25px;width:150px;height:150px;" />
+                <div class="viagem-body col-md-8">
+                    <div class="adds pull-right">
+                        R$ @pedido.Viagem.PrecoPassagem <br />
+                    </div>
+
+                    <h3>@pedido.Viagem.Titulo</h3>
+                    @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@
                 </div>
-                    <div class="texto">
-                        <span>
-                            Descrição: @pedido.Viagem.Titulo
-                        </span>
-                        <br />
-                        <h6>@pedido.Viagem.Origem </h6>
-                        <br />
-                        <span>
-                            @pedido.Viagem.Destino
-                        </span>
 
-                        <br />
-                    </div>
-                    <div id="precoViagem">
-                        R$: @pedido.Viagem.PrecoPassagem
-                    </div>
-                    <div id="cancelarCompra">
-                        <button class="btn btn-danger">Cancelar Compra</button>
-                    </div>
-                    <div id="finalizarCompra">
-                        <button class="btn btn-success">Finalizar compra</button>
-                    </div>
-            }
-        </table>
+            </div>
+        }
     }
 </div>
 

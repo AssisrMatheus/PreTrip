@@ -91,7 +91,7 @@
 
                             <div class="form-group">
                                 <label for="descricao">Nota</label>
-                                @Html.EditorFor(x => x.Avaliacao.Nota, new { htmlAttributes = new { placeholder = "R$ 40,00", @class = "form-control" } })
+                                @Html.EditorFor(x => x.Avaliacao.Nota, new { htmlAttributes = new { placeholder = "0 a 100", @class = "form-control", min="0", max="100" } })
                                 <span class="help-block">Qualifique a qualidade do serviço</span>
                             </div>
 
@@ -122,6 +122,10 @@
                         <i class="material-icons" style="vertical-align: middle;  font-size: 5rem;">monetization_on</i>
                         R$ @Model.Viagem.PrecoPassagem
                     </span>
+                    <div class="clearfix"></div>
+                    <span>
+                        @Html.ActionLink("Adicionar ao Carrinho", "AddViagemCarrinho", "Usuario", Model.Viagem, new { @class = "btn btn-success", style = "width: 100%; margin: 1em" })
+                    </span>
                 </div>
 
                 <div class="clearfix"></div>
@@ -138,10 +142,6 @@
                     </span>
                 </div>
             </div>
-          
-            <a href=@Url.Action("AddViagemCarrinho", "Usuario", @Model.Viagem)>
-                <img src="http://pt.seaicons.com/wp-content/uploads/2015/06/shopping-cart-add-icon.png" alt="Adicionar Viagem ao Carrinho" style="width: 150px;margin-top: 170px;margin-left: 170px;" />            
-            </a>          
         </div>
     </div>
 </div>

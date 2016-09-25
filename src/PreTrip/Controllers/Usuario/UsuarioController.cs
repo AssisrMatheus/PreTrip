@@ -139,7 +139,8 @@ namespace PreTrip.Controllers
                 pedidos.Add(novoPedido);
                 PreTripSession.Carrinho = pedidos;
             }
-            return RedirectToAction("Index", "Viagem");
+
+            return RedirectToAction("MeuCarrinho", "Usuario");
         }
        
         public bool CarrinhoContem(Viagem viagem)

@@ -84,7 +84,7 @@ namespace PreTrip.Controllers
             if(ModelState.IsValid)
             {
                 new ViagensService().Inserir(viewModel.Viagem);
-                return RedirectToAction("Index","Usuario");
+                return RedirectToAction("Visualizar", "Viagem", new { id = viewModel.Viagem.Id });
             }
 
             return View(viewModel);

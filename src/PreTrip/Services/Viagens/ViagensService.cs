@@ -44,7 +44,7 @@ namespace PreTrip.Services.Viagens
                                join destino in db.Enderecos on viag.Destino.Id equals destino.Id
                                join origem in db.Enderecos on viag.Origem.Id equals origem.Id
                                join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                               join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
+                               join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id                             
 
                                where
                                //se o filtro estiver nulo, ele busca o que esta no banco,exemplo, se filtro origem estiver nulo, para cada linha ira buscar origem = origem do banco
@@ -67,8 +67,8 @@ namespace PreTrip.Services.Viagens
                                    DtHrSaida = viag.DtHrSaida,
                                    PrecoPassagem = viag.PrecoPassagem,
                                    QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                                   UrlImagem = viag.UrlImagem
-                               }).ToList();
+                                   UrlImagem = viag.UrlImagem,                                   
+                               }).ToList();                
 
                  return viagens;
             }
@@ -91,7 +91,8 @@ namespace PreTrip.Services.Viagens
                         join dest in db.Enderecos on viag.Destino.Id equals dest.Id
                         join orig in db.Enderecos on viag.Origem.Id equals orig.Id
                         join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
+                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id                        
+                      
                         select new Viagem()
                         {
                             Id = viag.Id,
@@ -105,7 +106,7 @@ namespace PreTrip.Services.Viagens
                             DtHrSaida = viag.DtHrSaida,
                             PrecoPassagem = viag.PrecoPassagem,
                             QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                            UrlImagem = viag.UrlImagem
+                            UrlImagem = viag.UrlImagem                                 
                         }).ToList();
             }
         }

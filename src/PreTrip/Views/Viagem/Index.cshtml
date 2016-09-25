@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-group" style="margin-left:20px;margin-top:18px;">
-                    <button style="height: 34px;" class="btn btn-default" type="submit">Pesquisar</button>
+                    <button style="height: 34px;border-radius: 5px;" class="btn btn-success" type="submit">Pesquisar</button>
                 </div>
             </div>
         </div>
@@ -63,21 +63,39 @@
         <div class="col-md-10 wrapcenter">
             <h3 class="text-center">@Model.HeaderViagens</h3>
 
-            <hr />
-
+            <hr />           
             @foreach (var viagem in Model.Viagens)
             {
-                <a href="/Viagem/Visualizar/@viagem.Id">
-                    <div class="viagem-box">
-                        <div class="adds pull-right">
-                            R$ @viagem.PrecoPassagem <br />
-                            Qtd @viagem.QuantidadeLugaresDisponiveis
-                        </div>
-
-                        <h3>@viagem.Titulo</h3>
-                        <p>@viagem.Origem.Cidade - @viagem.Destino.Cidade</p>
+               
+            <div class="viagem-box">
+                    <div class="adds pull-right">
+                        <p style="color:green;">R$ @viagem.PrecoPassagem <br /> </p> 
+                        Qtd @viagem.QuantidadeLugaresDisponiveis                      
                     </div>
-                </a>
+                    <div>
+                            @{
+                                if (viagem.UrlImagem == "" || viagem.UrlImagem == null)
+                                {
+                                    <img src="http://inf.passofundo.ifsul.edu.br/images/noimage.png" style="width: 150px;height:150px;box-shadow:2px 2px 2px 2px gray;" />
+                                }
+
+                                else
+                                {
+                                    <img src="@viagem.UrlImagem" style="width: 150px;height:150px;box-shadow:2px 2px 2px 2px gray;" />
+                                }
+
+                            }
+                       
+                        <a href="/Viagem/Visualizar/@viagem.Id">
+                            <div style="margin-top: -108px;position: absolute;margin-left: 167px;">
+                                <p>@viagem.Titulo</p>
+                                <p>@viagem.Origem.Cidade - @viagem.Destino.Cidade</p>      
+                                <p>@viagem.DtHrSaida</p>                                        
+                                
+                            </div>                            
+                        </a>
+                    </div> 
+                </div>               
             }
         </div>
     </div>

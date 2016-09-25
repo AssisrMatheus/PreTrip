@@ -118,6 +118,8 @@ a .open .dropdown-toggle.btn-warning{
 .viagem-box {
 	border: 1px solid #d3d3d3;
 	border-bottom: 3px solid #d3d3d3;
+
+    margin-bottom: 1.3em;
 }
 
     .viagem-box .viagem-body {

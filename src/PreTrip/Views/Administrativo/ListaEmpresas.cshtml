@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "ListaEmpresas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoBefore.cshtml");
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Lista de Empresas</div>
+    @*<div class="panel-body">
+            <p>
+                Texto adicional se necessário
+            </p>
+        </div>*@
+    <!-- Table -->
+    <table class="table">
+        <tr>
+            <th>Nome Fantasia</th>
+            <th>Razão Social</th>
+            <th>Rua</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+        </tr>
+       
+            @foreach (var empresa in (IEnumerable<PreTrip.Model.Classes.Empresa>)ViewBag.Empresas)
+            {
+
+            <tr>
+                <th>@empresa.NomeFantasia</th>
+                <th>@empresa.RazaoSocial</th>
+                <th>@empresa.Endereco.Rua , @empresa.Endereco.Numero - @empresa.Endereco.Complemento</th>
+                <th>@empresa.Endereco.Cidade</th>
+                <th>@empresa.Endereco.Estado</th>
+            </tr>
+            }
+    </table>
+</div>
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoAfter.cshtml");

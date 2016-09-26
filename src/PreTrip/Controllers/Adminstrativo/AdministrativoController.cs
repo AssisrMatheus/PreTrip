@@ -37,6 +37,13 @@ namespace PreTrip.Controllers.Administrativo
             return View();
         }
 
+        public ActionResult Empresas()
+        {
+            ViewBag.Empresas = new EmpresasService().GetAll();
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult CadastrarUsuario(Usuario usuario)
         {
@@ -59,6 +66,21 @@ namespace PreTrip.Controllers.Administrativo
             }
 
             return View("Index");
+        }
+
+
+        public ActionResult ListaEmpresas()
+        {
+            ViewBag.Empresas = new EmpresasService().GetAll();
+
+            return View();
+        }
+
+        public ActionResult ListaUsuarios()
+        {
+            ViewBag.Usuarios = new UsuariosService().GetUsers();
+
+            return View();
         }
     }
 }

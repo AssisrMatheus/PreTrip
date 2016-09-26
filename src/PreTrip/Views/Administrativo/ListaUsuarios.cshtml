@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "ListaUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoBefore.cshtml");
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Lista de Usuarios</div>
+    @*<div class="panel-body">
+            <p>
+                Texto adicional se necessário
+            </p>
+        </div>*@
+    <!-- Table -->
+    <table class="table">
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Data de Nascimento</th>
+            <th>Login</th>
+            <th>Saldo</th>
+        </tr>
+
+        @foreach (var usuario in (IEnumerable<PreTrip.Model.Classes.Usuario>)ViewBag.Usuarios)
+            {
+
+            <tr>
+                <th>@usuario.Pessoa.Nome</th>
+                <th>@usuario.Pessoa.Cpf</th>
+                <th>@usuario.Pessoa.DtNascimento</th>
+                <th>@usuario.Login</th>
+                <th>@usuario.Pessoa.Conta.Saldo</th>
+            </tr>
+        }
+    </table>
+</div>
+@Html.Partial("~/Views/Shared/Administrativo/_AdministrativoAfter.cshtml");
+
+

@@ -17,6 +17,14 @@ namespace PreTrip.Services.Empresas
                 db.Empresa.Add(empresa);
                 db.SaveChanges();
             }
-        }        
+        }
+
+        public IEnumerable<Empresa> GetAll()
+        {
+            using (var db = new PreTripDB())
+            {
+                return db.Empresa.ToList();
+            }
+        }
     }
 }

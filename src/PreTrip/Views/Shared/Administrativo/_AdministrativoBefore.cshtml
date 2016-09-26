@@ -51,7 +51,7 @@
                         Gerenciar Usuários <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Visualizar Usuários</a></li>
+                        <li>@Html.ActionLink("Visualizar Usuários", "ListaUsuarios", "Administrativo")</li>
                         <li><a data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar Novo Usuário</a></li>
                     </ul>
                 </li>
@@ -71,7 +71,7 @@
                         Gerenciar Empresas <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Visualizar Empresas</a></li>
+                        <li>@Html.ActionLink("Visualizar Empresas", "ListaEmpresas", "Administrativo")</li>
                         <li><a data-toggle="modal" data-target="#modalCadastroEmpresa">Cadastrar Nova Empresa</a></li>
                     </ul>
                 </li>

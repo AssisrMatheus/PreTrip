@@ -1,15 +1,15 @@
-﻿@{
+﻿@model IEnumerable<string>
+@{
     ViewBag.Title = "PrincipaisInteresses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
 
-@using PreTrip.Session
 
 <h3 style="text-align:center;">Escolha os principais destinos de seu interesse</h3>
 
-@using (Html.BeginForm("AlterarUsuario", "Usuario", FormMethod.Post))
+@using (Html.BeginForm("Interesses", "Usuario", FormMethod.Post))
 {
     <table class="table table-hover" style="width:50%;margin:0 auto;">
         <thead>
@@ -19,14 +19,16 @@
             </tr>
         </thead>
         <tbody>
-
             @{#warning Implementar o For com as cidades aqui.}
-            <tr>
-                <td>Rio de Janeiro</td>
-                <td>
-                    <input type="checkbox" value="true" />
-                </td>
-            </tr>
+            @foreach (string cidade in @Model)
+            {
+                <tr>
+                    <td>@cidade</td>
+                    <td>
+                        <input type="checkbox" name="cidadesEscolhidas" value="@cidade" />
+                    </td>
+                </tr>
+            }
             @{#warning Terminar o For com as cidades aqui.}
             <tr>
                 <td>

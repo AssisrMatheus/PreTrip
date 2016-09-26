@@ -167,6 +167,23 @@ namespace PreTrip.Controllers
             return View(new UsuariosViewModel());
         }
 
+        [HttpPost]
+        public ActionResult MeuCarrinho(UsuariosViewModel viewModel)
+        {
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddCupom(UsuariosViewModel viewModel)
+        {
+            if (viewModel.CupomDesconto == "TESTE")
+            {
+                viewModel.PrecoDesconto += 30.50;
+            }
+
+            return RedirectToAction("MeuCarrinho", "Usuario", viewModel);
+        }
+
         public ActionResult CadastroInteresses()
         {
             return View();

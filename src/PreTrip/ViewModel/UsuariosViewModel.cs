@@ -36,6 +36,14 @@ namespace PreTrip.ViewModel
 
         public double PrecoDesconto { get; set; }
 
+        public double PrecoFinal
+        {
+            get
+            {
+                return PrecoTotal - PrecoDesconto;
+            }
+        }
+
         public string CupomDesconto;
     }
 }

@@ -44,6 +44,6 @@ namespace PreTrip.ViewModel
             }
         }
 
-        public string CupomDesconto;
+        public string CupomDesconto { get; set; }
     }
 }

@@ -82,6 +82,9 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Interesses(List<string> cidadesEscolhidas)
         {
+            if (cidadesEscolhidas == null || !cidadesEscolhidas.Any())
+                return RedirectToAction("Index", "Usuario");
+
             var listaInteresses = new List<Interesse>();
 
             var idUser = PreTripSession.Usuario.Id;
@@ -200,12 +203,7 @@ namespace PreTrip.Controllers
                 viewModel.PrecoDesconto += 30.50;
             }
 
-            return RedirectToAction("MeuCarrinho", "Usuario", viewModel);
-        }
-
-        public ActionResult CadastroInteresses()
-        {
-            return View();
+            return View("MeuCarrinho", viewModel);
         }
     }
 }

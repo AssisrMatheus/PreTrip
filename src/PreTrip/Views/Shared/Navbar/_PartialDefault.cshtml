@@ -22,7 +22,7 @@
                     var attCadastro = new { @class = att.@class + " btn-warning" };
                 }
 
-                <li>@Html.ActionLink("Home", "Index", "Home", attHome)</li>
+                <li>@Html.ActionLink("Home", "Index", null, attHome)</li>
                 <li>@Html.ActionLink("Logar", "Index", "Home", attLogin)
                 <li>@Html.ActionLink("Cadastre-se!", "Cadastrar", "Home", attCadastro)</li>
                 <li>

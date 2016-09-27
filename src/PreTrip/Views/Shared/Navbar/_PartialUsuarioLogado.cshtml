@@ -23,7 +23,7 @@
                     @Html.ActionLink(@PreTripSession.Usuario.Pessoa.Nome, "Index", "Usuario", att)
                 </li>    
                 <li>
-                    @Html.ActionLink("Logout", "Index", "Usuario", attLogout)
+                    @Html.ActionLink("Logout", "Index", null, attLogout)
                 </li> 
                 <li>
                     <a href="@Url.Action("MeuCarrinho", "Usuario")">

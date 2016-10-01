@@ -13,6 +13,16 @@ namespace PreTrip.Services.Usuarios
 {
     public class UsuariosService
     {
+
+        public void SalvarModificacoes(Usuario usuario)
+        {
+            using (var db = new PreTripDB())
+            {                
+                db.Usuarios.AddOrUpdate(usuario);               
+                db.SaveChanges();
+            }
+        }
+
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
             using (var db = new PreTripDB())

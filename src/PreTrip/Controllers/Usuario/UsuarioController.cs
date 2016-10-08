@@ -191,10 +191,10 @@ namespace PreTrip.Controllers
         {
             if (viewModel.Carrinho.CupomDesconto == "TESTE")
             {
-                viewModel.Carrinho.PrecoDesconto += 30.50;
+                PreTripSession.Carrinho.PrecoDesconto += 30.50;
             }
 
-            return View("MeuCarrinho", viewModel);
+            return RedirectToAction("MeuCarrinho");
         }
     }
 }

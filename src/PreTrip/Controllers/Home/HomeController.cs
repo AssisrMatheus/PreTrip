@@ -75,6 +75,7 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var service = new UsuariosService();
+                usuario.Pessoa.Conta = null;             
                 service.Inserir(usuario);
 
                 return View("Index", viewModel);

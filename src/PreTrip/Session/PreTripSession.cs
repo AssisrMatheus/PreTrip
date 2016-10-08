@@ -1,4 +1,5 @@
 ﻿using PreTrip.Model.Classes;
+using PreTrip.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace PreTrip.Session
                 if (HttpContext.Current.Session != null)
                 {
                     var usu = HttpContext.Current.Session["Usuario"];
-                    if (usu != null)                        
+                    if (usu != null)
                         return (Usuario)usu;
                 }
                 return null;
@@ -32,7 +33,7 @@ namespace PreTrip.Session
             }
         }
 
-        public static IEnumerable<Pedido> Carrinho
+        public static CarrinhoViewModel Carrinho
         {
             get
             {
@@ -43,20 +44,17 @@ namespace PreTrip.Session
 
                     //Se já existe carrinho na sessão retorna
                     if (carrinho != null)
-                        return (IEnumerable<Pedido>)carrinho;
-                    else
-                    {
-                        //Se não existe na sessão, cria um vazio
-                        HttpContext.Current.Session["Carrinho"] = new List<Pedido>();
-                        //Retorna o recém criado
-                        return (IEnumerable<Pedido>)HttpContext.Current.Session["Carrinho"];
-                    }
+                        return (CarrinhoViewModel)carrinho;
                 }
-                return null;
+
+                //Se não existe na sessão, cria um vazio
+                HttpContext.Current.Session["Carrinho"] = new CarrinhoViewModel();
+                //Retorna o recém criado
+                return (CarrinhoViewModel)HttpContext.Current.Session["Carrinho"];
             }
 
             set
-            {                
+            {
                 HttpContext.Current.Session["Carrinho"] = value;
             }
         }

@@ -82,24 +82,17 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Interesses(List<string> cidadesEscolhidas)
         {
+#warning utilizar validação via modelstate
             if (cidadesEscolhidas == null || !cidadesEscolhidas.Any())
                 return RedirectToAction("Index", "Usuario");
 
-            var listaInteresses = new List<Interesse>();
-
-            var idUser = PreTripSession.Usuario.Id;
-
-            foreach (var cidade in cidadesEscolhidas)
-            {
-                var interesse = new Interesse()
+            var listaInteresses = cidadesEscolhidas
+                .Select(c => new Interesse()
                 {
-                    UsuarioId = idUser,
-                    Cidade = cidade,
+                    UsuarioId = PreTripSession.Usuario.Id,
+                    Cidade = c,
                     Usuario = PreTripSession.Usuario
-                };
-
-                listaInteresses.Add(interesse);
-            }
+                }).ToList();            
 
             new InteresseService().InsertOrUpdate(listaInteresses);
 
@@ -112,11 +105,6 @@ namespace PreTrip.Controllers
             ViewBag.Buscas = new UsuariosService().GetBuscas(PreTripSession.Usuario.Id);
 
             return View();
-        }
-
-        public ActionResult Viagens()
-        {
-            return RedirectToAction("Index","Viagem");
         }
 
         public ActionResult Logout()
@@ -143,50 +131,35 @@ namespace PreTrip.Controllers
             return RedirectToAction("Index", "Usuario");
         }
 
-        private Pedido pedidoExistente { get; set; }
-        private List<Pedido> pedidos { get; set; }
         public ActionResult AddViagemCarrinho(Viagem viagem)
         {
             //Se existe uma viagem igual
-            if (PreTripSession.Carrinho != null && PreTripSession.Carrinho.Where(p => p.Viagem.Id == viagem.Id).Any())
+            if (PreTripSession.Carrinho != null && PreTripSession.Carrinho.Pedidos.Where(p => p.Viagem.Id == viagem.Id).Any())
             {
-                PreTripSession.Carrinho //Para todos os pedidos
+                PreTripSession.Carrinho.Pedidos //Para todos os pedidos
                     .Where(p => p.Viagem.Id == viagem.Id) //Onde a viagem do pedido é a mesma da viagem sendo adicionada
                     .FirstOrDefault() //Pego o primeiro pois sei que só veio 1(pelo id)
                     .Quantidade += 1; //Adiciono 1 à quantidade
             }
             else
             {
-                Pedido novoPedido = CriarNovoPedido(viagem);
+                var pedidos = PreTripSession.Carrinho.Pedidos.ToList();
+                pedidos.Add(new Pedido(viagem));
 
-                var pedidos = PreTripSession.Carrinho.ToList();
-                pedidos.Add(novoPedido);
-                PreTripSession.Carrinho = pedidos;
+                PreTripSession.Carrinho.Pedidos = pedidos;
             }
 
             return RedirectToAction("MeuCarrinho", "Usuario");
         }
-
-        public Pedido CriarNovoPedido(Viagem viagem)
-        {
-            return new Pedido()
-            {
-                DtHrRealizacao = DateTime.Now,
-                Viagem = viagem,
-                ViagemId = viagem.Id,
-                Quantidade = 1,
-                PrecoFinal = viagem.PrecoPassagem
-            };
-        }
         
         public ActionResult MeuCarrinho()
         {
-            if (PreTripSession.Carrinho == null)
+            var viewModel = new UsuariosViewModel()
             {
-                pedidos = new List<Pedido>();
-                PreTripSession.Carrinho = pedidos;
-            }           
-            return View(new UsuariosViewModel());
+                Carrinho = PreTripSession.Carrinho
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -198,9 +171,9 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult AddCupom(UsuariosViewModel viewModel)
         {
-            if (viewModel.CupomDesconto == "TESTE")
+            if (viewModel.Carrinho.CupomDesconto == "TESTE")
             {
-                viewModel.PrecoDesconto += 30.50;
+                viewModel.Carrinho.PrecoDesconto += 30.50;
             }
 
             return View("MeuCarrinho", viewModel);

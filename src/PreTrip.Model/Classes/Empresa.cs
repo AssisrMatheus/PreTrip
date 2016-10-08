@@ -23,7 +23,18 @@ namespace PreTrip.Model.Classes
         [ForeignKey("Usuario")]
         public int UsuarioId { get; set; }
 
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
+
+        public Empresa()
+        {
+
+        }
+
+        public Empresa(Usuario usuario)
+        {
+            this.UsuarioId = usuario.Id;
+            this.Usuario = usuario;
+        }
 
         //[ForeignKey("IdEndereco")]
         //public Endereco Endereco { get; set; }

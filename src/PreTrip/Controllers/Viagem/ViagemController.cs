@@ -1,4 +1,5 @@
-﻿using PreTrip.Model.Classes;
+﻿using PreTrip.Attributes;
+using PreTrip.Model.Classes;
 using PreTrip.Services.Enderecos;
 using PreTrip.Services.Viagens;
 using PreTrip.Session;
@@ -14,25 +15,6 @@ namespace PreTrip.Controllers
 {
     public class ViagemController : Controller
     {
-        [HttpPost]
-        public ActionResult Buscar(ViagensViewModel v)
-        {           
-            v.Viagens = new ViagensService().GetAllFilter(v.BuscaViagens);
-            SalvarHistoricoBusca(v);
-            v.HeaderViagens = "Viagens Encontradas";
-            return View("Index",v);
-        }
-
-        public void SalvarHistoricoBusca(ViagensViewModel viagensVM)        
-        {
-            if (PreTripSession.Usuario != null)
-            {
-                var viagensService = new ViagensService();
-                viagensVM.BuscaViagens.UsuarioId = PreTripSession.Usuario.Id;
-                viagensService.InserirBusca(viagensVM.BuscaViagens);
-            }            
-        }
-
         // GET: Viagem
         public ActionResult Index()
         {
@@ -61,24 +43,17 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
+        [UsuarioLogado]
         public ActionResult Cadastrar()
         {
             var viewModel = new ViagensViewModel();
             viewModel.Viagem = new Viagem();
 
-            PopularComboEnderecos();
-
             return View(viewModel);
         }
 
-
-        private void PopularComboEnderecos()
-        {
-            var viewModelEndereco = new EnderecosViewModel();
-            viewModelEndereco.Enderecos = new EnderecosService().GetAllByUser();
-        }
-
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult Cadastrar(ViagensViewModel viewModel)
         {
             if(ModelState.IsValid)
@@ -91,6 +66,7 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult Avaliar(ViagensViewModel viewModel)
         {
             if(ModelState.IsValid)
@@ -103,6 +79,25 @@ namespace PreTrip.Controllers
             }
 
             return RedirectToAction("Visualizar", new RouteValueDictionary(new { id = viewModel.Viagem.Id }));
+        }
+
+        [HttpPost]
+        public ActionResult Buscar(ViagensViewModel v)
+        {
+            v.Viagens = new ViagensService().GetAllFilter(v.BuscaViagens);
+            SalvarHistoricoBusca(v);
+            v.HeaderViagens = "Viagens Encontradas";
+            return View("Index", v);
+        }
+
+        public void SalvarHistoricoBusca(ViagensViewModel viagensVM)
+        {
+            if (PreTripSession.Usuario != null)
+            {
+                var viagensService = new ViagensService();
+                viagensVM.BuscaViagens.UsuarioId = PreTripSession.Usuario.Id;
+                viagensService.InserirBusca(viagensVM.BuscaViagens);
+            }
         }
     }
 }

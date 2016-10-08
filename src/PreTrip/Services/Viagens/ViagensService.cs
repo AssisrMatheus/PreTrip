@@ -25,10 +25,10 @@ namespace PreTrip.Services.Viagens
 
         private bool AlgumCampoPreenchido(Busca busca)
         {
-            if (!string.IsNullOrEmpty(busca.Titulo) 
-                || !string.IsNullOrEmpty(busca.Origem) 
+            if (!string.IsNullOrEmpty(busca.Titulo)
+                || !string.IsNullOrEmpty(busca.Origem)
                 || !string.IsNullOrEmpty(busca.Destino)
-                || busca.Preco!= 0 || busca.QuantidadeLugares != 0 
+                || busca.Preco != 0 || busca.QuantidadeLugares != 0
                 || busca.LugaresDisponiveis != 0)
             {
                 return true;
@@ -37,14 +37,14 @@ namespace PreTrip.Services.Viagens
             return false;
         }
         public IEnumerable<Viagem> GetAllFilter(Busca filtros)
-        {                     
+        {
             using (var db = new PreTripDB())
             {
                 var viagens = (from viag in db.Viagens.ToList()
                                join destino in db.Enderecos on viag.Destino.Id equals destino.Id
                                join origem in db.Enderecos on viag.Origem.Id equals origem.Id
                                join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                               join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id                             
+                               join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
 
                                where
                                //se o filtro estiver nulo, ele busca o que esta no banco,exemplo, se filtro origem estiver nulo, para cada linha ira buscar origem = origem do banco
@@ -76,13 +76,13 @@ namespace PreTrip.Services.Viagens
                                    DtHrSaida = viag.DtHrSaida,
                                    PrecoPassagem = viag.PrecoPassagem,
                                    QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                                   UrlImagem = viag.UrlImagem,                                   
-                               }).ToList();                
+                                   UrlImagem = viag.UrlImagem,
+                               }).ToList();
 
-                 return viagens;
+                return viagens;
             }
         }
-                
+
         private bool NumeroNaoPreenchido(Object numero)
         {
             if (Convert.ToDouble(numero) == 0)
@@ -90,7 +90,7 @@ namespace PreTrip.Services.Viagens
                 return true;
             }
             return false;
-        }  
+        }
 
         public IEnumerable<Viagem> GetAll()
         {
@@ -100,8 +100,8 @@ namespace PreTrip.Services.Viagens
                         join dest in db.Enderecos on viag.Destino.Id equals dest.Id
                         join orig in db.Enderecos on viag.Origem.Id equals orig.Id
                         join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id                        
-                      
+                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
+
                         select new Viagem()
                         {
                             Id = viag.Id,
@@ -115,7 +115,7 @@ namespace PreTrip.Services.Viagens
                             DtHrSaida = viag.DtHrSaida,
                             PrecoPassagem = viag.PrecoPassagem,
                             QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                            UrlImagem = viag.UrlImagem                                 
+                            UrlImagem = viag.UrlImagem
                         }).ToList();
             }
         }
@@ -125,26 +125,26 @@ namespace PreTrip.Services.Viagens
             using (var db = new PreTripDB())
             {
                 var viagem = (from viag in db.Viagens.ToList()
-                             join dest in db.Enderecos on viag.Destino.Id equals dest.Id
-                             join orig in db.Enderecos on viag.Origem.Id equals orig.Id
-                             join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                             join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
-                             where viag.Id == viagemId
-                             select new Viagem()
-                             {
-                                 Id = viag.Id,
-                                 Titulo = viag.Titulo,
-                                 Descricao = viag.Descricao,
-                                 Destino = dest,
-                                 Origem = orig,
-                                 Empresa = emp,
-                                 Veiculo = veic,
-                                 DtHrChegadaEstimada = viag.DtHrChegadaEstimada,
-                                 DtHrSaida = viag.DtHrSaida,
-                                 PrecoPassagem = viag.PrecoPassagem,
-                                 QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                                 UrlImagem = viag.UrlImagem
-                             }).FirstOrDefault();
+                              join dest in db.Enderecos on viag.Destino.Id equals dest.Id
+                              join orig in db.Enderecos on viag.Origem.Id equals orig.Id
+                              join emp in db.Empresas on viag.Empresa.Id equals emp.Id
+                              join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
+                              where viag.Id == viagemId
+                              select new Viagem()
+                              {
+                                  Id = viag.Id,
+                                  Titulo = viag.Titulo,
+                                  Descricao = viag.Descricao,
+                                  Destino = dest,
+                                  Origem = orig,
+                                  Empresa = emp,
+                                  Veiculo = veic,
+                                  DtHrChegadaEstimada = viag.DtHrChegadaEstimada,
+                                  DtHrSaida = viag.DtHrSaida,
+                                  PrecoPassagem = viag.PrecoPassagem,
+                                  QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
+                                  UrlImagem = viag.UrlImagem
+                              }).FirstOrDefault();
 
                 viagem.Avaliacoes = (from aval in db.Avaliacoes.ToList()
                                      join usua in db.Usuarios on aval.Usuario.Id equals usua.Id
@@ -155,7 +155,7 @@ namespace PreTrip.Services.Viagens
                                          Comentario = aval.Comentario,
                                          Nota = aval.Nota,
                                          Usuario = new Usuario() //Somente o que preciso do usuario(Não preciso do login e senha dele por exemplo)
-                                         { 
+                                         {
                                              Pessoa = pess,
                                              Id = usua.Id,
                                              Email = usua.Email
@@ -167,23 +167,21 @@ namespace PreTrip.Services.Viagens
 
                 viagem.Eventos = db.Eventos.Where(e => e.ViagemId == viagem.Id).ToList();
 
-                return viagem;                    
+                return viagem;
             }
         }
 
         public void Inserir(Viagem viagem)
         {
             using (var db = new PreTripDB())
-            {               
-                if(PreTripSession.Usuario != null){
-                    int idUsuario = PreTripSession.Usuario.Id;
+            {
+                int idUsuario = PreTripSession.Usuario.Id;
 
-                    viagem.Destino.UsuarioId = idUsuario;
-                    viagem.Origem.UsuarioId = idUsuario;
+                viagem.Destino.UsuarioId = idUsuario;
+                viagem.Origem.UsuarioId = idUsuario;
 
-                    db.Viagens.Add(viagem);
-                    db.SaveChanges();
-                }             
+                db.Viagens.Add(viagem);
+                db.SaveChanges();
             }
         }
 
@@ -202,7 +200,7 @@ namespace PreTrip.Services.Viagens
         public AvaliacaoMedia GetAvaliacaoMedia(IEnumerable<Avaliacao> avaliacoes)
         {
             //Se não existe nenhuma já retorna
-            if(!avaliacoes.Any())
+            if (!avaliacoes.Any())
             {
                 return new AvaliacaoMedia()
                 {
@@ -211,12 +209,12 @@ namespace PreTrip.Services.Viagens
                     TextoResultado = "Não existe nenhuma avaliação :("
                 };
             }
-            
+
             var total = 0.0;
 
             avaliacoes
                 .Select(a => a.Nota).ToList()//Para cada Nota dentro de uma avaliacao
-                .ForEach(n => total+=n);//Soma o total
+                .ForEach(n => total += n);//Soma o total
 
             //Média é a soma total pela quantidade existente
             var media = total / avaliacoes.Count();
@@ -232,7 +230,7 @@ namespace PreTrip.Services.Viagens
                     Icon = "sentiment_very_dissatisfied",
                     TextoResultado = "Muito Ruim"
                 };
-            }                
+            }
             else if (media < 25)
             {
                 avaliacao = new AvaliacaoMedia()

@@ -182,5 +182,29 @@ namespace PreTrip.Controllers
 
             return View("MeuCarrinho", viewModel);
         }
+
+        public ActionResult ConfirmarCompra()
+        {
+            return View();
+        }
+
+        public ActionResult CadastrarContaBancaria()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CadastrarConta(ContaBancaria conta)
+        {
+            var usuarioSessao = PreTripSession.Usuario;
+            usuarioSessao.Pessoa.Conta = conta;
+
+            if (ModelState.IsValid){
+                var usuarioService = new UsuariosService();
+                usuarioService.SalvarModificacoes(usuarioSessao);
+            }
+
+            return CadastrarContaBancaria();
+        }
     }
 }

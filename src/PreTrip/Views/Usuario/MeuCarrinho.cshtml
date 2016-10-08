@@ -82,14 +82,14 @@
                         </div>
                     </div>
                 </div>
-            }        
+            }
 
         <hr />
 
         <div class="pull-right">
             @if (PreTripSession.Usuario != null)
-            {
-                <button type="submit" class="btn btn-success">Confirmar Compra</button>
+                {
+                    @Html.ActionLink("Confirmar Compra", "ConfirmarCompra", "Usuario", new { @class = "btn btn-success" })                
             }
             else
             {
@@ -132,5 +132,5 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-    }
+                        }
 </div>

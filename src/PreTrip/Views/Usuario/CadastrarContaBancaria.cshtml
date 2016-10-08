@@ -1,0 +1,37 @@
+﻿@model PreTrip.Model.Classes.ContaBancaria
+
+@using PreTrip.Session
+
+@{
+    ViewBag.Title = "CadastrarContaBancaria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastrar Conta Bancaria</h2>
+<div class="container-fluid" style="width:50%;margin:0 auto;">
+@using (Html.BeginForm("CadastrarConta", "Usuario", FormMethod.Post))
+{
+    <div class="form-group row">
+        <label for="example-text-input" class="col-xs-2 col-form-label">Nº Conta</label>
+        <div class="col-xs-10">           
+            @{
+                @Html.TextBoxFor(x => x.Numero, new { maxlength = "10" })       
+                
+            }
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="example-text-input" class="col-xs-2 col-form-label">Saldo inicial</label>
+        <div class="col-xs-10">
+            @{
+                @Html.TextBoxFor(x => x.Saldo, new { maxlength = "10" })
+            }
+            
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success" style="margin-top: 1em;margin-left:16em">Cadastrar</button>
+}
+            
+</div>
+

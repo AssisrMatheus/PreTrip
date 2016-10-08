@@ -15,5 +15,7 @@ namespace PreTrip.Model.Classes
         public int Id { get; set; }
 
         public double Saldo { get; set; }
+
+        public int Numero { get; set; }       
     }
 }

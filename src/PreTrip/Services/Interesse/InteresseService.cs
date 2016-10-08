@@ -10,15 +10,16 @@ namespace PreTrip.Services.Interesse
 {
     public class InteresseService
     {
-        public void InsertOrUpdate(List<Model.Classes.Interesse> interesses)
+        public void InsertOrUpdate(IEnumerable<Model.Classes.Interesse> interesses)
         {
             using (var db = new PreTripDB())
             {
-                interesses.ForEach(x =>
+                interesses.ToList().ForEach(x =>
                 {
-                    db.UsuarioInteresses.AddOrUpdate(x);
-                    db.SaveChanges();
+                    db.UsuarioInteresses.AddOrUpdate(x);                    
                 });
+
+                db.SaveChanges();
             }
         }
     }

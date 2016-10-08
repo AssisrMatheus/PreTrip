@@ -44,7 +44,7 @@
     <h2>Meu Carrinho</h2>
 
     @*Se não contém nenhum item no carrinho*@
-    @if (!Model.Carrinho.Any())
+    @if (!Model.Carrinho.Pedidos.Any())
     {
         <p>
             Você precisa adicionar itens no carrinho! @Html.ActionLink("Clique aqui", "Index", "Viagem") para buscar viagens!
@@ -54,7 +54,7 @@
     {
         using (Html.BeginForm("ConfirmarCompra", "Usuario", FormMethod.Post))
         {
-            foreach (var pedido in Model.Carrinho)
+            foreach (var pedido in Model.Carrinho.Pedidos)
             {
                 <div class="row viagem-box">
                     <a href="/Viagem/Visualizar/@pedido.ViagemId">
@@ -83,7 +83,6 @@
                     </div>
                 </div>
             }
-        }
 
         <hr />
 
@@ -91,13 +90,14 @@
             @if (PreTripSession.Usuario != null)
                 {
                     @Html.ActionLink("Confirmar Compra", "ConfirmarCompra", "Usuario", new { @class = "btn btn-success" })                
-                }
+            }
             else
             {
                 <span>@Html.ActionLink("Logue-se", "Index", "Home") para confirmar a compra!</span>
             }
         </div>
 
+        }
         <div class="clearfix"></div>
 
         <hr />
@@ -108,24 +108,25 @@
                     {
                         <div>
                             Cupom: <br />
-                            @Html.EditorFor(x => x.CupomDesconto)
+                            @Html.EditorFor(x => x.Carrinho.CupomDesconto)
                             <button type="submit" class="btn btn-warning" style="margin-top: 1em">Descontar</button>
                         </div>
                     }
                 </div>
 
                 <div class="col-md-8" style="font-size: 2rem; text-align: right">
-                    Total: R$ @Model.PrecoTotal
+                    Total: R$ @Model.Carrinho.PrecoTotal
+
                     <br />
                     @{
-                        var desconto = Model.PrecoDesconto != 0 ? Model.PrecoDesconto.ToString() : "NENHUM";
+                        var desconto = Model.Carrinho.PrecoDesconto != 0 ? Model.Carrinho.PrecoDesconto.ToString() : "NENHUM";
                     }
                     <span style="color: #b40b0b">
                         Desconto: @desconto
                     </span>
                     <br />
                     <span style="color: #099c19">
-                        Preço Final: R$ @Model.PrecoFinal
+                        Preço Final: R$ @Model.Carrinho.PrecoFinal
                     </span>
                     <br />
                 </div>

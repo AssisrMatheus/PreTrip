@@ -144,6 +144,7 @@
     <Compile Include="Services\Viagens\ViagensService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
     <Compile Include="Session\PreTripSession.cs" />
+    <Compile Include="ViewModel\CarrinhoViewModel.cs" />
     <Compile Include="ViewModel\EnderecosViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\UsuariosViewModel.cs" />

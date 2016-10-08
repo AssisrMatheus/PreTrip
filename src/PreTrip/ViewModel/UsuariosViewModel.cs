@@ -9,7 +9,7 @@ namespace PreTrip.ViewModel
 {
     public class UsuariosViewModel
     {
-        public IEnumerable<Pedido> Carrinho
+        public CarrinhoViewModel Carrinho
         {
             get
             {
@@ -20,30 +20,6 @@ namespace PreTrip.ViewModel
             {
                 PreTripSession.Carrinho = value;
             }
-
         }
-
-        public double PrecoTotal
-        {
-            get
-            {
-                if(this.Carrinho != null)
-                    return this.Carrinho.Select(p => p.PrecoFinal * p.Quantidade).Sum();
-
-                return 0;
-            }
-        }
-
-        public double PrecoDesconto { get; set; }
-
-        public double PrecoFinal
-        {
-            get
-            {
-                return PrecoTotal - PrecoDesconto;
-            }
-        }
-
-        public string CupomDesconto { get; set; }
     }
 }

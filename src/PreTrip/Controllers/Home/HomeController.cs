@@ -67,18 +67,13 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Cadastrar(Usuario usuario)
         {
-            var viewModel = new HomeViewModel()
-            {
-                Usuario = usuario
-            };
-
             if (ModelState.IsValid)
             {
                 var service = new UsuariosService();
-                usuario.Pessoa.Conta = null;             
+                  
                 service.Inserir(usuario);
 
-                return View("Index", viewModel);
+                return RedirectToAction("Index");
             }
             else
             {
@@ -86,7 +81,7 @@ namespace PreTrip.Controllers
                 var statesErrors = ModelState.Values.Select(x => x.Errors).Where(x => x.Any());
                 ViewBag.Errors = statesErrors.Select(x => x.Select(y => y.ErrorMessage));
 
-                return View(viewModel);
+                return View();
             }
         }
     }

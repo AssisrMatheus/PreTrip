@@ -36,18 +36,30 @@ namespace PreTrip.Services.Usuarios
             {
                 //Pega um usuário com seu objeto pessoa preenchido
                 var usuarios = from usu in db.Usuarios.ToList()
-                                join pes in db.Pessoas.ToList()
-                                on usu.Pessoa equals pes
-                                select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
-                                {
-                                    IsAdmin = usu.IsAdmin,
-                                    Pessoa = pes,
-                                    Email = usu.Email,
-                                    Login = usu.Login,
-                                    Id = usu.Id,
-                                    Pedidos = usu.Pedidos,
-                                    Senha = usu.Senha
-                                };
+                               join pes in db.Pessoas.ToList()
+                               on usu.PessoaId equals pes.Id
+                               join cont in db.ContasBancarias.ToList()
+                               on pes.ContaBancariaId equals cont.Id
+                               select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
+                               {
+                                   IsAdmin = usu.IsAdmin,
+                                   Pessoa = new Pessoa()
+                                   {
+                                       Id = pes.Id,
+                                       Cpf = pes.Cpf,
+                                       DtNascimento = pes.DtNascimento,
+                                       Nome = pes.Nome,
+                                       Telefone = pes.Telefone,
+                                       UrlImagem = pes.UrlImagem,
+                                       ContaBancariaId = cont.Id,
+                                       ContaBancaria = cont
+                                   },
+                                   Email = usu.Email,
+                                   Login = usu.Login,
+                                   Id = usu.Id,
+                                   Pedidos = usu.Pedidos,
+                                   Senha = usu.Senha
+                               };
 
                 if (filtro != null && usuarios.Any())
                     return usuarios.Where(filtro);
@@ -74,7 +86,7 @@ namespace PreTrip.Services.Usuarios
         public void Inserir(Usuario usuario)
         {
             //Se é um usuário válido, cadastra.
-            if (this.ValidaNovoUsuario(usuario))
+            if (this.ValidaNovoUsuario(usuario)) { 
                 using (var db = new PreTripDB())
                 {
                     //Converte para md5
@@ -83,6 +95,7 @@ namespace PreTrip.Services.Usuarios
                     db.Usuarios.Add(usuario);
                     db.SaveChanges();
                 }
+            }
         }
 
         /// <summary>

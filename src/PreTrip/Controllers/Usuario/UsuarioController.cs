@@ -12,6 +12,7 @@ using PreTrip.Services.Enderecos;
 using PreTrip.Services.Interesse;
 using PreTrip.Services.Viagens;
 using PreTrip.ViewModel;
+using PreTrip.Attributes;
 
 namespace PreTrip.Controllers
 {
@@ -21,17 +22,20 @@ namespace PreTrip.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
+        [UsuarioLogado]
         public ActionResult Index()
         {
             return View();
         }
-        
+
+        [UsuarioLogado]
         public ActionResult AlterarUsuario()
         {
             return View();
         }
 
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult AlterarUsuario(Usuario usuario, string oldSenha)
         {
 #warning Falta terminar muita coisa aqui ainda.
@@ -44,6 +48,7 @@ namespace PreTrip.Controllers
             return RedirectToAction("Index", "Usuario");
         }
 
+        [UsuarioLogado]
         public ActionResult Empresas()
         {
 
@@ -53,12 +58,14 @@ namespace PreTrip.Controllers
             return View();
         }
 
+        [UsuarioLogado]
         public ActionResult CadastrarEmpresa()
         {         
             return View();
         }
 
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult CadastrarEmpresa(Empresa empresa)
         {
             if (ModelState.IsValid)
@@ -76,6 +83,7 @@ namespace PreTrip.Controllers
             return RedirectToAction("Empresas");
         }
 
+        [UsuarioLogado]
         public ActionResult Interesses()
         {
             var listaInteresses = new CidadesService().GetAllDistinctCity();
@@ -84,6 +92,7 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult Interesses(List<string> cidadesEscolhidas)
         {
 #warning utilizar validação via modelstate
@@ -103,6 +112,7 @@ namespace PreTrip.Controllers
             return RedirectToAction("Index", "Usuario");
         }
 
+        [UsuarioLogado]
         public ActionResult HistoricoPesquisa()
         {
 #warning Usar uma viewmodel aqui, e não viewbag, só usei viewbag por falta de tempo
@@ -111,18 +121,21 @@ namespace PreTrip.Controllers
             return View();
         }
 
+        [UsuarioLogado]
         public ActionResult Logout()
         {
             PreTripSession.Usuario = null;
             return RedirectToAction("Index", "Home");
         }
 
+        [UsuarioLogado]
         public ActionResult CadastrarEndereco()
         {
             return View();
         }
 
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult GravarEndereco(Endereco endereco)
         {
             if (ModelState.IsValid) 
@@ -167,6 +180,7 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
+        [UsuarioLogado]
         public ActionResult MeuCarrinho(UsuariosViewModel viewModel)
         {
             return View(viewModel);
@@ -181,30 +195,6 @@ namespace PreTrip.Controllers
             }
 
             return View("MeuCarrinho", viewModel);
-        }
-
-        public ActionResult ConfirmarCompra()
-        {
-            return View();
-        }
-
-        public ActionResult CadastrarContaBancaria()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CadastrarConta(ContaBancaria conta)
-        {
-            var usuarioSessao = PreTripSession.Usuario;
-            usuarioSessao.Pessoa.Conta = conta;
-
-            if (ModelState.IsValid){
-                var usuarioService = new UsuariosService();
-                usuarioService.SalvarModificacoes(usuarioSessao);
-            }
-
-            return CadastrarContaBancaria();
         }
     }
 }

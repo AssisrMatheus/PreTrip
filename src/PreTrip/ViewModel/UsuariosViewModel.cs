@@ -9,17 +9,6 @@ namespace PreTrip.ViewModel
 {
     public class UsuariosViewModel
     {
-        public CarrinhoViewModel Carrinho
-        {
-            get
-            {
-                return PreTripSession.Carrinho;
-            }
-
-            set
-            {
-                PreTripSession.Carrinho = value;
-            }
-        }
+        public CarrinhoViewModel Carrinho { get; set; }        
     }
 }

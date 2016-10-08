@@ -17,13 +17,16 @@
                     };
 
                     //Pegos os atributos padrão à todos e adiciono o único a cada item
-                    var attHome = new { @class = att.@class + " btn-danger" };
                     var attLogin = new { @class = att.@class + " btn-success" };
                     var attCadastro = new { @class = att.@class + " btn-warning" };
                 }
 
-                <li>@Html.ActionLink("Home", "Index", null, attHome)</li>
-                <li>@Html.ActionLink("Logar", "Index", "Home", attLogin)                    
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="btn navbar-btn btn btn-success">
+                        Home
+                    </a>
+                </li>
+                <li>@Html.ActionLink("Logar", "Index", "Home", attLogin) </li>                   
                 <li>@Html.ActionLink("Cadastre-se!", "Cadastrar", "Home", attCadastro)</li>
                 <li>
                     <a href="@Url.Action("MeuCarrinho", "Usuario")">

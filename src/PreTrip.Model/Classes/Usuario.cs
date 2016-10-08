@@ -47,7 +47,10 @@ namespace PreTrip.Model.Classes
         public string Email { get; set; }
 
         public bool IsAdmin { get; set; }
-        
+
+        [ForeignKey("Pessoa")]
+        public int PessoaId { get; set; }
+
         public virtual Pessoa Pessoa { get; set; }
 
         public virtual IEnumerable<Pedido> Pedidos { get; set; }

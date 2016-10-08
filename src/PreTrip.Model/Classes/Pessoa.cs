@@ -13,7 +13,7 @@ namespace PreTrip.Model.Classes
     {
         public Pessoa()
         {
-            this.Conta = new ContaBancaria();
+            this.ContaBancaria = new ContaBancaria();
         }
 
         [Key]
@@ -31,11 +31,12 @@ namespace PreTrip.Model.Classes
         [Required]
         public DateTime DtNascimento { get; set; }
 
-        [ForeignKey("Conta")]
-        public Nullable<int>ContaId { get; set; }
-
-        public virtual ContaBancaria Conta { get; set; }
-
         public string UrlImagem { get; set; }
+
+        [ForeignKey("ContaBancaria")]
+        public int ContaBancariaId { get; set; }
+
+        public virtual ContaBancaria ContaBancaria { get; set; }
+
     }
 }

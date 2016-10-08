@@ -58,6 +58,9 @@ namespace PreTrip.Controllers
         {
             if(ModelState.IsValid)
             {
+                viewModel.Viagem.Empresa.Usuario = PreTripSession.Usuario;
+                viewModel.Viagem.Empresa.UsuarioId = PreTripSession.Usuario.Id;
+
                 new ViagensService().Inserir(viewModel.Viagem);
                 return RedirectToAction("Visualizar", "Viagem", new { id = viewModel.Viagem.Id });
             }

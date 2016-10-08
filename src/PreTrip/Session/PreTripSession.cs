@@ -24,8 +24,6 @@ namespace PreTrip.Session
 
                     if (usu != null)
                         return (Usuario)usu;
-                    else
-                        throw new Exception("Usuário precisa estar logado");
                 }
                 return null;
             }

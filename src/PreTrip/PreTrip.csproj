@@ -209,6 +209,8 @@
     <Content Include="Views\Usuario\CadastrarEndereco.cshtml" />
     <Content Include="Views\Usuario\MeuCarrinho.cshtml" />
     <Content Include="Views\Usuario\CadastroInteresses.cshtml" />
+    <Content Include="Views\Usuario\ConfirmarCompra.cshtml" />
+    <Content Include="Views\Usuario\CadastrarContaBancaria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

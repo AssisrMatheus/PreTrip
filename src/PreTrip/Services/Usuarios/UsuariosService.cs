@@ -3,6 +3,7 @@ using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,22 @@ namespace PreTrip.Services.Usuarios
 {
     public class UsuariosService
     {
+
+        public void SalvarModificacoes(Usuario usuario)
+        {
+            using (var db = new PreTripDB())
+            {
+                
+                //db.ContasBancarias.Add(usuario.Pessoa.Conta);
+                //db.SaveChanges();
+
+                //db.Pessoas.AddOrUpdate(usuario.Pessoa);        
+
+                db.Pessoas.AddOrUpdate(usuario.Pessoa);
+                db.SaveChanges();
+            }
+        }
+
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
             using (var db = new PreTripDB())

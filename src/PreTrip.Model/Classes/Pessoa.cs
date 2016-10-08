@@ -31,6 +31,9 @@ namespace PreTrip.Model.Classes
         [Required]
         public DateTime DtNascimento { get; set; }
 
+        [ForeignKey("Conta")]
+        public Nullable<int>ContaId { get; set; }
+
         public virtual ContaBancaria Conta { get; set; }
 
         public string UrlImagem { get; set; }

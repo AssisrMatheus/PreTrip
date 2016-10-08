@@ -48,7 +48,7 @@ namespace PreTrip.Controllers
         {
 
 #warning Aqui o usuário está podendo ver TODAS as empresas. Não podemos deixar ele cadastrar empresa sozinha, ele precisa cadastrar uma viagem com empresa, para poder fazer o join de Viagens que ele tem pra poder pegar as empresas e poder listar
-            ViewBag.Empresas = new EmpresasService().GetAll();
+            ViewBag.Empresas = new EmpresasService().GetAll(PreTripSession.Usuario.Id);
 
             return View();
         }
@@ -64,6 +64,10 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var empresaService = new EmpresasService();
+
+                empresa.UsuarioId = PreTripSession.Usuario.Id;
+                empresa.Usuario = PreTripSession.Usuario;
+
                 empresaService.Inserir(empresa);
                 ModelState.Clear();
             }

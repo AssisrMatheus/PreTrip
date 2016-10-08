@@ -21,8 +21,11 @@ namespace PreTrip.Session
                 if (HttpContext.Current.Session != null)
                 {
                     var usu = HttpContext.Current.Session["Usuario"];
+
                     if (usu != null)
                         return (Usuario)usu;
+                    else
+                        throw new Exception("Usuário precisa estar logado");
                 }
                 return null;
             }

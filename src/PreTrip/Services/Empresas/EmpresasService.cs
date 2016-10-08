@@ -10,11 +10,11 @@ namespace PreTrip.Services.Empresas
 {
     public class EmpresasService
     {
-        public IEnumerable<Empresa> GetAll(int? userId = null)
+        public IEnumerable<Empresa> GetAll(int userId)
         {
             using (var db = new PreTripDB())
             {
-                return db.Empresas.ToList();
+                return db.Empresas.Where(e => e.Usuario.Id == userId);
             }
         }
 

@@ -15,6 +15,35 @@ namespace PreTrip.Services.Usuarios
     public class UsuariosService
     {
 
+        public Pessoa GetPessoaById(int id)
+        {
+            using (var db = new PreTripDB())
+            {
+                var pessoaRetornada = (from pessoa in db.Pessoas.ToList()
+                                       join conta in db.ContasBancarias on pessoa.ContaBancariaId equals conta.Id
+                                       where pessoa.Id == id
+
+                                       select new Pessoa()
+                                       {
+                                           ContaBancaria = conta,
+                                           Id = pessoa.Id,
+                                           Nome = pessoa.Nome
+
+                                       }).FirstOrDefault();
+
+                return pessoaRetornada;
+            }
+        }
+
+        public void SalvarModificacoesPessoa(Pessoa pessoa)
+        {
+            using (var db = new PreTripDB())
+            {       
+                db.ContasBancarias.AddOrUpdate(pessoa.ContaBancaria);
+                db.SaveChanges();
+            }
+        }
+
         public void SalvarModificacoes(Usuario usuario)
         {
             using (var db = new PreTripDB())

@@ -9,5 +9,7 @@ namespace PreTrip.ViewModel
     public class CompraViewModel
     {
         public IEnumerable<Pedido> Pedidos { get; set; }
+
+        public double PrecoCompra { get; set; }
     }
 }

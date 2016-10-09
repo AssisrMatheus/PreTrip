@@ -11,6 +11,8 @@ namespace PreTrip.ViewModel
     {
         public CarrinhoViewModel Carrinho { get; set; }
         
-        public IEnumerable<Viagem> Viagens { get; set; }         
+        public IEnumerable<Viagem> Viagens { get; set; }
+
+        public IEnumerable<Pedido> Pedidos { get; set; }
     }
 }

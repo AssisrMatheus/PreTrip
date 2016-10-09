@@ -1,1 +1,18 @@
 ﻿@model PreTrip.ViewModel.CompraViewModel
+
+<div class="col-md-9 wrapcenter">
+    <div class="col-md-8" style="border:double 1px solid #eee">
+        @foreach (var pedido in Model.Pedidos)
+        {
+            <div>
+                @pedido.Viagem.Titulo
+            </div>
+        }
+    </div>
+
+    <div class="col-md-4">
+        <div style="border:double 1px solid #eee">
+            Preço final: @Model.PrecoCompra
+        </div>
+    </div>
+</div>

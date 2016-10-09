@@ -214,6 +214,7 @@
     <Content Include="Views\Usuario\CadastrarContaBancaria.cshtml" />
     <Content Include="Views\Usuario\MeuCarrinho.cshtml" />
     <Content Include="Views\Usuario\Viagens.cshtml" />
+    <Content Include="Views\Usuario\Pedidos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

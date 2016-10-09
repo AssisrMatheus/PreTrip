@@ -96,6 +96,17 @@ namespace PreTrip.Controllers
         }
 
         [UsuarioLogado]
+        public ActionResult Pedidos()
+        {
+            var viewModel = new UsuariosViewModel()
+            {
+                Pedidos = PreTripSession.Usuario.Pessoa.Pedidos
+            };
+
+            return View(viewModel);
+        }
+
+        [UsuarioLogado]
         public ActionResult Interesses()
         {
             var listaInteresses = new CidadesService().GetAllDistinctCity();
@@ -192,11 +203,6 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
-        public ActionResult ConfirmarCompra()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult AddCupom(UsuariosViewModel viewModel)
         {
@@ -206,6 +212,30 @@ namespace PreTrip.Controllers
             }
 
             return RedirectToAction("MeuCarrinho");
+        }
+
+        [UsuarioLogado]
+        public ActionResult ConfirmarCompra()
+        {
+            if (PreTripSession.Carrinho == null || PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo < PreTripSession.Carrinho.PrecoFinal)
+                return RedirectToAction("MeuCarrinho");
+
+            var carrinho = PreTripSession.Carrinho;
+            var usuario = PreTripSession.Usuario;
+
+            //Adiciono os pedidos do carrinho aos pedidos já feito pela pessoa
+            var pedidos = usuario.Pessoa.Pedidos.ToList();
+            pedidos.AddRange(carrinho.Pedidos);
+            usuario.Pessoa.Pedidos = pedidos;
+
+            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
+
+            //Salvo as alterações
+            new UsuariosService().SalvarModificacoes(usuario);
+
+            PreTripSession.Carrinho = null;
+            PreTripSession.Usuario = usuario;
+            return View();
         }
     }
 }

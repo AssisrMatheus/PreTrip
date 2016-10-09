@@ -11,6 +11,11 @@ namespace PreTrip.Model.Classes
     [Table("Viagem")]
     public class Viagem
     {
+        public Viagem()
+        {
+            this.Pessoa = new Pessoa();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -39,5 +44,10 @@ namespace PreTrip.Model.Classes
         public virtual IEnumerable<Evento> Eventos { get; set; }
 
         public virtual IEnumerable<Avaliacao> Avaliacoes { get; set; }
+
+        [ForeignKey("Pessoa")]
+        public int PessoaId { get; set; }
+
+        public virtual Pessoa Pessoa { get; set; }
     }
 }

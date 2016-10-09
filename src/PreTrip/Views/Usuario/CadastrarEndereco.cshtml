@@ -1,77 +1,79 @@
 ﻿@model PreTrip.Model.Classes.Endereco
 
-@{
-    ViewBag.Title = "Cadastrar Endereco";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>CadastrarEndereco</h2>
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
 
-<div class="bg-img-content">
-    <aside id="bgImgViagem" class="bg-img-content-img" style="background-color: deepskyblue;"></aside>
-
-    <div class="row bg-img-content-ctn wrapcenter col-md-10 wrapcenter card">
-        @using (Html.BeginForm("GravarEndereco", "Usuario", FormMethod.Post, new { @class = "row" }))
-        {
-            if (!Html.ViewData.ModelState.IsValid)
-            {
-                <div class="alert alert-danger validation-box" role="alert">
-                    <p style="margin: 0; padding: 0;">
-                        <i class="material-icons" style="vertical-align: middle;">error</i>
-                        <strong>Oops!</strong>
-                    </p>
-                    <p style="margin: 0; padding: 0;">
-                        Parece que você preencheu algo errado:
-                    </p>
-
-                    @Html.ValidationSummary(false)
-                </div>
-            }
-
+<!-- Tela de cadastro de empresas-->
+<div class="row row-sep " style="background:white;">
+    <div class="wrapcenter col-md-7">
+        <div class="col-md-12 text-center" style="color: #999; padding: 2em;">
             <div class="form-group">
-                <label for="descricao">Rua</label>
-                @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { placeholder = "Rio de Janeiro..", @class = "form-control" } })
-                <span class="help-block">Qual a cidade?</span>
+
+                @using (Html.BeginForm("CadastrarEndereco", "Usuario", FormMethod.Post, new { @class = "row" }))
+                {
+                    if (!Html.ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger validation-box" role="alert">
+                            <p style="margin: 0; padding: 0;">
+                                <i class="material-icons" style="vertical-align: middle;">error</i>
+                                <strong>Oops!</strong>
+                            </p>
+                            <p style="margin: 0; padding: 0;">
+                                Parece que você preencheu algo errado:
+                            </p>
+                            @Html.ValidationSummary(false)
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        <label for="descricao">Rua</label>
+                        @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { placeholder = "Rio de Janeiro..", @class = "form-control" } })
+                        <span class="help-block">Qual a cidade?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Bairro</label>
+                        @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { placeholder = "Que tal... \"Turismo em Copacabana - Rio de Janeiro\"?", @class = "form-control" } })
+                        <span class="help-block">Qual o bairro?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Cidade</label>
+                        @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { placeholder = "Rio de Janeiro..", @class = "form-control" } })
+                        <span class="help-block">Qual a cidade?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Estado</label>
+                        @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { placeholder = "Rio de Janeiro..", @class = "form-control" } })
+                        <span class="help-block">Qual o estado?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Numero</label>
+                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { placeholder = "18", @class = "form-control" } })
+                        <span class="help-block">Qual o numero do local?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Complemento</label>
+                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { placeholder = "Perto da praia..", @class = "form-control" } })
+                        <span class="help-block">Ex 403</span>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <hr />
+
+                    <div class="pull-right">
+                        @Html.ActionLink("Cancelar", "Index", "Usuario", new { @class = "btn btn-danger" })
+                        <button type="submit" class="btn btn-warning">Cadastrar</button>
+                    </div>
+                }
+
             </div>
-
-            <div class="form-group">
-                <label for="descricao">Bairro</label>
-                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { placeholder = "Que tal... \"Turismo em Copacabana - Rio de Janeiro\"?", @class = "form-control" } })
-                <span class="help-block">Qual o bairro?</span>
-            </div>   
-            
-            <div class="form-group">
-                <label for="descricao">Cidade</label>
-                @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { placeholder = "Rio de Janeiro..", @class = "form-control" } })
-                <span class="help-block">Qual a cidade?</span>
-            </div>
-
-            <div class="form-group">
-                <label for="descricao">Estado</label>
-                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { placeholder = "Rio de Janeiro..", @class = "form-control" } })
-                <span class="help-block">Qual o estado?</span>
-            </div>
-
-            <div class="form-group">
-                <label for="descricao">Numero</label>
-                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { placeholder = "18", @class = "form-control" } })
-                <span class="help-block">Qual o numero do local?</span>
-            </div>
-
-            <div class="form-group">
-                <label for="descricao">Complemento</label>
-                @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { placeholder = "Perto da praia..", @class = "form-control" } })
-                <span class="help-block">Ex 403</span>
-            </div>                            
-
-            <div class="clearfix"></div>
-            <hr />
-
-            <div class="pull-right">
-                @Html.ActionLink("Cancelar", "Index", "Usuario", new { @class = "btn btn-danger" })
-                <button type="submit" class="btn btn-warning">Cadastrar</button>
-            </div>
-        }
+        </div>
     </div>
 </div>
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")
 

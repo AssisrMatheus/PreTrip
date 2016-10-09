@@ -14,7 +14,7 @@ namespace PreTrip.Services.Empresas
         {
             using (var db = new PreTripDB())
             {
-                return db.Empresas.Where(e => e.Usuario.Id == userId);
+                return db.Empresas.Where(e => e.Usuario.Id == userId).ToList();
             }
         }
 

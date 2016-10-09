@@ -13,7 +13,7 @@ namespace PreTrip.Model.Classes
     {
         public Interesse()
         {
-            Usuario = new Usuario();
+            Pessoa = new Pessoa();
         }
 
         [Key]
@@ -21,9 +21,9 @@ namespace PreTrip.Model.Classes
         
         public string Cidade { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int UsuarioId { get; set; }
+        [ForeignKey("Pessoa")]
+        public int PessoaId { get; set; }
 
-        public virtual Usuario Usuario { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
     }
 }

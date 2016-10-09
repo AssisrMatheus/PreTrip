@@ -15,8 +15,6 @@ namespace PreTrip.Model.Classes
         public Usuario()
         {
             this.Pessoa = new Pessoa();
-            this.Pedidos = new List<Pedido>();
-            this.Interesses = new List<Interesse>();
         }
 
         [Key]
@@ -52,9 +50,5 @@ namespace PreTrip.Model.Classes
         public int PessoaId { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
-
-        public virtual IEnumerable<Pedido> Pedidos { get; set; }
-
-        public virtual IEnumerable<Interesse> Interesses { get; set; }
     }
 }

@@ -1,0 +1,32 @@
+﻿@model PreTrip.ViewModel.UsuariosViewModel
+
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
+<div class="pull-right">
+    <a href="@Url.Action("Cadastrar", "Viagem")" class="btn navbar-btn btn btn-success">
+        Cadastrar
+    </a>
+</div>
+
+<table class="table table-hover" style="width:50%;margin:0 auto;text-align:center;">
+    <thead>
+        <tr>
+            <th style="text-align:center;">Nome</th>
+            <th style="text-align:center;">Descricao</th>
+            <th style="text-align:center;">Preço</th>
+            <th style="text-align:center;">Cidade destino</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var viagem in Model.Viagens)
+        {
+            <tr>
+                <td>@viagem.Titulo</td>
+                <td>@viagem.Descricao</td>
+                <td>@viagem.PrecoPassagem</td>
+                <td>@viagem.Destino.Cidade</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")

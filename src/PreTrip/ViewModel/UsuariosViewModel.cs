@@ -9,6 +9,8 @@ namespace PreTrip.ViewModel
 {
     public class UsuariosViewModel
     {
-        public CarrinhoViewModel Carrinho { get; set; }        
+        public CarrinhoViewModel Carrinho { get; set; }
+        
+        public IEnumerable<Viagem> Viagens { get; set; }         
     }
 }

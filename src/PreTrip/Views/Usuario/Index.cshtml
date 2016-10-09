@@ -1,9 +1,18 @@
 ﻿@model PreTrip.Model.Classes.Usuario
 
+@using PreTrip.Session
+
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
 
 <!-- Tela de cadastro de empresas-->
-TELA INICIAL
+<div class="text-center" style="font-size: 2em; padding-top: 2em;">
+    <p>
+        Bem vindo @PreTripSession.Usuario.Pessoa.Nome !
+    </p>
+
+    <p>
+        Você tem R$ @PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo
+    </p>
+</div>
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")
-

@@ -83,6 +83,18 @@ namespace PreTrip.Controllers
             return RedirectToAction("Empresas");
         }
 
+
+        [UsuarioLogado]
+        public ActionResult Viagens()
+        {
+            var viewModel = new UsuariosViewModel()
+            {
+                Viagens = new ViagensService().GetAllUser(PreTripSession.Usuario.PessoaId)
+            };
+
+            return View(viewModel);
+        }
+
         [UsuarioLogado]
         public ActionResult Interesses()
         {
@@ -102,9 +114,9 @@ namespace PreTrip.Controllers
             var listaInteresses = cidadesEscolhidas
                 .Select(c => new Interesse()
                 {
-                    UsuarioId = PreTripSession.Usuario.Id,
-                    Cidade = c,
-                    Usuario = PreTripSession.Usuario
+                    PessoaId = PreTripSession.Usuario.Pessoa.Id,
+                    Pessoa = PreTripSession.Usuario.Pessoa,
+                    Cidade = c
                 }).ToList();            
 
             new InteresseService().InsertOrUpdate(listaInteresses);
@@ -136,16 +148,17 @@ namespace PreTrip.Controllers
 
         [HttpPost]
         [UsuarioLogado]
-        public ActionResult GravarEndereco(Endereco endereco)
+        public ActionResult CadastrarEndereco(Endereco endereco)
         {
             if (ModelState.IsValid) 
             {
                 var enderecoService = new EnderecosService();
                 endereco.UsuarioId = PreTripSession.Usuario.Id;
                 enderecoService.Gravar(endereco);
+                return RedirectToAction("Index", "Usuario");
             }
 
-            return RedirectToAction("Index", "Usuario");
+            return View(endereco);
         }
 
         public ActionResult AddViagemCarrinho(Viagem viagem)
@@ -179,11 +192,9 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        [UsuarioLogado]
-        public ActionResult MeuCarrinho(UsuariosViewModel viewModel)
+        public ActionResult ConfirmarCompra()
         {
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]

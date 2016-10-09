@@ -11,6 +11,22 @@ namespace PreTrip.Model.Classes
     [Table("Pedido")]
     public class Pedido
     {
+        public Pedido()
+        {
+            this.DtHrRealizacao = DateTime.Now;
+            this.Quantidade = 1;
+        }
+
+        public Pedido(Viagem viagem)
+        {
+            this.DtHrRealizacao = DateTime.Now;
+            this.Quantidade = 1;
+
+            this.Viagem = viagem;
+            this.ViagemId = viagem.Id;
+            this.PrecoFinal = viagem.PrecoPassagem;
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -25,20 +41,9 @@ namespace PreTrip.Model.Classes
         
         public virtual Viagem Viagem { get; set; }
 
-        public Pedido()
-        {
-            this.DtHrRealizacao = DateTime.Now;
-            this.Quantidade = 1;
-        }
+        [ForeignKey("Pessoa")]
+        public int PessoaId { get; set; }
 
-        public Pedido(Viagem viagem)
-        {
-            this.DtHrRealizacao = DateTime.Now;
-            this.Quantidade = 1;
-
-            this.Viagem = viagem;
-            this.ViagemId = viagem.Id;            
-            this.PrecoFinal = viagem.PrecoPassagem;
-        }
+        public virtual Pessoa Pessoa { get; set; }
     }
 }

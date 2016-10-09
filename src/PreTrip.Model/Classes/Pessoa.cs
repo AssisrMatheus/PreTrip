@@ -14,6 +14,7 @@ namespace PreTrip.Model.Classes
         public Pessoa()
         {
             this.ContaBancaria = new ContaBancaria();
+            this.Interesses = new List<Interesse>();
         }
 
         [Key]
@@ -38,5 +39,10 @@ namespace PreTrip.Model.Classes
 
         public virtual ContaBancaria ContaBancaria { get; set; }
 
+        public virtual IEnumerable<Interesse> Interesses { get; set; }
+
+        public virtual IEnumerable<Viagem> Viagens { get; set; }
+
+        public virtual IEnumerable<Pedido> Pedidos { get; set; }
     }
 }

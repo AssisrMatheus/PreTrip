@@ -52,12 +52,12 @@ namespace PreTrip.Services.Usuarios
                                        Telefone = pes.Telefone,
                                        UrlImagem = pes.UrlImagem,
                                        ContaBancariaId = cont.Id,
-                                       ContaBancaria = cont
+                                       ContaBancaria = cont,
+                                       Pedidos = pes.Pedidos
                                    },
                                    Email = usu.Email,
                                    Login = usu.Login,
                                    Id = usu.Id,
-                                   Pedidos = usu.Pedidos,
                                    Senha = usu.Senha
                                };
 

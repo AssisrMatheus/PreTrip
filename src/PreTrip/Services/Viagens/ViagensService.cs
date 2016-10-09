@@ -92,6 +92,11 @@ namespace PreTrip.Services.Viagens
             return false;
         }
 
+        public IEnumerable<Viagem> GetAllUser(int pessoaId)
+        {
+            return this.GetAll().Where(x => x.PessoaId == pessoaId);
+        }
+
         public IEnumerable<Viagem> GetAll()
         {
             using (var db = new PreTripDB())

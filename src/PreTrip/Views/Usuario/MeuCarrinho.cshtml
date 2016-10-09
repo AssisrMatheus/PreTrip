@@ -50,41 +50,37 @@
     }
     else
     {
-        using (Html.BeginForm("MeuCarrinho", "Usuario", FormMethod.Post))
+        foreach (var pedido in Model.Carrinho.Pedidos)
         {
-            Html.HiddenFor(x => x.Carrinho);
+            <div class="row viagem-box">
+                <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                    <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover; height: 7em;">
+                    </div>
+                </a>
 
-            foreach (var pedido in Model.Carrinho.Pedidos)
-            {
-                <div class="row viagem-box">
+                <div class="viagem-body col-md-8">
                     <a href="/Viagem/Visualizar/@pedido.ViagemId">
-                        <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover; height: 7em;">
+                        <div class="col-md-4">
+                            <h3>@pedido.Viagem.Titulo</h3>
+                            @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@
                         </div>
                     </a>
-
-                    <div class="viagem-body col-md-8">
-                        <a href="/Viagem/Visualizar/@pedido.ViagemId">
-                            <div class="col-md-4">
-                                <h3>@pedido.Viagem.Titulo</h3>
-                                @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@
-                            </div>
-                        </a>
-                        <div class="col-md-6">
-                            Qtd: @pedido.Quantidade<br />
-                        </div>
-                        <div class="col-md-2" style="font-size: 2rem; vertical-align:middle;">
-                            R$ @pedido.Viagem.PrecoPassagem
-                        </div>
+                    <div class="col-md-6">
+                        Qtd: @pedido.Quantidade<br />
+                    </div>
+                    <div class="col-md-2" style="font-size: 2rem; vertical-align:middle;">
+                        R$ @pedido.Viagem.PrecoPassagem
                     </div>
                 </div>
-            }
+            </div>
+        }
 
-            <hr />
+        <hr />
 
             <div class="pull-right">
                 @if (PreTripSession.Usuario != null)
                 {
-                    <button type="submit" class="btn btn-success">Confirmar Compra</button>
+                    <a href="@Url.Action("ConfirmarCompra", "Usuario")" class="btn btn-success">Confirmar Compra</a>
                 }
                 else
                 {
@@ -92,44 +88,43 @@
                 }
             </div>
 
-        }
-        <div class="clearfix"></div>
-
-        <hr />
-
-        <div class="pull-right">
-            <div class="col-md-4">
-                @using (Html.BeginForm("AddCupom", "Usuario", FormMethod.Post))
-                {
-                    <div>
-                        Cupom: <br />
-                        @Html.EditorFor(x => x.Carrinho.CupomDesconto)
-                        <button type="submit" class="btn btn-warning" style="margin-top: 1em">Descontar</button>
-                    </div>
-                }
-            </div>
-
-            <div class="col-md-8" style="font-size: 2rem; text-align: right">
-                Saldo: R$ @PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo
-                <br />
-                Total: R$ @Model.Carrinho.PrecoTotal
-                <br />
-                @{
-                    var desconto = Model.Carrinho.PrecoDesconto != 0 ? Model.Carrinho.PrecoDesconto.ToString() : "NENHUM";
-                }
-                <span style="color: #b40b0b">
-                    Desconto: @desconto
-                </span>
-                <br />
-                <span style="color: #099c19">
-                    Preço Final: R$ @Model.Carrinho.PrecoFinal
-                </span>
-                <br />
-                <span style="color: #099c19">
-                    Saldo final: R$ @(PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo - Model.Carrinho.PrecoFinal)
-                </span>
-            </div>
             <div class="clearfix"></div>
-        </div>
+
+            <hr />
+
+            <div class="pull-right">
+                <div class="col-md-4">
+                    @using (Html.BeginForm("AddCupom", "Usuario", FormMethod.Post))
+                    {
+                        <div>
+                            Cupom: <br />
+                            @Html.EditorFor(x => x.Carrinho.CupomDesconto)
+                            <button type="submit" class="btn btn-warning" style="margin-top: 1em">Descontar</button>
+                        </div>
                     }
+                </div>
+
+                <div class="col-md-8" style="font-size: 2rem; text-align: right">
+                    Saldo: R$ @PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo
+                    <br />
+                    Total: R$ @Model.Carrinho.PrecoTotal
+                    <br />
+                    @{
+                        var desconto = Model.Carrinho.PrecoDesconto != 0 ? Model.Carrinho.PrecoDesconto.ToString() : "NENHUM";
+                    }
+                    <span style="color: #b40b0b">
+                        Desconto: @desconto
+                    </span>
+                    <br />
+                    <span style="color: #099c19">
+                        Preço Final: R$ @Model.Carrinho.PrecoFinal
+                    </span>
+                    <br />
+                    <span style="color: #099c19">
+                        Saldo final: R$ @(PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo - Model.Carrinho.PrecoFinal)
+                    </span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+                        }
 </div>

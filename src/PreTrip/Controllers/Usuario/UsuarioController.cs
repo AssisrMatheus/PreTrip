@@ -174,18 +174,19 @@ namespace PreTrip.Controllers
 
         public ActionResult AddViagemCarrinho(Viagem viagem)
         {
+            var viagemPessoa = new ViagensService().GetViagem(viagem.Id);
             //Se existe uma viagem igual
-            if (PreTripSession.Carrinho != null && PreTripSession.Carrinho.Pedidos.Where(p => p.Viagem.Id == viagem.Id).Any())
+            if (PreTripSession.Carrinho != null && PreTripSession.Carrinho.Pedidos.Where(p => p.Viagem.Id == viagemPessoa.Id).Any())
             {
                 PreTripSession.Carrinho.Pedidos //Para todos os pedidos
-                    .Where(p => p.Viagem.Id == viagem.Id) //Onde a viagem do pedido é a mesma da viagem sendo adicionada
+                    .Where(p => p.Viagem.Id == viagemPessoa.Id) //Onde a viagem do pedido é a mesma da viagem sendo adicionada
                     .FirstOrDefault() //Pego o primeiro pois sei que só veio 1(pelo id)
                     .Quantidade += 1; //Adiciono 1 à quantidade
             }
             else
             {
                 var pedidos = PreTripSession.Carrinho.Pedidos.ToList();
-                pedidos.Add(new Pedido(viagem));
+                pedidos.Add(new Pedido(viagemPessoa));
 
                 PreTripSession.Carrinho.Pedidos = pedidos;
             }
@@ -223,19 +224,47 @@ namespace PreTrip.Controllers
             var carrinho = PreTripSession.Carrinho;
             var usuario = PreTripSession.Usuario;
 
+            var pedidosDefault = usuario.Pessoa.Pedidos;           
+            
+            Usuario usuarios = PreTripSession.Usuario;        
+
             //Adiciono os pedidos do carrinho aos pedidos já feito pela pessoa
-            var pedidos = usuario.Pessoa.Pedidos.ToList();
-            pedidos.AddRange(carrinho.Pedidos);
-            usuario.Pessoa.Pedidos = pedidos;
-
-            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
-
+            if (pedidosDefault != null)
+            {
+                var pedidosExistentes = usuario.Pessoa.Pedidos.ToList();
+                pedidosExistentes.AddRange(carrinho.Pedidos);
+                usuario.Pessoa.Pedidos = pedidosExistentes;
+                pedidosDefault = pedidosExistentes;
+            }
+            else
+            {
+                var pedidos = new List<Pedido>();
+                pedidos.AddRange(carrinho.Pedidos);
+                usuario.Pessoa.Pedidos = pedidos;
+                pedidosDefault = pedidos;
+            }   
+          
+            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;          
+            
             //Salvo as alterações
             new UsuariosService().SalvarModificacoes(usuario);
+
+            atualizarSaldoCriadorViagem(pedidosDefault);
 
             PreTripSession.Carrinho = null;
             PreTripSession.Usuario = usuario;
             return View();
+        }
+
+        private void atualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidosDefault)            
+        {
+            foreach (var pedido in pedidosDefault)
+            {
+                //buscar a viagem com a pessoa que criou
+                var pessoaCriadoraViagem = new UsuariosService().GetPessoaById(pedido.Viagem.Pessoa.Id); //pega o criador da viagem
+                pessoaCriadoraViagem.ContaBancaria.Saldo += pedido.PrecoFinal; //adiciona saldo na conta dele de acordo com o valor total referente a viagem cadastrada por ele
+                new UsuariosService().SalvarModificacoesPessoa(pessoaCriadoraViagem); // salva no banco
+            }
         }
     }
 }

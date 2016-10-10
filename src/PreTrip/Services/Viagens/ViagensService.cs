@@ -105,7 +105,7 @@ namespace PreTrip.Services.Viagens
                         join dest in db.Enderecos on viag.Destino.Id equals dest.Id
                         join orig in db.Enderecos on viag.Origem.Id equals orig.Id
                         join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
+                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id                        
 
                         select new Viagem()
                         {
@@ -120,7 +120,7 @@ namespace PreTrip.Services.Viagens
                             DtHrSaida = viag.DtHrSaida,
                             PrecoPassagem = viag.PrecoPassagem,
                             QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                            UrlImagem = viag.UrlImagem
+                            UrlImagem = viag.UrlImagem                            
                         }).ToList();
             }
         }
@@ -133,7 +133,8 @@ namespace PreTrip.Services.Viagens
                               join dest in db.Enderecos on viag.Destino.Id equals dest.Id
                               join orig in db.Enderecos on viag.Origem.Id equals orig.Id
                               join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                              join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
+                              join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id      
+                              join pess in db.Pessoas on viag.PessoaId equals pess.Id
                               where viag.Id == viagemId
                               select new Viagem()
                               {
@@ -148,8 +149,10 @@ namespace PreTrip.Services.Viagens
                                   DtHrSaida = viag.DtHrSaida,
                                   PrecoPassagem = viag.PrecoPassagem,
                                   QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                                  UrlImagem = viag.UrlImagem
-                              }).FirstOrDefault();
+                                  UrlImagem = viag.UrlImagem,
+                                  Pessoa = pess
+                                 
+                              }).FirstOrDefault();            
 
                 viagem.Avaliacoes = (from aval in db.Avaliacoes.ToList()
                                      join usua in db.Usuarios on aval.Usuario.Id equals usua.Id

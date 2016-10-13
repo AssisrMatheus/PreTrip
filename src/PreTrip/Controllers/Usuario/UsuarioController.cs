@@ -225,8 +225,6 @@ namespace PreTrip.Controllers
             var usuario = PreTripSession.Usuario;
 
             var pedidosDefault = usuario.Pessoa.Pedidos;           
-            
-            Usuario usuarios = PreTripSession.Usuario;        
 
             //Adiciono os pedidos do carrinho aos pedidos já feito pela pessoa
             if (pedidosDefault != null)
@@ -244,16 +242,20 @@ namespace PreTrip.Controllers
                 pedidosDefault = pedidos;
             }   
           
-            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;          
-            
+            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
+
             //Salvo as alterações
             new UsuariosService().SalvarModificacoes(usuario);
 
-            atualizarSaldoCriadorViagem(pedidosDefault);
+            this.atualizarSaldoCriadorViagem(pedidosDefault);
 
             PreTripSession.Carrinho = null;
             PreTripSession.Usuario = usuario;
-            return View();
+
+            var viewModel = new CompraViewModel();
+            viewModel.Pedidos = carrinho.Pedidos;
+
+            return View(viewModel);
         }
 
         private void atualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidosDefault)            

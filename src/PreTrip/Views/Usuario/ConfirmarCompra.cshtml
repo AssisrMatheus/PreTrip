@@ -5,14 +5,10 @@
         @foreach (var pedido in Model.Pedidos)
         {
             <div>
-                @pedido.Viagem.Titulo
+                Destino: @pedido.Viagem.Titulo <br/>
+                Preço final: @pedido.PrecoFinal
+                <hr/>
             </div>
         }
-    </div>
-
-    <div class="col-md-4">
-        <div style="border:double 1px solid #eee">
-            Preço final: @Model.PrecoCompra
-        </div>
     </div>
 </div>

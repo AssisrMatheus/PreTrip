@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PreTrip.Model.Classes;
-using PreTrip.Services.Cidades;
 using PreTrip.Services.Empresas;
 using PreTrip.Services.Usuarios;
 using PreTrip.Session;
@@ -71,8 +70,7 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var empresaService = new EmpresasService();
-
-                empresa.UsuarioId = PreTripSession.Usuario.Id;
+                
                 empresa.Usuario = PreTripSession.Usuario;
 
                 empresaService.Inserir(empresa);
@@ -89,7 +87,7 @@ namespace PreTrip.Controllers
         {
             var viewModel = new UsuariosViewModel()
             {
-                Viagens = new ViagensService().GetAllFromPessoa(PreTripSession.Usuario.PessoaId)
+                Viagens = new ViagensService().GetAllFromPessoa(PreTripSession.Usuario.Pessoa.Id)
             };
 
             return View(viewModel);
@@ -109,7 +107,7 @@ namespace PreTrip.Controllers
         [UsuarioLogado]
         public ActionResult Interesses()
         {
-            var listaInteresses = new CidadesService().GetAllDistinctCity();
+            var listaInteresses = new InteresseService().GetAllDistinctCity();
 
             return View(listaInteresses);
         }
@@ -125,7 +123,6 @@ namespace PreTrip.Controllers
             var listaInteresses = cidadesEscolhidas
                 .Select(c => new Interesse()
                 {
-                    PessoaId = PreTripSession.Usuario.Pessoa.Id,
                     Pessoa = PreTripSession.Usuario.Pessoa,
                     Cidade = c
                 }).ToList();            
@@ -164,7 +161,8 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid) 
             {
                 var enderecoService = new EnderecosService();
-                endereco.UsuarioId = PreTripSession.Usuario.Id;
+                endereco.Usuario = PreTripSession.Usuario;
+
                 enderecoService.Gravar(endereco);
                 return RedirectToAction("Index", "Usuario");
             }
@@ -245,9 +243,9 @@ namespace PreTrip.Controllers
             usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
 
             //Salvo as alterações
-            new UsuariosService().SalvarModificacoes(usuario);
+            new UsuariosService().Gravar(usuario);
 
-            this.atualizarSaldoCriadorViagem(pedidosDefault);
+            this.AtualizarSaldoCriadorViagem(pedidosDefault);
 
             PreTripSession.Carrinho = null;
             PreTripSession.Usuario = usuario;
@@ -258,14 +256,16 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
-        private void atualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidosDefault)            
+        private void AtualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidosDefault)            
         {
             foreach (var pedido in pedidosDefault)
             {
                 //buscar a viagem com a pessoa que criou
-                var pessoaCriadoraViagem = new UsuariosService().GetPessoaById(pedido.Viagem.Pessoa.Id); //pega o criador da viagem
-                pessoaCriadoraViagem.ContaBancaria.Saldo += pedido.PrecoFinal; //adiciona saldo na conta dele de acordo com o valor total referente a viagem cadastrada por ele
-                new UsuariosService().SalvarModificacoesPessoa(pessoaCriadoraViagem); // salva no banco
+                var pessoaCriadoraViagem = new UsuariosService().GetUsuarioById(pedido.Viagem.Pessoa.Id); //pega o criador da viagem
+
+                pessoaCriadoraViagem.Pessoa.ContaBancaria.Saldo += pedido.PrecoFinal; //adiciona saldo na conta dele de acordo com o valor total referente a viagem cadastrada por ele
+
+                new UsuariosService().Gravar(pessoaCriadoraViagem); // salva no banco
             }
         }
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using PreTrip.Model.Context;
 using PreTrip.Model.Classes;
+using PreTrip.Services.Viagens;
 
 namespace PreTrip.Services.Interesse
 {
@@ -21,6 +22,17 @@ namespace PreTrip.Services.Interesse
 
                 db.SaveChanges();
             }
+        }
+
+        public IEnumerable<string> GetAllDistinctCity()
+        {
+            var allViagens = new ViagensService().GetAll();
+
+            var listaCidades = new List<string>();
+
+            listaCidades.AddRange(allViagens.Select(x => x.Origem.Cidade).Distinct());
+
+            return listaCidades;
         }
     }
 }

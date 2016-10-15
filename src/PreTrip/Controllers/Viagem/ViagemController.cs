@@ -59,7 +59,6 @@ namespace PreTrip.Controllers
             if(ModelState.IsValid)
             {
                 viewModel.Viagem.Empresa.Usuario = PreTripSession.Usuario;
-                viewModel.Viagem.Empresa.UsuarioId = PreTripSession.Usuario.Id;
                 viewModel.Viagem.Pessoa = PreTripSession.Usuario.Pessoa;
 
                 new ViagensService().Gravar(viewModel.Viagem);
@@ -76,7 +75,6 @@ namespace PreTrip.Controllers
             if(ModelState.IsValid)
             {
                 var service = new ViagensService();
-                viewModel.Avaliacao.ViagemId = viewModel.Viagem.Id;
                 viewModel.Avaliacao.Usuario = PreTripSession.Usuario;
 
                 service.InserirAvaliacao(viewModel.Avaliacao);
@@ -99,7 +97,7 @@ namespace PreTrip.Controllers
             if (PreTripSession.Usuario != null)
             {
                 var viagensService = new ViagensService();
-                viagensVM.BuscaViagens.UsuarioId = PreTripSession.Usuario.Id;
+                viagensVM.BuscaViagens.Usuario = PreTripSession.Usuario;
                 viagensService.InserirBusca(viagensVM.BuscaViagens);
             }
         }

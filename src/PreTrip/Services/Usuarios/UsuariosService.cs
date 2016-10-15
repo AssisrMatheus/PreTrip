@@ -14,48 +14,11 @@ namespace PreTrip.Services.Usuarios
 {
     public class UsuariosService
     {
-
-        public Pessoa GetPessoaById(int id)
+        public Usuario GetUsuarioById(int pessoaId)
         {
             using (var db = new PreTripDB())
             {
-                var pessoaRetornada = (from pessoa in db.Pessoas.ToList()
-                                       join conta in db.ContasBancarias on pessoa.ContaBancariaId equals conta.Id
-                                       where pessoa.Id == id
-
-                                       select new Pessoa()
-                                       {
-                                           ContaBancaria = conta,
-                                           Id = pessoa.Id,
-                                           Nome = pessoa.Nome
-
-                                       }).FirstOrDefault();
-
-                return pessoaRetornada;
-            }
-        }
-
-        public void SalvarModificacoesPessoa(Pessoa pessoa)
-        {
-            using (var db = new PreTripDB())
-            {       
-                db.ContasBancarias.AddOrUpdate(pessoa.ContaBancaria);
-                db.SaveChanges();
-            }
-        }
-
-        public void SalvarModificacoes(Usuario usuario)
-        {
-            using (var db = new PreTripDB())
-            {
-                
-                //db.ContasBancarias.Add(usuario.Pessoa.Conta);
-                //db.SaveChanges();
-
-                //db.Pessoas.AddOrUpdate(usuario.Pessoa);        
-
-                db.Pessoas.AddOrUpdate(usuario.Pessoa);
-                db.SaveChanges();
+                return db.Usuarios.Where(x => x.Id == pessoaId).FirstOrDefault();
             }
         }
 
@@ -63,48 +26,12 @@ namespace PreTrip.Services.Usuarios
         {
             using (var db = new PreTripDB())
             {
-                //Pega um usuário com seu objeto pessoa preenchido
-                var usuarios = from usu in db.Usuarios.ToList()
-                               join pes in db.Pessoas.ToList()
-                               on usu.PessoaId equals pes.Id
-                               join cont in db.ContasBancarias.ToList()
-                               on pes.ContaBancariaId equals cont.Id
-                               select new Usuario()//Aqui seto os parâmetros que virão no select(quais colunas)
-                               {
-                                   IsAdmin = usu.IsAdmin,
-                                   Pessoa = new Pessoa()
-                                   {
-                                       Id = pes.Id,
-                                       Cpf = pes.Cpf,
-                                       DtNascimento = pes.DtNascimento,
-                                       Nome = pes.Nome,
-                                       Telefone = pes.Telefone,
-                                       UrlImagem = pes.UrlImagem,
-                                       ContaBancariaId = cont.Id,
-                                       ContaBancaria = cont,
-                                       Pedidos = pes.Pedidos
-                                   },
-                                   Email = usu.Email,
-                                   Login = usu.Login,
-                                   Id = usu.Id,
-                                   Senha = usu.Senha
-                               };
+                var usuarios = db.Usuarios;
 
-                if (filtro != null && usuarios.Any())
-                    return usuarios.Where(filtro);
+                if (filtro != null)
+                    return usuarios.Where(filtro).ToList();
                 else
-                    return usuarios;
-            }
-        }
-
-        public IEnumerable<Model.Classes.Interesse> GetUsuarioInteresses(Func<Usuario, bool> filtro = null)
-        {
-#warning Falta terminar. Verificar no banco pq não está trazendo o id do usuario.
-            using (var db = new PreTripDB())
-            {
-                var listaInteresses = db.Interesses.ToList();
-
-                return listaInteresses;
+                    return usuarios.ToList();
             }
         }
 
@@ -115,7 +42,7 @@ namespace PreTrip.Services.Usuarios
         public void Inserir(Usuario usuario)
         {
             //Se é um usuário válido, cadastra.
-            if (this.ValidaNovoUsuario(usuario)) { 
+            if (!this.UsuarioExiste(usuario)) { 
                 using (var db = new PreTripDB())
                 {
                     //Converte para md5
@@ -133,7 +60,8 @@ namespace PreTrip.Services.Usuarios
         /// <param name="usuario"></param>
         public void Alterar(Usuario usuario)
         {
-            if (!this.ValidaNovoUsuario(usuario))
+            if (this.UsuarioExiste(usuario))
+            {
                 using (var db = new PreTripDB())
                 {
                     // Converte para md5
@@ -142,6 +70,17 @@ namespace PreTrip.Services.Usuarios
                     db.Usuarios.AddOrUpdate(usuario);
                     db.SaveChanges();
                 }
+            }
+        }
+
+#warning verificar a necessidade desse método
+        public void Gravar(Usuario usuario)
+        {
+            using (var db = new PreTripDB())
+            {
+                db.Usuarios.AddOrUpdate(usuario);
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -151,16 +90,16 @@ namespace PreTrip.Services.Usuarios
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public bool ValidaNovoUsuario(Usuario usuario)
+        public bool UsuarioExiste(Usuario usuario)
         {
-            return !this.GetUsers(u => u.Login == usuario.Login).Any();
+            return this.GetUsers(u => u.Login == usuario.Login).Any();
         }
 
-        public IEnumerable<Busca> GetBuscas(int id)
+        public IEnumerable<Busca> GetBuscas(int userId)
         {
             using (var db = new PreTripDB())
             {
-                return db.Buscas.Where(b => b.UsuarioId == id).ToList();
+                return db.Buscas.Where(b => b.Usuario.Id == userId).ToList();
             }
         }
     }

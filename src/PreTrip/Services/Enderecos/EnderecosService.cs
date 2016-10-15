@@ -19,29 +19,12 @@ namespace PreTrip.Services.Enderecos
             }
         }
 
-        public IEnumerable<Endereco> GetAllByUser()
+        public IEnumerable<Endereco> GetAllByUser(int userId)
         {
-            if (PreTripSession.Usuario != null) {
-                int idUsuario = PreTripSession.Usuario.Id;
-                using (var db = new PreTripDB())
-                {
-                    return (from end in db.Enderecos.ToList()
-
-                            where end.UsuarioId == idUsuario
-
-                            select new Endereco()
-                            {
-                                Cidade = end.Cidade,
-                                Bairro = end.Bairro,
-                                Estado = end.Estado,
-                                Complemento = end.Complemento,
-                                Numero = end.Numero
-
-                            }).ToList();
-                }  
+            using (var db = new PreTripDB())
+            {
+                return db.Enderecos.Where(x => x.Usuario.Id == userId).ToList();
             }
-
-            return null;
         }
     }
 }

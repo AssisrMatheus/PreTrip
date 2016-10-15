@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Pessoa")]
     public class Pessoa
     {
         public Pessoa()
@@ -16,8 +16,7 @@ namespace PreTrip.Model.Classes
             this.ContaBancaria = new ContaBancaria();
             this.Interesses = new List<Interesse>();
         }
-
-        [Key]
+        
         public int Id { get; set; }
 
         [Required]
@@ -33,16 +32,36 @@ namespace PreTrip.Model.Classes
         public DateTime DtNascimento { get; set; }
 
         public string UrlImagem { get; set; }
-
-        [ForeignKey("ContaBancaria")]
-        public int ContaBancariaId { get; set; }
-
+        
         public virtual ContaBancaria ContaBancaria { get; set; }
 
-        public virtual IEnumerable<Interesse> Interesses { get; set; }
+        public virtual ICollection<Interesse> Interesses { get; set; }
 
-        public virtual IEnumerable<Viagem> Viagens { get; set; }
+        public virtual ICollection<Viagem> Viagens { get; set; }
 
-        public virtual IEnumerable<Pedido> Pedidos { get; set; }
+        public virtual ICollection<Pedido> Pedidos { get; set; }
+    }
+
+    public class PessoaMap : EntityTypeConfiguration<Pessoa>
+    {
+        public PessoaMap()
+        {
+            //Nome da tabela
+            ToTable("Pessoa");
+
+            //Primary Key
+            HasKey(x => x.Id);
+
+            Property(x => x.Nome).IsRequired();
+            Property(x => x.Cpf).IsRequired();
+            Property(x => x.DtNascimento).IsRequired();
+
+            //Foreign Key
+            HasRequired(x => x.ContaBancaria);
+
+            HasMany(x => x.Interesses);
+            HasMany(x => x.Viagens);
+            HasMany(x => x.Pedidos);
+        }
     }
 }

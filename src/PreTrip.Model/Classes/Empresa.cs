@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Empresa")]
     public class Empresa
     {
-        [Key]
+        public Empresa()
+        {
+            this.Usuario = new Usuario();
+        }
+
+        public Empresa(Usuario usuario)
+        {
+            this.Usuario = usuario;
+        }
+        
         public int Id { get; set; }
 
         public long Cnpj { get; set; }
@@ -19,24 +28,22 @@ namespace PreTrip.Model.Classes
         public string RazaoSocial { get; set; }
 
         public string NomeFantasia { get; set; }
-
-        [ForeignKey("Usuario")]
-        public int UsuarioId { get; set; }
-
+        
         public virtual Usuario Usuario { get; set; }
+    }
 
-        public Empresa()
+    public class EmpresaMap : EntityTypeConfiguration<Empresa>
+    {
+        public EmpresaMap()
         {
+            //Nome da tabela
+            ToTable("Empresa");
 
+            //Primary Key
+            HasKey(x => x.Id);
+
+            //Foreign Key
+            HasRequired(x => x.Usuario);
         }
-
-        public Empresa(Usuario usuario)
-        {
-            this.UsuarioId = usuario.Id;
-            this.Usuario = usuario;
-        }
-
-        //[ForeignKey("IdEndereco")]
-        //public Endereco Endereco { get; set; }
     }
 }

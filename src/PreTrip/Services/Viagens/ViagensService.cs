@@ -11,117 +11,48 @@ namespace PreTrip.Services.Viagens
 {
     public class ViagensService
     {
-        public void InserirBusca(Busca busca)
-        {
-            using (var db = new PreTripDB())
-            {
-                if (AlgumCampoPreenchido(busca))
-                {
-                    db.Buscas.Add(busca);
-                    db.SaveChanges();
-                }
-            }
-        }
-
-        private bool AlgumCampoPreenchido(Busca busca)
-        {
-            if (!string.IsNullOrEmpty(busca.Titulo)
-                || !string.IsNullOrEmpty(busca.Origem)
-                || !string.IsNullOrEmpty(busca.Destino)
-                || busca.Preco != 0 || busca.QuantidadeLugares != 0
-                || busca.LugaresDisponiveis != 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        public IEnumerable<Viagem> GetAllFilter(Busca filtros)
-        {
-            using (var db = new PreTripDB())
-            {
-                var viagens = (from viag in db.Viagens.ToList()
-                               join destino in db.Enderecos on viag.Destino.Id equals destino.Id
-                               join origem in db.Enderecos on viag.Origem.Id equals origem.Id
-                               join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                               join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id
-
-                               where
-                               //se o filtro estiver nulo, ele busca o que esta no banco,exemplo, se filtro origem estiver nulo, para cada linha ira buscar origem = origem do banco
-                               origem.Cidade
-                               .ToUpper()
-                               .Contains((string.IsNullOrEmpty(filtros.Origem) ? origem.Cidade.ToUpper() : filtros.Origem.ToUpper()))
-
-                               && destino.Cidade
-                               .ToUpper()
-                               .Contains((string.IsNullOrEmpty(filtros.Destino) ? destino.Cidade.ToUpper() : filtros.Destino.ToUpper()))
-
-                               && viag.Titulo
-                               .ToUpper()
-                               .Contains((string.IsNullOrEmpty(filtros.Titulo) ? viag.Titulo.ToUpper() : filtros.Titulo.ToUpper()))
-
-                               && viag.PrecoPassagem == (NumeroNaoPreenchido(filtros.Preco) ? viag.PrecoPassagem : filtros.Preco)
-                               && viag.QuantidadeLugaresDisponiveis == (NumeroNaoPreenchido(filtros.QuantidadeLugares) ? viag.QuantidadeLugaresDisponiveis : filtros.QuantidadeLugares)
-
-                               select new Viagem()
-                               {
-                                   Id = viag.Id,
-                                   Titulo = viag.Titulo,
-                                   Descricao = viag.Descricao,
-                                   Destino = destino,
-                                   Origem = origem,
-                                   Empresa = emp,
-                                   Veiculo = veic,
-                                   DtHrChegadaEstimada = viag.DtHrChegadaEstimada,
-                                   DtHrSaida = viag.DtHrSaida,
-                                   PrecoPassagem = viag.PrecoPassagem,
-                                   QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                                   UrlImagem = viag.UrlImagem,
-                               }).ToList();
-
-                return viagens;
-            }
-        }
-
-        private bool NumeroNaoPreenchido(Object numero)
-        {
-            if (Convert.ToDouble(numero) == 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public IEnumerable<Viagem> GetAllUser(int pessoaId)
-        {
-            return this.GetAll().Where(x => x.PessoaId == pessoaId);
-        }
-
         public IEnumerable<Viagem> GetAll()
         {
             using (var db = new PreTripDB())
             {
-                return (from viag in db.Viagens.ToList()
-                        join dest in db.Enderecos on viag.Destino.Id equals dest.Id
-                        join orig in db.Enderecos on viag.Origem.Id equals orig.Id
-                        join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                        join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id                        
+                return db.Viagens.ToList();
+            }
+        }
 
-                        select new Viagem()
-                        {
-                            Id = viag.Id,
-                            Titulo = viag.Titulo,
-                            Descricao = viag.Descricao,
-                            Destino = dest,
-                            Origem = orig,
-                            Empresa = emp,
-                            Veiculo = veic,
-                            DtHrChegadaEstimada = viag.DtHrChegadaEstimada,
-                            DtHrSaida = viag.DtHrSaida,
-                            PrecoPassagem = viag.PrecoPassagem,
-                            QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                            UrlImagem = viag.UrlImagem                            
-                        }).ToList();
+        public IEnumerable<Viagem> GetAllFilter(Busca filtros)
+        {
+            using (var db = new PreTripDB())
+            {
+                //Cria a query inicial
+                var viagens = db.Viagens;
+
+                //Vai aplicando os filtros where na query de acordo com o necessário
+
+                if (!string.IsNullOrEmpty(filtros.Origem))
+                    viagens.Where(x => x.Origem.Cidade.ToUpper().Contains(filtros.Origem.ToUpper()));
+
+                if (!string.IsNullOrEmpty(filtros.Destino))
+                    viagens.Where(x => x.Destino.Cidade.ToUpper().Contains(filtros.Destino.ToUpper()));
+
+                if (!string.IsNullOrEmpty(filtros.Titulo))
+                    viagens.Where(x => x.Titulo.ToUpper().Contains(filtros.Titulo.ToUpper()));
+
+                if (filtros.Preco != 0)
+                    viagens.Where(x => x.PrecoPassagem <= filtros.Preco);
+
+                if (filtros.QuantidadeLugares != 0)
+                    viagens.Where(x => x.QuantidadeLugaresDisponiveis >= filtros.QuantidadeLugares);
+
+                //Somente depois de criar a query com os filtros materializa o resultado com tolist, trazendo somente o necessário do filtro(entity s2)
+                return viagens.ToList();
+            }
+        }
+
+        public IEnumerable<Viagem> GetAllFromPessoa(int pessoaId)
+        {
+            using (var db = new PreTripDB())
+            {
+                return db.Viagens.Where(x => x.Pessoa.Id == pessoaId).ToList();
             }
         }
 
@@ -129,57 +60,11 @@ namespace PreTrip.Services.Viagens
         {
             using (var db = new PreTripDB())
             {
-                var viagem = (from viag in db.Viagens.ToList()
-                              join dest in db.Enderecos on viag.Destino.Id equals dest.Id
-                              join orig in db.Enderecos on viag.Origem.Id equals orig.Id
-                              join emp in db.Empresas on viag.Empresa.Id equals emp.Id
-                              join veic in db.Veiculos on viag.Veiculo.Id equals veic.Id      
-                              join pess in db.Pessoas on viag.PessoaId equals pess.Id
-                              where viag.Id == viagemId
-                              select new Viagem()
-                              {
-                                  Id = viag.Id,
-                                  Titulo = viag.Titulo,
-                                  Descricao = viag.Descricao,
-                                  Destino = dest,
-                                  Origem = orig,
-                                  Empresa = emp,
-                                  Veiculo = veic,
-                                  DtHrChegadaEstimada = viag.DtHrChegadaEstimada,
-                                  DtHrSaida = viag.DtHrSaida,
-                                  PrecoPassagem = viag.PrecoPassagem,
-                                  QuantidadeLugaresDisponiveis = viag.QuantidadeLugaresDisponiveis,
-                                  UrlImagem = viag.UrlImagem,
-                                  Pessoa = pess
-                                 
-                              }).FirstOrDefault();            
-
-                viagem.Avaliacoes = (from aval in db.Avaliacoes.ToList()
-                                     join usua in db.Usuarios on aval.Usuario.Id equals usua.Id
-                                     join pess in db.Pessoas on usua.Pessoa.Id equals pess.Id
-                                     where aval.ViagemId == viagem.Id
-                                     select new Avaliacao()//Pego tudo da avaliacao
-                                     {
-                                         Comentario = aval.Comentario,
-                                         Nota = aval.Nota,
-                                         Usuario = new Usuario() //Somente o que preciso do usuario(Não preciso do login e senha dele por exemplo)
-                                         {
-                                             Pessoa = pess,
-                                             Id = usua.Id,
-                                             Email = usua.Email
-                                         },
-                                         ViagemId = aval.ViagemId,
-                                         Viagem = aval.Viagem,
-                                         Id = aval.Id
-                                     }).ToList();
-
-                viagem.Eventos = db.Eventos.Where(e => e.ViagemId == viagem.Id).ToList();
-
-                return viagem;
+                return db.Viagens.Where(x => x.Id == viagemId).FirstOrDefault();
             }
         }
 
-        public void Inserir(Viagem viagem)
+        public void Gravar(Viagem viagem)
         {
             using (var db = new PreTripDB())
             {
@@ -202,6 +87,22 @@ namespace PreTrip.Services.Viagens
             {
                 db.Avaliacoes.Add(avaliacao);
                 db.SaveChanges();
+            }
+        }
+
+        public void InserirBusca(Busca busca)
+        {
+            using (var db = new PreTripDB())
+            {
+                if (!string.IsNullOrEmpty(busca.Titulo)
+                || !string.IsNullOrEmpty(busca.Origem)
+                || !string.IsNullOrEmpty(busca.Destino)
+                || busca.Preco != 0 || busca.QuantidadeLugares != 0
+                || busca.LugaresDisponiveis != 0)
+                {
+                    db.Buscas.Add(busca);
+                    db.SaveChanges();
+                }
             }
         }
 

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Interesse")]
     public class Interesse
     {
         public Interesse()
@@ -21,9 +21,21 @@ namespace PreTrip.Model.Classes
         
         public string Cidade { get; set; }
 
-        [ForeignKey("Pessoa")]
-        public int PessoaId { get; set; }
-
         public virtual Pessoa Pessoa { get; set; }
+    }
+
+    public class InteresseMap : EntityTypeConfiguration<Interesse>
+    {
+        public InteresseMap()
+        {
+            //Nome da tabela
+            ToTable("Interesse");
+
+            //Primary Key
+            HasKey(x => x.Id);
+
+            //Foreign Key
+            HasRequired(x => x.Pessoa);
+        }
     }
 }

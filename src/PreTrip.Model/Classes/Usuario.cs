@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Usuario")]
     public class Usuario
     {
         public Usuario()
@@ -17,14 +17,12 @@ namespace PreTrip.Model.Classes
             this.Pessoa = new Pessoa();
         }
 
-        [Key]
         public int Id { get; set; }
 
         [Required]
         public string Login { get; set; }
 
-
-        private string senha;
+        private string senha;        
         [Required]
         public string Senha
         {
@@ -46,9 +44,24 @@ namespace PreTrip.Model.Classes
 
         public bool IsAdmin { get; set; }
 
-        [ForeignKey("Pessoa")]
-        public int PessoaId { get; set; }
-
         public virtual Pessoa Pessoa { get; set; }
+    }
+
+    public class UsuarioMap : EntityTypeConfiguration<Usuario>
+    {
+        public UsuarioMap()
+        {
+            //Nome da tabela
+            ToTable("Usuario");
+
+            //Primary Key
+            HasKey(x => x.Id);
+
+            Property(x => x.Login).IsRequired();
+            Property(x => x.Senha).IsRequired();
+
+            //Foreign Key
+            HasRequired(x => x.Pessoa);
+        }
     }
 }

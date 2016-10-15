@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Pedido")]
     public class Pedido
     {
         public Pedido()
@@ -23,11 +23,9 @@ namespace PreTrip.Model.Classes
             this.Quantidade = 1;
 
             this.Viagem = viagem;
-            this.ViagemId = viagem.Id;
             this.PrecoFinal = viagem.PrecoPassagem;
         }
-
-        [Key]
+        
         public int Id { get; set; }
 
         public int Quantidade { get; set; }
@@ -35,15 +33,25 @@ namespace PreTrip.Model.Classes
         public double PrecoFinal { get; set; }
 
         public DateTime DtHrRealizacao { get; set; }
-
-        [ForeignKey("Viagem")]
-        public int ViagemId { get; set; }
         
         public virtual Viagem Viagem { get; set; }
 
-        [ForeignKey("Pessoa")]
-        public int PessoaId { get; set; }
-
         public virtual Pessoa Pessoa { get; set; }
+    }
+
+    public class PedidoMap : EntityTypeConfiguration<Pedido>
+    {
+        public PedidoMap()
+        {
+            //Nome da tabela
+            ToTable("Pedido");
+
+            //Primary Key
+            HasKey(x => x.Id);
+
+            //Foreign Key
+            HasRequired(x => x.Viagem);
+            HasRequired(x => x.Pessoa);            
+        }
     }
 }

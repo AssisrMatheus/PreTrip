@@ -89,7 +89,7 @@ namespace PreTrip.Controllers
         {
             var viewModel = new UsuariosViewModel()
             {
-                Viagens = new ViagensService().GetAllUser(PreTripSession.Usuario.PessoaId)
+                Viagens = new ViagensService().GetAllFromPessoa(PreTripSession.Usuario.PessoaId)
             };
 
             return View(viewModel);

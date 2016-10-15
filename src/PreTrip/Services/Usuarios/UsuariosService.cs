@@ -102,7 +102,7 @@ namespace PreTrip.Services.Usuarios
 #warning Falta terminar. Verificar no banco pq não está trazendo o id do usuario.
             using (var db = new PreTripDB())
             {
-                var listaInteresses = db.UsuarioInteresses.ToList();
+                var listaInteresses = db.Interesses.ToList();
 
                 return listaInteresses;
             }

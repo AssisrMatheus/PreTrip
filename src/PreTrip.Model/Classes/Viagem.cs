@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Viagem")]
     public class Viagem
     {
         public Viagem()
         {
             this.Pessoa = new Pessoa();
         }
-
-        [Key]
+        
         public int Id { get; set; }
 
         public string Titulo { get; set; }
@@ -41,13 +40,34 @@ namespace PreTrip.Model.Classes
 
         public virtual Veiculo Veiculo { get; set; }
 
-        public virtual IEnumerable<Evento> Eventos { get; set; }
-
-        public virtual IEnumerable<Avaliacao> Avaliacoes { get; set; }
-
-        [ForeignKey("Pessoa")]
-        public int PessoaId { get; set; }
-
         public virtual Pessoa Pessoa { get; set; }
+
+        public virtual ICollection<Evento> Eventos { get; set; }
+
+        public virtual ICollection<Avaliacao> Avaliacoes { get; set; }
+        
+    }
+
+    public class ViagemMap : EntityTypeConfiguration<Viagem>
+    {
+        public ViagemMap()
+        {
+            //Nome da tabela
+            ToTable("viagem");
+
+            //Primary Key
+            HasKey(x => x.Id);
+
+            //Foreign Keys
+            HasRequired(x => x.Origem);
+            HasRequired(x => x.Destino);
+            HasRequired(x => x.Empresa);
+            HasRequired(x => x.Veiculo);
+            HasRequired(x => x.Pessoa);
+
+            //Many to one
+            HasMany(x => x.Eventos);
+            HasMany(x => x.Avaliacoes);
+        }
     }
 }

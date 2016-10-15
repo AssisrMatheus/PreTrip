@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PreTrip.Model.Classes
 {
-    [Table("Endereco")]
     public class Endereco
     {
-        [Key]
+        public Endereco()
+        {
+            this.Usuario = new Usuario();
+        }
+
         public int Id { get; set; }
 
         public int Numero { get; set; }
@@ -26,9 +30,21 @@ namespace PreTrip.Model.Classes
 
         public string Estado { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int UsuarioId{get; set;}
+        public virtual Usuario Usuario { get; set; }
+    }
 
-        public Usuario Usuario { get; set; }
+    public class EnderecoMap : EntityTypeConfiguration<Endereco>
+    {
+        public EnderecoMap()
+        {
+            //Nome da tabela
+            ToTable("Endereco");
+
+            //Primary Key
+            HasKey(x => x.Id);
+
+            //Foreign Key
+            HasRequired(x => x.Usuario);
+        }
     }
 }

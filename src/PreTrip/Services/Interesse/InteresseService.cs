@@ -16,7 +16,7 @@ namespace PreTrip.Services.Interesse
             {
                 interesses.ToList().ForEach(x =>
                 {
-                    db.UsuarioInteresses.AddOrUpdate(x);                    
+                    db.Interesses.AddOrUpdate(x);                    
                 });
 
                 db.SaveChanges();

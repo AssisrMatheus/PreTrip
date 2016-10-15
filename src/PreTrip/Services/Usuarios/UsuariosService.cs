@@ -22,6 +22,14 @@ namespace PreTrip.Services.Usuarios
             }
         }
 
+        public Usuario GetUsuarioLoginSenha(string login, string senha)
+        {
+            using (var db = new PreTripDB())
+            {
+                return db.Usuarios.Include(x => x.Pessoa).Include(x => x.Pessoa.ContaBancaria).Where(x => x.Login == login && x.Senha == senha).FirstOrDefault();
+            }
+        }
+
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
             using (var db = new PreTripDB())

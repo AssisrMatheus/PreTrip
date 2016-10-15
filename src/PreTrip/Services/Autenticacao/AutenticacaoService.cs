@@ -36,7 +36,7 @@ namespace PreTrip.Services.Autenticacao
                 //Se não encontrou nenhum usuario admin com aquele login, é um usuário normal
                 //então precisa ter digitado a senha correta também, e retornará nulo se inválido(padrão do first ou default),
                 var senhaHash = CreateMD5.GetHash(senha);
-                var usuario = service.GetUsers(u => u.Login == login && u.Senha == senhaHash).FirstOrDefault();
+                var usuario = service.GetUsuarioLoginSenha(login, senhaHash);
 
                 if(usuario != null)
                     PreTripSession.Usuario = usuario;

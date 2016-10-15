@@ -11,19 +11,23 @@ namespace PreTrip.Model.Classes
 {
     public class Pedido
     {
-        public Pedido()
+        public Pedido(Pessoa pessoa)
         {
             this.DtHrRealizacao = DateTime.Now;
             this.Quantidade = 1;
+
+            this.Pessoa = pessoa;
         }
 
-        public Pedido(Viagem viagem)
+        public Pedido(Viagem viagem, Pessoa pessoa)
         {
             this.DtHrRealizacao = DateTime.Now;
             this.Quantidade = 1;
 
             this.Viagem = viagem;
             this.PrecoFinal = viagem.PrecoPassagem;
+
+            this.Pessoa = pessoa;
         }
         
         public int Id { get; set; }

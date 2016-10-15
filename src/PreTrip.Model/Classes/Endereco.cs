@@ -11,11 +11,6 @@ namespace PreTrip.Model.Classes
 {
     public class Endereco
     {
-        public Endereco()
-        {
-            this.Usuario = new Usuario();
-        }
-
         public int Id { get; set; }
 
         public int Numero { get; set; }

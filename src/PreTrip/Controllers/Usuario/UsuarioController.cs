@@ -50,8 +50,7 @@ namespace PreTrip.Controllers
         [UsuarioLogado]
         public ActionResult Empresas()
         {
-
-#warning Aqui o usuário está podendo ver TODAS as empresas. Não podemos deixar ele cadastrar empresa sozinha, ele precisa cadastrar uma viagem com empresa, para poder fazer o join de Viagens que ele tem pra poder pegar as empresas e poder listar
+#warning usar viewmodel e não viewbag
             ViewBag.Empresas = new EmpresasService().GetAll(PreTripSession.Usuario.Id);
 
             return View();
@@ -184,7 +183,7 @@ namespace PreTrip.Controllers
             else
             {
                 var pedidos = PreTripSession.Carrinho.Pedidos.ToList();
-                pedidos.Add(new Pedido(viagemPessoa));
+                pedidos.Add(new Pedido(viagemPessoa, PreTripSession.Usuario.Pessoa));
 
                 PreTripSession.Carrinho.Pedidos = pedidos;
             }

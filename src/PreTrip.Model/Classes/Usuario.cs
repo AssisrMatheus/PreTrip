@@ -12,11 +12,6 @@ namespace PreTrip.Model.Classes
 {
     public class Usuario
     {
-        public Usuario()
-        {
-            this.Pessoa = new Pessoa();
-        }
-
         public int Id { get; set; }
 
         [Required]

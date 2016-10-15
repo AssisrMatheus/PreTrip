@@ -11,10 +11,6 @@ namespace PreTrip.Model.Classes
 {
     public class Interesse
     {
-        public Interesse()
-        {
-            Pessoa = new Pessoa();
-        }
 
         [Key]
         public int Id { get; set; }

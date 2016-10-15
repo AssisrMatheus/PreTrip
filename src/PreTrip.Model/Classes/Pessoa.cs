@@ -13,8 +13,9 @@ namespace PreTrip.Model.Classes
     {
         public Pessoa()
         {
-            this.ContaBancaria = new ContaBancaria();
             this.Interesses = new List<Interesse>();
+            this.Viagens = new List<Viagem>();
+            this.Pedidos = new List<Pedido>();
         }
         
         public int Id { get; set; }
@@ -35,11 +36,11 @@ namespace PreTrip.Model.Classes
         
         public virtual ContaBancaria ContaBancaria { get; set; }
 
-        public virtual ICollection<Interesse> Interesses { get; set; }
+        public ICollection<Interesse> Interesses { get; set; }
 
-        public virtual ICollection<Viagem> Viagens { get; set; }
+        public ICollection<Viagem> Viagens { get; set; }
 
-        public virtual ICollection<Pedido> Pedidos { get; set; }
+        public ICollection<Pedido> Pedidos { get; set; }
     }
 
     public class PessoaMap : EntityTypeConfiguration<Pessoa>

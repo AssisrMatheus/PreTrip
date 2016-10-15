@@ -13,9 +13,10 @@ namespace PreTrip.Model.Classes
     {
         public Viagem()
         {
-            this.Pessoa = new Pessoa();
+            this.Eventos = new List<Evento>();
+            this.Avaliacoes = new List<Avaliacao>();
         }
-        
+          
         public int Id { get; set; }
 
         public string Titulo { get; set; }
@@ -42,10 +43,9 @@ namespace PreTrip.Model.Classes
 
         public virtual Pessoa Pessoa { get; set; }
 
-        public virtual ICollection<Evento> Eventos { get; set; }
+        public ICollection<Evento> Eventos { get; set; }
 
-        public virtual ICollection<Avaliacao> Avaliacoes { get; set; }
-        
+        public ICollection<Avaliacao> Avaliacoes { get; set; }        
     }
 
     public class ViagemMap : EntityTypeConfiguration<Viagem>

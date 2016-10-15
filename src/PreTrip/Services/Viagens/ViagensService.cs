@@ -66,22 +66,31 @@ namespace PreTrip.Services.Viagens
 
         public void Gravar(Viagem viagem)
         {
+            if (viagem.Pessoa == null || viagem.Pessoa.Id == 0) throw new ArgumentNullException("Viagem precisa ter uma pessoa válida");
+
             using (var db = new PreTripDB())
             {
-                int idUsuario = PreTripSession.Usuario.Id;
+                //Busca pelo id
+                var viagExistente = db.Viagens.Where(x => x.Id == viagem.Id).FirstOrDefault();
 
-                viagem.Destino.UsuarioId = idUsuario;
-                viagem.Origem.UsuarioId = idUsuario;
-
-                db.Viagens.Add(viagem);
+                //Se existe
+                if(viagExistente != null)
+                {
+                    db.Entry(viagExistente).CurrentValues.SetValues(viagem);
+                }
+                else
+                {
+                    db.Viagens.Add(viagem);
+                }
+                
                 db.SaveChanges();
             }
         }
 
         public void InserirAvaliacao(Avaliacao avaliacao)
         {
-            if (avaliacao.ViagemId == 0) throw new ArgumentNullException("Id viagem não pode ser nulo ou 0");
-            if (avaliacao.Usuario == null) throw new ArgumentNullException("Avaliacao precisa ter um usuário!");
+            if (avaliacao.Viagem == null || avaliacao.Viagem.Id == 0) throw new ArgumentNullException("Avaliação precisa ter uma viagem válida");
+            if (avaliacao.Usuario == null || avaliacao.Usuario.Id == 0) throw new ArgumentNullException("Avaliacao precisa ter um usuário válido");
 
             using (var db = new PreTripDB())
             {

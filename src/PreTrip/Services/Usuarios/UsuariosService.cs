@@ -23,12 +23,12 @@ namespace PreTrip.Services.Usuarios
 
         public Usuario GetUsuarioById(int pessoaId)
         {
-            return db.Usuarios.Where(x => x.Id == pessoaId).FirstOrDefault();
+            return db.Usuarios.FirstOrDefault(x => x.Id == pessoaId);
         }
 
         public Usuario GetUsuarioLoginSenha(string login, string senha)
         {
-            return db.Usuarios.Where(x => x.Login == login && x.Senha == senha).FirstOrDefault();
+            return db.Usuarios.FirstOrDefault(x => x.Login == login && x.Senha == senha);
         }
 
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)

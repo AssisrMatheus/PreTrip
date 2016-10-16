@@ -251,7 +251,7 @@ namespace PreTrip.Controllers
             var pedidosDefault = usuario.Pessoa.Pedidos;           
 
             //Adiciono os pedidos do carrinho aos pedidos já feito pela pessoa
-            if (pedidosDefault != null)
+            if (pedidosDefault != null && pedidosDefault.Any())
             {
                 var pedidosExistentes = usuario.Pessoa.Pedidos.ToList();
                 pedidosExistentes.AddRange(carrinho.Pedidos);
@@ -268,10 +268,10 @@ namespace PreTrip.Controllers
           
             usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
 
+            this.AtualizarSaldoCriadorViagem(pedidosDefault);
+
             //Salvo as alterações
             new UsuariosService().Gravar(usuario);
-
-            this.AtualizarSaldoCriadorViagem(pedidosDefault);
 
             PreTripSession.Carrinho = null;
             PreTripSession.Usuario = usuario;
@@ -282,16 +282,28 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
-        private void AtualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidosDefault)            
+        private void AtualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidos)            
         {
-            foreach (var pedido in pedidosDefault)
+            //Junto todos os pedidos por organizador e somo o lucro para diminuir o foreach e os acessos ao banco
+            var pedidosTotal = pedidos
+                .GroupBy(x => x.Viagem.Pessoa.Id)
+                .Select(p => new
+                {
+                    IdOrganizador = p.Key,
+                    Lucro = p.Sum(x => x.PrecoFinal)
+                });
+
+            var service = new UsuariosService();
+
+            foreach (var pedido in pedidosTotal)
             {
-                //buscar a viagem com a pessoa que criou
-                var pessoaCriadoraViagem = new UsuariosService().GetUsuarioById(pedido.Viagem.Pessoa.Id); //pega o criador da viagem
+                //Busco o organizador
+                var pessoaCriadoraViagem = new UsuariosService().GetUsuarioById(pedido.IdOrganizador);
+                
+                pessoaCriadoraViagem.Pessoa.ContaBancaria.Saldo += pedido.Lucro;
 
-                pessoaCriadoraViagem.Pessoa.ContaBancaria.Saldo += pedido.PrecoFinal; //adiciona saldo na conta dele de acordo com o valor total referente a viagem cadastrada por ele
-
-                new UsuariosService().Gravar(pessoaCriadoraViagem); // salva no banco
+                //Salva no banco
+                service.Gravar(pessoaCriadoraViagem);
             }
         }
 

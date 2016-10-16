@@ -105,8 +105,6 @@
                 </div>
 
                 <div class="col-md-8" style="font-size: 2rem; text-align: right">
-                    Saldo: R$ @PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo
-                    <br />
                     Total: R$ @Model.Carrinho.PrecoTotal
                     <br />
                     @{
@@ -120,9 +118,19 @@
                         Preço Final: R$ @Model.Carrinho.PrecoFinal
                     </span>
                     <br />
-                    <span style="color: #099c19">
-                        Saldo final: R$ @(PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo - Model.Carrinho.PrecoFinal)
-                    </span>
+                    @if (PreTripSession.Usuario != null)
+                    {
+                        <span>
+                            Saldo: R$ @PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo
+                        </span>
+                    
+                        <br />
+
+                        <span style="color: #099c19">
+                            Saldo final: R$ @(PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo - Model.Carrinho.PrecoFinal)
+                        </span>
+                    }
+                    
                 </div>
                 <div class="clearfix"></div>
             </div>

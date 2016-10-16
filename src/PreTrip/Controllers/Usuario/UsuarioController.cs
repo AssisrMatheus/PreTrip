@@ -169,9 +169,9 @@ namespace PreTrip.Controllers
             return View(endereco);
         }
 
-        public ActionResult AddViagemCarrinho(Viagem viagem)
+        public ActionResult AddViagemCarrinho(int id)
         {
-            var viagemPessoa = new ViagensService().GetViagem(viagem.Id);
+            var viagemPessoa = new ViagensService().GetViagem(id);
             //Se existe uma viagem igual
             if (PreTripSession.Carrinho != null && PreTripSession.Carrinho.Pedidos.Where(p => p.Viagem.Id == viagemPessoa.Id).Any())
             {
@@ -183,7 +183,7 @@ namespace PreTrip.Controllers
             else
             {
                 var pedidos = PreTripSession.Carrinho.Pedidos.ToList();
-                pedidos.Add(new Pedido(viagemPessoa, PreTripSession.Usuario.Pessoa));
+                pedidos.Add(new Pedido(viagemPessoa));
 
                 PreTripSession.Carrinho.Pedidos = pedidos;
             }

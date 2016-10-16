@@ -80,7 +80,14 @@
             <div class="pull-right">
                 @if (PreTripSession.Usuario != null)
                 {
-                    <a href="@Url.Action("ConfirmarCompra", "Usuario")" class="btn btn-success">Confirmar Compra</a>
+                    if (PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo >= Model.Carrinho.PrecoFinal)
+                    {
+                        <a href="@Url.Action("ConfirmarCompra", "Usuario")" class="btn btn-success">Confirmar Compra</a>
+                    }
+                    else
+                    {
+                        <span>Você não possui saldo suficiente para realizar a compra! @Html.ActionLink("Adicione saldo", "", "") .</span>
+                    }
                 }
                 else
                 {

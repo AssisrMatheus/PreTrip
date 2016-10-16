@@ -43,6 +43,10 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var service = new UsuariosService();
+
+                //Isso não pode estar no construtor pois é uma navigation property(virtual)
+                usuario.Pessoa.ContaBancaria = new ContaBancaria();
+
                 service.Inserir(usuario);
             }
             

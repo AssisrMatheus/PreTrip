@@ -53,13 +53,13 @@
         foreach (var pedido in Model.Carrinho.Pedidos)
         {
             <div class="row viagem-box">
-                <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                <a href="/Viagem/Visualizar/@pedido.Viagem.Id">
                     <div class="col-md-3" style="background: url(@pedido.Viagem.UrlImagem) center; background-size: cover; height: 7em;">
                     </div>
                 </a>
 
                 <div class="viagem-body col-md-8">
-                    <a href="/Viagem/Visualizar/@pedido.ViagemId">
+                    <a href="/Viagem/Visualizar/@pedido.Viagem.Id">
                         <div class="col-md-4">
                             <h3>@pedido.Viagem.Titulo</h3>
                             @*<p>@pedido.Viagem.Origem.Cidade - @pedido.Viagem.Destino.Cidade</p>*@

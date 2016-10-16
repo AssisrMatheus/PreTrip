@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Autenticacao\AutenticacaoService.cs" />
+    <Compile Include="Services\ControleFinanceiro\ControleFinanceiroService.cs" />
     <Compile Include="Services\Empresas\EmpresasService.cs" />
     <Compile Include="Services\Enderecos\EnderecosService.cs" />
     <Compile Include="Services\Interesse\InteresseService.cs" />
@@ -215,6 +216,7 @@
     <Content Include="Views\Usuario\Viagens.cshtml" />
     <Content Include="Views\Usuario\Pedidos.cshtml" />
     <Content Include="Views\Usuario\AdicionarSaldo.cshtml" />
+    <Content Include="Views\Usuario\ControleFinanceiro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

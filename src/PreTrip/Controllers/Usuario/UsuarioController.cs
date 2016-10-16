@@ -12,6 +12,7 @@ using PreTrip.Services.Interesse;
 using PreTrip.Services.Viagens;
 using PreTrip.ViewModel;
 using PreTrip.Attributes;
+using PreTrip.Services.ControleFinanceiro;
 
 namespace PreTrip.Controllers
 {
@@ -206,6 +207,27 @@ namespace PreTrip.Controllers
             return View();
         }
 
+        public ActionResult ControleFinanceiro()
+        {
+            // Lista de vendas
+            var vendas = new ControleFinanceiroService().GetAllVendas(PreTripSession.Usuario.Pessoa.Id);
+
+            // Lista de compras
+            var compras = new ControleFinanceiroService().GetAllCompras(PreTripSession.Usuario.Pessoa.Id);
+
+            var listaRelatorioFinanceiro = new List<RelatorioFinanceiro>();
+
+            if (vendas != null && vendas.Count > 0)
+                foreach (var venda in vendas)
+                    this.AddVendasRelatorioFinanceiro(listaRelatorioFinanceiro, venda);
+                
+            if (compras != null && compras.Count > 0)
+                foreach (var compra in compras)
+                    this.AddComprasRelatorioFinanceiro(listaRelatorioFinanceiro, compra);
+
+            return View(listaRelatorioFinanceiro);
+        }
+
         [HttpPost]
         public ActionResult AddCupom(UsuariosViewModel viewModel)
         {
@@ -270,6 +292,70 @@ namespace PreTrip.Controllers
                 pessoaCriadoraViagem.Pessoa.ContaBancaria.Saldo += pedido.PrecoFinal; //adiciona saldo na conta dele de acordo com o valor total referente a viagem cadastrada por ele
 
                 new UsuariosService().Gravar(pessoaCriadoraViagem); // salva no banco
+            }
+        }
+
+        /// <summary>
+        /// Adiciona as vendas na lista do relatório financeiro.
+        /// </summary>
+        /// <param name="listaRelatorioFinanceiro"></param>
+        /// <param name="venda"></param>
+        private void AddVendasRelatorioFinanceiro(List<RelatorioFinanceiro> listaRelatorioFinanceiro, Viagem venda)
+        {
+            var relatorioVenda = new RelatorioFinanceiro()
+            {
+                Descricao = venda.Descricao,
+                PrecoViagem = venda.PrecoPassagem,
+                Quantidade = 1,
+                Venda = true
+            };
+
+            // Verifica se na lista já existe alguem com a mesma descrição
+            if (listaRelatorioFinanceiro.Exists(x => x.Descricao == venda.Descricao))
+            {
+                // Se já existir, soma +1 na quantidade.
+                listaRelatorioFinanceiro.ForEach(x =>
+                {
+                    if (x.Descricao == venda.Descricao)
+                        x.Quantidade++;
+                });
+            }
+            else
+            {
+                // Se não existir, adiciona a nova venda.
+                listaRelatorioFinanceiro.Add(relatorioVenda);
+            }
+        }
+
+        /// <summary>
+        /// Adiciona as compras na lista do relatório financeiro.
+        /// </summary>
+        /// <param name="listaRelatorioFinanceiro"></param>
+        /// <param name="compra"></param>
+        private void AddComprasRelatorioFinanceiro(List<RelatorioFinanceiro> listaRelatorioFinanceiro, Pedido compra)
+        {
+            var relatorioCompra = new RelatorioFinanceiro()
+            {
+                Descricao = compra.Viagem.Descricao,
+                PrecoViagem = compra.PrecoFinal,
+                Quantidade = 1,
+                Venda = false
+            };
+
+            // Verifica se na lista já existe alguem com a mesma descrição
+            if (listaRelatorioFinanceiro.Exists(x => x.Descricao == compra.Viagem.Descricao))
+            {
+                // Se já existir, soma +1 na quantidade.
+                listaRelatorioFinanceiro.ForEach(x =>
+                {
+                    if (x.Descricao == compra.Viagem.Descricao)
+                        x.Quantidade++;
+                });
+            }
+            else
+            {
+                // Se não existir, adiciona a nova compra.
+                listaRelatorioFinanceiro.Add(relatorioCompra);
             }
         }
     }

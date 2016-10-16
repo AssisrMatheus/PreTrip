@@ -1,0 +1,107 @@
+﻿@model IEnumerable<PreTrip.Services.ControleFinanceiro.RelatorioFinanceiro>
+
+@{
+    ViewBag.Title = "Relatório Financeiro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    double somaVenda = 0;
+    double somaCompra = 0;
+}
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
+
+
+<table class="table table-hover" style="width: 50%; margin: 0 auto; text-align: center;">
+    <thead>
+        <tr>
+            <th colspan="4" style="text-align: center;">Viagens Vendidas</th>
+        </tr>
+        <tr>
+            <th style="text-align: center;">Descrição</th>
+            <th style="text-align: center;">Preço</th>
+            <th style="text-align: center;">Quantidade</th>
+            <th style="text-align: center;">Valor Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (@Model != null && @Model.Count() != 0)
+    {
+        foreach (var relatorio in @Model)
+        {
+            if (relatorio.Venda)
+            {
+                <tr>
+                    <td>@relatorio.Descricao</td>
+                    <td>@relatorio.PrecoViagem.ToString("C")</td>
+                    <td>@relatorio.Quantidade</td>
+                    <td>@relatorio.GetValorTotalVendido().ToString("C")</td>
+                </tr>
+
+                {
+                    somaVenda += relatorio.GetValorTotalVendido();
+                }
+            }
+        }
+
+        <tr>
+            <th colspan="3">Valor total Vendido</th>
+            <td>@somaVenda.ToString("C")</td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="4" style="text-align: center;">Você não possui vendas.</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<hr />
+
+<table class="table table-hover" style="width: 50%; margin: 0 auto; text-align: center;">
+    <thead>
+        <tr>
+            <th colspan="4" style="text-align: center;">Viagens Compradas</th>
+        </tr>
+        <tr>
+            <th style="text-align: center;">Descrição</th>
+            <th style="text-align: center;">Preço</th>
+            <th style="text-align: center;">Quantidade</th>
+            <th style="text-align: center;">Valor Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (@Model != null && @Model.Count() != 0)
+    {
+        foreach (var relatorio in @Model)
+        {
+            if (!relatorio.Venda)
+            {
+                <tr>
+                    <td>@relatorio.Descricao</td>
+                    <td>@relatorio.PrecoViagem.ToString("C")</td>
+                    <td>@relatorio.Quantidade</td>
+                    <td>@relatorio.GetValorTotalVendido().ToString("C")</td>
+                </tr>
+
+                {
+                    somaCompra += relatorio.GetValorTotalVendido();
+                }
+            }
+        }
+
+        <tr>
+            <th colspan="3">Valor total comprado</th>
+            <td>@somaCompra.ToString("C")</td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="4" style="text-align: center;">Você não possui compras.</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@Html.Partial("~/Views/Shared/Usuario/_UsuarioAfterPartialView.cshtml")

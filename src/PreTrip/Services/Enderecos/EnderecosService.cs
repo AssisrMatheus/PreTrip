@@ -10,21 +10,22 @@ namespace PreTrip.Services.Enderecos
 {
     public class EnderecosService
     {
+        private PreTripDB db { get; set; }
+
+        public EnderecosService()
+        {
+            this.db = new PreTripDB();
+        }
+
         public void Gravar(Endereco endereco)
         {
-            using (var db = new PreTripDB())
-            {
-                db.Enderecos.Add(endereco);
-                db.SaveChanges();
-            }
+            db.Enderecos.Add(endereco);
+            db.SaveChanges();
         }
 
         public IEnumerable<Endereco> GetAllByUser(int userId)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Enderecos.Where(x => x.Usuario.Id == userId).ToList();
-            }
+            return db.Enderecos.Where(x => x.Usuario.Id == userId).ToList();
         }
     }
 }

@@ -10,21 +10,22 @@ namespace PreTrip.Services.Empresas
 {
     public class EmpresasService
     {
+        private PreTripDB db { get; set; }
+
+        public EmpresasService()
+        {
+            this.db = new PreTripDB();
+        }
+
         public IEnumerable<Empresa> GetAll(int userId)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Empresas.Where(e => e.Usuario.Id == userId).ToList();
-            }
+            return db.Empresas.Where(e => e.Usuario.Id == userId).ToList();
         }
 
         public void Inserir(Empresa empresa)
         {
-            using (var db = new PreTripDB())
-            {
-                db.Empresas.Add(empresa);
-                db.SaveChanges();
-            }
+            db.Empresas.Add(empresa);
+            db.SaveChanges();
         }
     }
 }

@@ -14,33 +14,31 @@ namespace PreTrip.Services.Usuarios
 {
     public class UsuariosService
     {
+        private PreTripDB db { get; set; }
+
+        public UsuariosService()
+        {
+            this.db = new PreTripDB();
+        }
+
         public Usuario GetUsuarioById(int pessoaId)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Usuarios.Where(x => x.Id == pessoaId).FirstOrDefault();
-            }
+            return db.Usuarios.Where(x => x.Id == pessoaId).FirstOrDefault();
         }
 
         public Usuario GetUsuarioLoginSenha(string login, string senha)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Usuarios.Include(x => x.Pessoa).Include(x => x.Pessoa.ContaBancaria).Where(x => x.Login == login && x.Senha == senha).FirstOrDefault();
-            }
+            return db.Usuarios.Where(x => x.Login == login && x.Senha == senha).FirstOrDefault();
         }
 
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
-            using (var db = new PreTripDB())
-            {
-                var usuarios = db.Usuarios;
+            var usuarios = db.Usuarios;
 
-                if (filtro != null)
-                    return usuarios.Where(filtro).ToList();
-                else
-                    return usuarios.ToList();
-            }
+            if (filtro != null)
+                return usuarios.Where(filtro).ToList();
+            else
+                return usuarios.ToList();
         }
 
         /// <summary>
@@ -50,15 +48,13 @@ namespace PreTrip.Services.Usuarios
         public void Inserir(Usuario usuario)
         {
             //Se é um usuário válido, cadastra.
-            if (!this.UsuarioExiste(usuario)) { 
-                using (var db = new PreTripDB())
-                {
-                    //Converte para md5
-                    usuario.Senha = CreateMD5.GetHash(usuario.Senha);
+            if (!this.UsuarioExiste(usuario))
+            {
+                //Converte para md5
+                usuario.Senha = CreateMD5.GetHash(usuario.Senha);
 
-                    db.Usuarios.Add(usuario);
-                    db.SaveChanges();
-                }
+                db.Usuarios.Add(usuario);
+                db.SaveChanges();
             }
         }
 
@@ -70,25 +66,19 @@ namespace PreTrip.Services.Usuarios
         {
             if (this.UsuarioExiste(usuario))
             {
-                using (var db = new PreTripDB())
-                {
-                    // Converte para md5
-                    usuario.Senha = CreateMD5.GetHash(usuario.Senha);
+                // Converte para md5
+                usuario.Senha = CreateMD5.GetHash(usuario.Senha);
 
-                    db.Usuarios.AddOrUpdate(usuario);
-                    db.SaveChanges();
-                }
+                db.Usuarios.AddOrUpdate(usuario);
+                db.SaveChanges();
             }
         }
 
 #warning verificar a necessidade desse método
         public void Gravar(Usuario usuario)
         {
-            using (var db = new PreTripDB())
-            {
-                db.Usuarios.AddOrUpdate(usuario);
-                db.SaveChanges();
-            }
+            db.Usuarios.AddOrUpdate(usuario);
+            db.SaveChanges();
         }
 
         /// <summary>
@@ -105,10 +95,7 @@ namespace PreTrip.Services.Usuarios
 
         public IEnumerable<Busca> GetBuscas(int userId)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Buscas.Where(b => b.Usuario.Id == userId).ToList();
-            }
+            return db.Buscas.Where(b => b.Usuario.Id == userId).ToList();
         }
     }
 }

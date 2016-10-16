@@ -11,20 +11,24 @@ namespace PreTrip.Services.Interesse
 {
     public class InteresseService
     {
-        public void InsertOrUpdate(IEnumerable<Model.Classes.Interesse> interesses)
-        {
-            using (var db = new PreTripDB())
-            {
-                interesses.ToList().ForEach(x =>
-                {
-                    db.Interesses.AddOrUpdate(x);                    
-                });
+        private PreTripDB db { get; set; }
 
-                db.SaveChanges();
-            }
+        public InteresseService()
+        {
+            this.db = new PreTripDB();
         }
 
-        public IEnumerable<string> GetAllDistinctCity()
+        public void InsertOrUpdate(IEnumerable<Model.Classes.Interesse> interesses)
+        {
+            interesses.ToList().ForEach(x =>
+            {
+                db.Interesses.AddOrUpdate(x);
+            });
+
+            db.SaveChanges();
+        }
+
+        public IEnumerable<string> GetAllCities()
         {
             var allViagens = new ViagensService().GetAll();
 

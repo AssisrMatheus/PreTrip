@@ -10,7 +10,12 @@ using System.Threading.Tasks;
 namespace PreTrip.Model.Classes
 {
     public class Busca
-    {             
+    {
+        public Busca()
+        {
+            DtHrBusca = DateTime.Now;
+        }
+
         public Busca(Usuario usuario)
         {
             DtHrBusca = DateTime.Now;

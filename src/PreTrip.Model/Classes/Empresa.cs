@@ -11,6 +11,11 @@ namespace PreTrip.Model.Classes
 {
     public class Empresa
     {
+        public Empresa()
+        {
+
+        }
+
         public Empresa(Usuario usuario)
         {
             this.Usuario = usuario;

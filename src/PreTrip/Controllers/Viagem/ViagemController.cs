@@ -58,8 +58,12 @@ namespace PreTrip.Controllers
         {
             if(ModelState.IsValid)
             {
-                viewModel.Viagem.Empresa.Usuario = PreTripSession.Usuario;
-                viewModel.Viagem.Pessoa = PreTripSession.Usuario.Pessoa;
+                var usuario = PreTripSession.Usuario;
+
+                viewModel.Viagem.Empresa.Usuario = usuario;
+                viewModel.Viagem.Pessoa = usuario.Pessoa;
+                viewModel.Viagem.Destino.Usuario = usuario;
+                viewModel.Viagem.Origem.Usuario = usuario;
 
                 new ViagensService().Gravar(viewModel.Viagem);
                 return RedirectToAction("Visualizar", "Viagem", new { id = viewModel.Viagem.Id });
@@ -84,21 +88,21 @@ namespace PreTrip.Controllers
         }
 
         [HttpPost]
-        public ActionResult Buscar(ViagensViewModel v)
+        public ActionResult Buscar(ViagensViewModel viewModel)
         {
-            v.Viagens = new ViagensService().GetAllFilter(v.BuscaViagens);
-            SalvarHistoricoBusca(v);
-            v.HeaderViagens = "Viagens Encontradas";
-            return View("Index", v);
+            viewModel.Viagens = new ViagensService().GetAllFilter(viewModel.BuscaViagens);
+            SalvarHistoricoBusca(viewModel);
+            viewModel.HeaderViagens = "Viagens Encontradas";
+            return View("Index", viewModel);
         }
 
-        public void SalvarHistoricoBusca(ViagensViewModel viagensVM)
+        public void SalvarHistoricoBusca(ViagensViewModel viewModel)
         {
             if (PreTripSession.Usuario != null)
             {
                 var viagensService = new ViagensService();
-                viagensVM.BuscaViagens.Usuario = PreTripSession.Usuario;
-                viagensService.InserirBusca(viagensVM.BuscaViagens);
+                viewModel.BuscaViagens.Usuario = PreTripSession.Usuario;
+                viagensService.InserirBusca(viewModel.BuscaViagens);
             }
         }
     }

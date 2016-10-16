@@ -11,80 +11,75 @@ namespace PreTrip.Services.Viagens
 {
     public class ViagensService
     {
+        private PreTripDB db { get; set; }
+
+        public ViagensService()
+        {
+            this.db = new PreTripDB();
+        }
+
         public IEnumerable<Viagem> GetAll()
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Viagens.ToList();
-            }
+            return db.Viagens.ToList();
         }
 
         public IEnumerable<Viagem> GetAllFilter(Busca filtros)
         {
-            using (var db = new PreTripDB())
-            {
-                //Cria a query inicial
-                var viagens = db.Viagens;
+            //Cria a query inicial
+            var viagens = db.Viagens;
 
-                //Vai aplicando os filtros where na query de acordo com o necessário
+            //Vai aplicando os filtros where na query de acordo com o necessário
 
-                if (!string.IsNullOrEmpty(filtros.Origem))
-                    viagens.Where(x => x.Origem.Cidade.ToUpper().Contains(filtros.Origem.ToUpper()));
+            if (!string.IsNullOrEmpty(filtros.Origem))
+                viagens.Where(x => x.Origem.Cidade.ToUpper().Contains(filtros.Origem.ToUpper()));
 
-                if (!string.IsNullOrEmpty(filtros.Destino))
-                    viagens.Where(x => x.Destino.Cidade.ToUpper().Contains(filtros.Destino.ToUpper()));
+            if (!string.IsNullOrEmpty(filtros.Destino))
+                viagens.Where(x => x.Destino.Cidade.ToUpper().Contains(filtros.Destino.ToUpper()));
 
-                if (!string.IsNullOrEmpty(filtros.Titulo))
-                    viagens.Where(x => x.Titulo.ToUpper().Contains(filtros.Titulo.ToUpper()));
+            if (!string.IsNullOrEmpty(filtros.Titulo))
+                viagens.Where(x => x.Titulo.ToUpper().Contains(filtros.Titulo.ToUpper()));
 
-                if (filtros.Preco != 0)
-                    viagens.Where(x => x.PrecoPassagem <= filtros.Preco);
+            if (filtros.Preco != 0)
+                viagens.Where(x => x.PrecoPassagem <= filtros.Preco);
 
-                if (filtros.QuantidadeLugares != 0)
-                    viagens.Where(x => x.QuantidadeLugaresDisponiveis >= filtros.QuantidadeLugares);
+            if (filtros.QuantidadeLugares != 0)
+                viagens.Where(x => x.QuantidadeLugaresDisponiveis >= filtros.QuantidadeLugares);
 
-                //Somente depois de criar a query com os filtros materializa o resultado com tolist, trazendo somente o necessário do filtro(entity s2)
-                return viagens.ToList();
-            }
+            //Somente depois de criar a query com os filtros materializa o resultado com tolist, trazendo somente o necessário do filtro(entity s2)
+            return viagens.ToList();
+
         }
 
         public IEnumerable<Viagem> GetAllFromPessoa(int pessoaId)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Viagens.Where(x => x.Pessoa.Id == pessoaId).ToList();
-            }
+            return db.Viagens.Where(x => x.Pessoa.Id == pessoaId).ToList();
         }
 
         public Viagem GetViagem(int viagemId)
         {
-            using (var db = new PreTripDB())
-            {
-                return db.Viagens.Where(x => x.Id == viagemId).FirstOrDefault();
-            }
+            return db.Viagens
+                .Where(x => x.Id == viagemId).FirstOrDefault();
         }
 
         public void Gravar(Viagem viagem)
         {
             if (viagem.Pessoa == null || viagem.Pessoa.Id == 0) throw new ArgumentNullException("Viagem precisa ter uma pessoa válida");
 
-            using (var db = new PreTripDB())
-            {
-                //Busca pelo id
-                var viagExistente = db.Viagens.Where(x => x.Id == viagem.Id).FirstOrDefault();
+            //Busca pelo id
+            var viagExistente = db.Viagens.Where(x => x.Id == viagem.Id).FirstOrDefault();
 
-                //Se existe
-                if(viagExistente != null)
-                {
-                    db.Entry(viagExistente).CurrentValues.SetValues(viagem);
-                }
-                else
-                {
-                    db.Viagens.Add(viagem);
-                }
-                
-                db.SaveChanges();
+            //Se existe
+            if (viagExistente != null)
+            {
+                db.Entry(viagExistente).CurrentValues.SetValues(viagem);
             }
+            else
+            {
+                db.Viagens.Add(viagem);
+            }
+
+            db.SaveChanges();
+
         }
 
         public void InserirAvaliacao(Avaliacao avaliacao)
@@ -92,26 +87,21 @@ namespace PreTrip.Services.Viagens
             if (avaliacao.Viagem == null || avaliacao.Viagem.Id == 0) throw new ArgumentNullException("Avaliação precisa ter uma viagem válida");
             if (avaliacao.Usuario == null || avaliacao.Usuario.Id == 0) throw new ArgumentNullException("Avaliacao precisa ter um usuário válido");
 
-            using (var db = new PreTripDB())
-            {
-                db.Avaliacoes.Add(avaliacao);
-                db.SaveChanges();
-            }
+
+            db.Avaliacoes.Add(avaliacao);
+            db.SaveChanges();
         }
 
         public void InserirBusca(Busca busca)
         {
-            using (var db = new PreTripDB())
+            if (!string.IsNullOrEmpty(busca.Titulo)
+            || !string.IsNullOrEmpty(busca.Origem)
+            || !string.IsNullOrEmpty(busca.Destino)
+            || busca.Preco != 0 || busca.QuantidadeLugares != 0
+            || busca.LugaresDisponiveis != 0)
             {
-                if (!string.IsNullOrEmpty(busca.Titulo)
-                || !string.IsNullOrEmpty(busca.Origem)
-                || !string.IsNullOrEmpty(busca.Destino)
-                || busca.Preco != 0 || busca.QuantidadeLugares != 0
-                || busca.LugaresDisponiveis != 0)
-                {
-                    db.Buscas.Add(busca);
-                    db.SaveChanges();
-                }
+                db.Buscas.Add(busca);
+                db.SaveChanges();
             }
         }
 

@@ -11,6 +11,12 @@ namespace PreTrip.Model.Classes
 {
     public class Pedido
     {
+        public Pedido()
+        {
+            this.DtHrRealizacao = DateTime.Now;
+            this.Quantidade = 1;
+        }
+
         public Pedido(Pessoa pessoa)
         {
             this.DtHrRealizacao = DateTime.Now;

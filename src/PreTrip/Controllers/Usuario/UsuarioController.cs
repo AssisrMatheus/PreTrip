@@ -106,7 +106,7 @@ namespace PreTrip.Controllers
         [UsuarioLogado]
         public ActionResult Interesses()
         {
-            var listaInteresses = new InteresseService().GetAllDistinctCity();
+            var listaInteresses = new InteresseService().GetAllCities();
 
             return View(listaInteresses);
         }

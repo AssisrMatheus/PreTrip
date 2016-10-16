@@ -77,7 +77,42 @@ namespace PreTrip.Services.Usuarios
 #warning verificar a necessidade desse método
         public void Gravar(Usuario usuario)
         {
-            db.Usuarios.AddOrUpdate(usuario);
+            var usuExistente = db.Usuarios.Where(x => x.Id == usuario.Id).FirstOrDefault();
+
+            //Se existe
+            if (usuExistente != null)
+            {
+                db.Entry(usuExistente).CurrentValues.SetValues(usuario);
+
+                var pessoa = db.Pessoas.Where(x => x.Id == usuario.Pessoa.Id).FirstOrDefault();
+                db.Entry(pessoa).CurrentValues.SetValues(usuario.Pessoa);
+
+                usuExistente.Pessoa = pessoa;
+                usuExistente.Pessoa.Viagens = pessoa.Viagens;
+                usuExistente.Pessoa.Pedidos = pessoa.Pedidos;
+                usuExistente.Pessoa.Interesses = pessoa.Interesses;
+
+                var contaBanc = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();
+                db.Entry(contaBanc).CurrentValues.SetValues(usuario.Pessoa.ContaBancaria);
+
+                usuExistente.Pessoa.ContaBancaria = contaBanc;
+            }
+            else
+            {
+                db.Usuarios.Add(usuario);
+            }
+
+            db.SaveChanges();
+        }
+
+        public void GravarSaldo(Usuario usuario)
+        {
+            var contaExistente = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();
+
+            //Se existe
+            if (contaExistente != null)
+                contaExistente.Saldo = usuario.Pessoa.ContaBancaria.Saldo;
+
             db.SaveChanges();
         }
 

@@ -25,6 +25,15 @@ namespace PreTrip.Model.Classes
             this.Pessoa = pessoa;
         }
 
+        public Pedido(Viagem viagem)
+        {
+            this.DtHrRealizacao = DateTime.Now;
+            this.Quantidade = 1;
+
+            this.Viagem = viagem;
+            this.PrecoFinal = viagem.PrecoPassagem;            
+        }
+
         public Pedido(Viagem viagem, Pessoa pessoa)
         {
             this.DtHrRealizacao = DateTime.Now;

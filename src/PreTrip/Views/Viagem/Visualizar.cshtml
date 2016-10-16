@@ -124,7 +124,9 @@
                     </span>
                     <div class="clearfix"></div>
                     <span>
-                        @Html.ActionLink("Adicionar ao Carrinho", "AddViagemCarrinho", "Usuario", Model.Viagem, new { @class = "btn btn-success", style = "width: 100%; margin: 1em" })
+                        <a class="btn btn-success" href="@Url.Action("AddViagemCarrinho", "Usuario", new { id = Model.Viagem.Id })" style="width: 100%; margin: 1em">
+                            Adicionar ao Carrinho
+                        </a>
                     </span>
                 </div>
 

@@ -100,13 +100,13 @@ namespace PreTrip.Services.Usuarios
 
                 usuExistente.Pessoa = pessoa;
 
-                usuExistente.Pessoa.Viagens = pessoa.Viagens;
+                usuExistente.Pessoa.Viagens = usuario.Pessoa.Viagens;
                 usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x));
 
-                usuExistente.Pessoa.Pedidos = pessoa.Pedidos;
+                usuExistente.Pessoa.Pedidos = usuario.Pessoa.Pedidos;
                 usuExistente.Pessoa.Pedidos.ToList().ForEach(x => db.Pedidos.AddOrUpdate(x));
 
-                usuExistente.Pessoa.Interesses = pessoa.Interesses;
+                usuExistente.Pessoa.Interesses = usuario.Pessoa.Interesses;
                 usuExistente.Pessoa.Interesses.ToList().ForEach(x => db.Interesses.AddOrUpdate(x));
 
                 var contaBanc = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();

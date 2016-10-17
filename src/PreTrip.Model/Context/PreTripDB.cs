@@ -14,9 +14,8 @@ namespace PreTrip.Model.Context
     {
         public PreTripDB() :base()
         {
-            //Configuration.ProxyCreationEnabled = false;
-            //Configuration.LazyLoadingEnabled = false;
-            
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;          
         }
 
         public DbSet<Viagem> Viagens { get; set; }
@@ -42,6 +41,7 @@ namespace PreTrip.Model.Context
         public DbSet<Avaliacao> Avaliacoes { get; set; }
 
         public DbSet<Interesse> Interesses { get; set; }
+        public object Entity { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

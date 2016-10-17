@@ -1,8 +1,10 @@
 ﻿using PreTrip.Lib.Utils;
+using PreTrip.Model.Classes;
 using PreTrip.Services.Usuarios;
 using PreTrip.Session;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -39,7 +41,9 @@ namespace PreTrip.Services.Autenticacao
                 var usuario = service.GetUsuarioLoginSenha(login, senhaHash);
 
                 if(usuario != null)
+                {
                     PreTripSession.Usuario = usuario;
+                }                    
 
                 return usuario != null;
             }

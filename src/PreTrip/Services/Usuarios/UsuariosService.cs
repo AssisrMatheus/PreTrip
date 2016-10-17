@@ -23,17 +23,25 @@ namespace PreTrip.Services.Usuarios
 
         public Usuario GetUsuarioById(int pessoaId)
         {
-            return db.Usuarios.FirstOrDefault(x => x.Id == pessoaId);
+            return db.Usuarios
+                .Include(x => x.Pessoa)
+                .Include(x => x.Pessoa.ContaBancaria)
+                .FirstOrDefault(x => x.Id == pessoaId);
         }
 
         public Usuario GetUsuarioLoginSenha(string login, string senha)
         {
-            return db.Usuarios.FirstOrDefault(x => x.Login == login && x.Senha == senha);
+            return db.Usuarios
+                .Include(x => x.Pessoa)
+                .Include(x => x.Pessoa.ContaBancaria)
+                .FirstOrDefault(x => x.Login == login && x.Senha == senha);
         }
 
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
-            var usuarios = db.Usuarios;
+            var usuarios = db.Usuarios
+                .Include(x => x.Pessoa)
+                .Include(x => x.Pessoa.ContaBancaria);
 
             if (filtro != null)
                 return usuarios.Where(filtro).ToList();
@@ -77,7 +85,10 @@ namespace PreTrip.Services.Usuarios
 #warning verificar a necessidade desse método
         public void Gravar(Usuario usuario)
         {
-            var usuExistente = db.Usuarios.Where(x => x.Id == usuario.Id).FirstOrDefault();
+            var usuExistente = db.Usuarios
+                .Include(x => x.Pessoa)
+                .Include(x => x.Pessoa.ContaBancaria)
+                .Where(x => x.Id == usuario.Id).FirstOrDefault();
 
             //Se existe
             if (usuExistente != null)
@@ -88,9 +99,15 @@ namespace PreTrip.Services.Usuarios
                 db.Entry(pessoa).CurrentValues.SetValues(usuario.Pessoa);
 
                 usuExistente.Pessoa = pessoa;
+
                 usuExistente.Pessoa.Viagens = pessoa.Viagens;
+                usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x));
+
                 usuExistente.Pessoa.Pedidos = pessoa.Pedidos;
+                usuExistente.Pessoa.Pedidos.ToList().ForEach(x => db.Pedidos.AddOrUpdate(x));
+
                 usuExistente.Pessoa.Interesses = pessoa.Interesses;
+                usuExistente.Pessoa.Interesses.ToList().ForEach(x => db.Interesses.AddOrUpdate(x));
 
                 var contaBanc = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();
                 db.Entry(contaBanc).CurrentValues.SetValues(usuario.Pessoa.ContaBancaria);

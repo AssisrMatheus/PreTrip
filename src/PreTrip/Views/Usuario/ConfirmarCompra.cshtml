@@ -1,14 +1,25 @@
 ﻿@model PreTrip.ViewModel.CompraViewModel
 
-<div class="col-md-9 wrapcenter">
-    <div class="col-md-8" style="border:double 1px solid #eee">
-        @foreach (var pedido in Model.Pedidos)
-        {
-            <div>
-                Destino: @pedido.Viagem.Titulo <br/>
-                Preço final: @pedido.PrecoFinal
-                <hr/>
-            </div>
-        }
+<div class="container">
+    <div class="panel panel-success" style="margin-top: 2em;">
+        <div class="panel-heading">
+            <h3>Compra finalizada com sucesso! @Model.Pedidos.FirstOrDefault().DtHrRealizacao.ToShortDateString()</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                A sua compra de @Model.Pedidos.Count() itens foi finalizada com sucesso! Com um valor total de <span class="text-success" style="font-size: 3rem;vertical-align: middle;">R$@Model.PrecoCompra</span>
+            </p>
+        </div>
+
+        <ul class="list-group">
+            @foreach (var pedido in Model.Pedidos)
+            {
+                <li class="list-group-item">
+                    <p>@pedido.Viagem.Titulo - @pedido.Viagem.Destino.Cidade</p>
+                    <p>@pedido.Quantidade Item(s)</p>
+                    <p>R$@pedido.PrecoFinal</p>
+                </li>
+            }
+        </ul>
     </div>
 </div>

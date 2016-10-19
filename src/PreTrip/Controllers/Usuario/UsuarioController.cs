@@ -202,9 +202,22 @@ namespace PreTrip.Controllers
             return View(viewModel);
         }
 
+        [UsuarioLogado]
         public ActionResult AdicionarSaldo()
         {
             return View();
+        }
+
+        [HttpPost]
+        [UsuarioLogado]
+        public ActionResult AdicionarSaldo(UsuariosViewModel viewModel)
+        {
+            var usuario = PreTripSession.Usuario;
+
+            usuario.Pessoa.ContaBancaria.Saldo += viewModel.NovoSaldo;
+
+            new UsuariosService().Gravar(usuario);
+            return RedirectToAction("MeuCarrinho", "Usuario");
         }
 
         public ActionResult ControleFinanceiro()

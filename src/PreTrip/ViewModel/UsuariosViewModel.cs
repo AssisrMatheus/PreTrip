@@ -14,5 +14,7 @@ namespace PreTrip.ViewModel
         public IEnumerable<Viagem> Viagens { get; set; }
 
         public IEnumerable<Pedido> Pedidos { get; set; }
+
+        public float NovoSaldo { get; set; }
     }
 }

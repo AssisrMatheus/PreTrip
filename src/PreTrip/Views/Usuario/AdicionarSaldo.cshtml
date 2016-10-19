@@ -1,1 +1,28 @@
-﻿
+﻿@model PreTrip.ViewModel.UsuariosViewModel
+
+<div class="container">
+    <div class="panel panel-primary" style="margin-top: 2em;">
+        <div class="panel-heading">
+            <h3>Atualizando saldo</h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("AdicionarSaldo", "Usuario", FormMethod.Post))
+            {
+                @Html.Partial("~/Views/Shared/Validacao/_ValidacaoBasica.cshtml");
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="material-icons" style="font-size: 16px">attach_money</i>
+                        </div>
+                        @Html.EditorFor(x => x.NovoSaldo, new { htmlAttributes = new { @class = "form-control", placeholder = "Novo Saldo" } })
+                    </div>
+                </div>
+
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-warning">Confirmar</button>
+                </div>
+            }
+        </div>        
+    </div>
+</div>

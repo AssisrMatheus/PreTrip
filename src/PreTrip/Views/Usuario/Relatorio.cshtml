@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PreTrip.Services.ControleFinanceiro.RelatorioFinanceiro>
+
+<div class="container">
+    <table class="table table-striped" style="margin:0 auto;text-align:center;">
+        <thead>
+            <tr>
+                <th style="text-align:center;">Descricao</th>
+                <th style="text-align:center;">Quantidade</th>
+                <th style="text-align:center;">Preço Unico</th>
+                <th style="text-align:center;">Valor Total</th>
+                <th style="text-align:center;">Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var saldo = 0.0;
+
+                foreach (var relatorio in Model)
+                {
+                    saldo = relatorio.Venda ? saldo + relatorio.GetValorTotalVendido() : saldo - relatorio.GetValorTotalVendido();
+                    var classe = relatorio.Venda ? "success" : "warning";
+                    <tr>
+                        <td>@relatorio.Descricao</td>
+                        <td>@relatorio.Quantidade</td>
+                        <td>@relatorio.Preco.ToString("C")</td>
+                        <td>@relatorio.GetValorTotalVendido().ToString("C")</td>
+                        <td class="@classe">@saldo.ToString("C")</td>
+                    </tr>
+                }
+            }
+
+            <tr>
+                <th colspan="3">Saldo final</th>
+                <td>@saldo.ToString("C")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    window.print();
+</script>

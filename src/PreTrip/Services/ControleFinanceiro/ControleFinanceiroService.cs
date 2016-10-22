@@ -36,7 +36,7 @@ namespace PreTrip.Services.ControleFinanceiro
     {
         public string Descricao { get; set; }
 
-        public double PrecoViagem { get; set; }
+        public double Preco { get; set; }
 
         public int Quantidade { get; set; }
 
@@ -44,7 +44,7 @@ namespace PreTrip.Services.ControleFinanceiro
 
         public double GetValorTotalVendido()
         {
-            return this.Quantidade * this.PrecoViagem;
+            return this.Quantidade * this.Preco;
         }
     }
 }

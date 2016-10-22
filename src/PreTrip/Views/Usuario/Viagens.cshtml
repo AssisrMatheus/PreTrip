@@ -2,13 +2,16 @@
 
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
+
+<h2>Minhas viagens cadastradas</h2>
+
 <div class="pull-right">
     <a href="@Url.Action("Cadastrar", "Viagem")" class="btn navbar-btn btn btn-success">
         Cadastrar
     </a>
 </div>
 
-<table class="table table-hover" style="width:50%;margin:0 auto;text-align:center;">
+<table class="table table-hover" style="margin:0 auto;text-align:center;">
     <thead>
         <tr>
             <th style="text-align:center;">Nome</th>
@@ -20,12 +23,14 @@
     <tbody>
         @foreach (var viagem in Model.Viagens)
         {
-            <tr>
-                <td>@viagem.Titulo</td>
-                <td>@viagem.Descricao</td>
-                <td>@viagem.PrecoPassagem</td>
-                <td>@viagem.Destino.Cidade</td>
-            </tr>
+            <a href="@Url.Action("Visualizar", "Viagem", new { id = viagem.Id })">
+                <tr>
+                    <td>@viagem.Titulo</td>
+                    <td>@viagem.Descricao</td>
+                    <td>@viagem.PrecoPassagem</td>
+                    <td>@viagem.Destino.Cidade</td>
+                </tr>
+            </a>
         }
     </tbody>
 </table>

@@ -91,8 +91,11 @@ namespace PreTrip.Controllers
         public ActionResult Buscar(ViagensViewModel viewModel)
         {
             viewModel.Viagens = new ViagensService().GetAllFilter(viewModel.BuscaViagens);
+
             SalvarHistoricoBusca(viewModel);
+
             viewModel.HeaderViagens = "Viagens Encontradas";
+
             return View("Index", viewModel);
         }
 

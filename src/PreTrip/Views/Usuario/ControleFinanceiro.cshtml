@@ -9,6 +9,11 @@
 
 @Html.Partial("~/Views/Shared/Usuario/_UsuarioBeforePartialView.cshtml")
 
+<div class="pull-right">
+    <a href="@Url.Action("Relatorio", "Usuario")" class="btn navbar-btn btn btn-success">
+        Relatório
+    </a>
+</div>
 
 <table class="table table-hover" style="width: 50%; margin: 0 auto; text-align: center;">
     <thead>
@@ -23,15 +28,15 @@
         </tr>
     </thead>
     <tbody>
-    @if (@Model != null && @Model.Count() != 0)
+    @if (Model != null && Model.Any())
     {
-        foreach (var relatorio in @Model)
+        foreach (var relatorio in Model)
         {
             if (relatorio.Venda)
             {
                 <tr>
                     <td>@relatorio.Descricao</td>
-                    <td>@relatorio.PrecoViagem.ToString("C")</td>
+                    <td>@relatorio.Preco.ToString("C")</td>
                     <td>@relatorio.Quantidade</td>
                     <td>@relatorio.GetValorTotalVendido().ToString("C")</td>
                 </tr>
@@ -71,15 +76,15 @@
         </tr>
     </thead>
     <tbody>
-    @if (@Model != null && @Model.Count() != 0)
+    @if (Model != null && Model.Any())
     {
-        foreach (var relatorio in @Model)
+        foreach (var relatorio in Model)
         {
             if (!relatorio.Venda)
             {
                 <tr>
                     <td>@relatorio.Descricao</td>
-                    <td>@relatorio.PrecoViagem.ToString("C")</td>
+                    <td>@relatorio.Preco.ToString("C")</td>
                     <td>@relatorio.Quantidade</td>
                     <td>@relatorio.GetValorTotalVendido().ToString("C")</td>
                 </tr>

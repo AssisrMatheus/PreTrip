@@ -87,7 +87,7 @@ namespace PreTrip.Services.Viagens
             //Busca pelo id
             var viagExistente = this.viagens.Where(x => x.Id == viagem.Id).FirstOrDefault();
 
-            var pessoa = db.Pessoas.Where(x => x.Id == viagem.Pessoa.Id).FirstOrDefault();
+            var pessoa = db.Pessoas.Include(x => x.ContaBancaria).Where(x => x.Id == viagem.Pessoa.Id).FirstOrDefault();
 
             if (pessoa != null)
                 viagem.Pessoa = pessoa;

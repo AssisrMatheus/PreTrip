@@ -220,25 +220,37 @@ namespace PreTrip.Controllers
             return RedirectToAction("MeuCarrinho", "Usuario");
         }
 
+        [UsuarioLogado]
         public ActionResult ControleFinanceiro()
         {
+            return View(PrepareRelatorio());
+        }
+
+        [UsuarioLogado]
+        public ActionResult Relatorio()
+        {
+            return View(PrepareRelatorio());
+        }
+
+        private List<RelatorioFinanceiro> PrepareRelatorio()
+        {
+            var listaRelatorioFinanceiro = new List<RelatorioFinanceiro>();
+
             // Lista de vendas
             var vendas = new ControleFinanceiroService().GetAllVendas(PreTripSession.Usuario.Pessoa.Id);
 
             // Lista de compras
             var compras = new ControleFinanceiroService().GetAllCompras(PreTripSession.Usuario.Pessoa.Id);
 
-            var listaRelatorioFinanceiro = new List<RelatorioFinanceiro>();
-
             if (vendas != null && vendas.Count > 0)
                 foreach (var venda in vendas)
                     this.AddVendasRelatorioFinanceiro(listaRelatorioFinanceiro, venda);
-                
+
             if (compras != null && compras.Count > 0)
                 foreach (var compra in compras)
                     this.AddComprasRelatorioFinanceiro(listaRelatorioFinanceiro, compra);
 
-            return View(listaRelatorioFinanceiro);
+            return listaRelatorioFinanceiro;
         }
 
         [HttpPost]
@@ -317,14 +329,14 @@ namespace PreTrip.Controllers
         {
             var relatorioVenda = new RelatorioFinanceiro()
             {
-                Descricao = venda.Descricao,
-                PrecoViagem = venda.PrecoPassagem,
+                Descricao = venda.Titulo,
+                Preco = venda.PrecoPassagem,
                 Quantidade = 1,
                 Venda = true
             };
 
             // Verifica se na lista já existe alguem com a mesma descrição
-            if (listaRelatorioFinanceiro.Exists(x => x.Descricao == venda.Descricao))
+            if (listaRelatorioFinanceiro.Exists(x => x.Descricao == relatorioVenda.Descricao))
             {
                 // Se já existir, soma +1 na quantidade.
                 listaRelatorioFinanceiro.ForEach(x =>
@@ -349,14 +361,14 @@ namespace PreTrip.Controllers
         {
             var relatorioCompra = new RelatorioFinanceiro()
             {
-                Descricao = compra.Viagem.Descricao,
-                PrecoViagem = compra.PrecoFinal,
+                Descricao = compra.Viagem.Titulo,
+                Preco = compra.PrecoFinal,
                 Quantidade = 1,
                 Venda = false
             };
 
             // Verifica se na lista já existe alguem com a mesma descrição
-            if (listaRelatorioFinanceiro.Exists(x => x.Descricao == compra.Viagem.Descricao))
+            if (listaRelatorioFinanceiro.Exists(x => x.Descricao == relatorioCompra.Descricao))
             {
                 // Se já existir, soma +1 na quantidade.
                 listaRelatorioFinanceiro.ForEach(x =>

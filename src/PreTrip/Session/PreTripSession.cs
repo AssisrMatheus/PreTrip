@@ -30,7 +30,14 @@ namespace PreTrip.Session
 
             set
             {
-                HttpContext.Current.Session["Usuario"] = value;
+                if(value == null)
+                {
+                    HttpContext.Current.Session.Clear();
+                }
+                else
+                {
+                    HttpContext.Current.Session["Usuario"] = value;
+                }
             }
         }
 

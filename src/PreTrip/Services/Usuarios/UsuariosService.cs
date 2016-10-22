@@ -98,7 +98,11 @@ namespace PreTrip.Services.Usuarios
                 var pessoa = db.Pessoas.Where(x => x.Id == usuario.Pessoa.Id).FirstOrDefault();
                 db.Entry(pessoa).CurrentValues.SetValues(usuario.Pessoa);
 
+                var contaBanc = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();
+                db.Entry(contaBanc).CurrentValues.SetValues(usuario.Pessoa.ContaBancaria);
+
                 usuExistente.Pessoa = pessoa;
+                usuExistente.Pessoa.ContaBancaria = contaBanc;                
 
                 usuExistente.Pessoa.Viagens = usuario.Pessoa.Viagens;
                 usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x));
@@ -108,11 +112,6 @@ namespace PreTrip.Services.Usuarios
 
                 usuExistente.Pessoa.Interesses = usuario.Pessoa.Interesses;
                 usuExistente.Pessoa.Interesses.ToList().ForEach(x => db.Interesses.AddOrUpdate(x));
-
-                var contaBanc = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();
-                db.Entry(contaBanc).CurrentValues.SetValues(usuario.Pessoa.ContaBancaria);
-
-                usuExistente.Pessoa.ContaBancaria = contaBanc;
             }
             else
             {

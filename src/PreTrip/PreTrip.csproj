@@ -217,6 +217,7 @@
     <Content Include="Views\Usuario\Pedidos.cshtml" />
     <Content Include="Views\Usuario\AdicionarSaldo.cshtml" />
     <Content Include="Views\Usuario\ControleFinanceiro.cshtml" />
+    <Content Include="Views\Usuario\Relatorio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

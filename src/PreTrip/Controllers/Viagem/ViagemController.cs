@@ -19,7 +19,7 @@ namespace PreTrip.Controllers
         public ActionResult Index()
         {
             var viewModel = new ViagensViewModel();          
-            viewModel.Viagens = new ViagensService().GetAll();
+            viewModel.Viagens = new ViagensService().GetViagens();
             viewModel.HeaderViagens = "Últimas viagens";
 
             return View(viewModel);
@@ -28,7 +28,7 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult Index(ViagensViewModel viewModel)
         {
-            viewModel.Viagens = new ViagensService().GetAll();
+            viewModel.Viagens = new ViagensService().GetViagens();
             viewModel.HeaderViagens = "Resultados da pesquisa";
 
             return View(viewModel);
@@ -60,10 +60,7 @@ namespace PreTrip.Controllers
             {
                 var usuario = PreTripSession.Usuario;
 
-                viewModel.Viagem.Empresa.Usuario = usuario;
-                viewModel.Viagem.Pessoa = usuario.Pessoa;
-                viewModel.Viagem.Destino.Usuario = usuario;
-                viewModel.Viagem.Origem.Usuario = usuario;
+                viewModel.Viagem.PessoaId = usuario.Pessoa.Id;
 
                 new ViagensService().Gravar(viewModel.Viagem);
                 return RedirectToAction("Visualizar", "Viagem", new { id = viewModel.Viagem.Id });
@@ -79,7 +76,7 @@ namespace PreTrip.Controllers
             if(ModelState.IsValid)
             {
                 var service = new ViagensService();
-                viewModel.Avaliacao.Usuario = PreTripSession.Usuario;
+                viewModel.Avaliacao.Pessoa = PreTripSession.Usuario.Pessoa;
 
                 service.InserirAvaliacao(viewModel.Avaliacao);
             }

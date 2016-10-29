@@ -15,11 +15,6 @@ namespace PreTrip.Model.Classes
         {
 
         }
-
-        public Empresa(Usuario usuario)
-        {
-            this.Usuario = usuario;
-        }
         
         public int Id { get; set; }
 
@@ -28,8 +23,6 @@ namespace PreTrip.Model.Classes
         public string RazaoSocial { get; set; }
 
         public string NomeFantasia { get; set; }
-        
-        public virtual Usuario Usuario { get; set; }
     }
 
     public class EmpresaMap : EntityTypeConfiguration<Empresa>
@@ -41,9 +34,6 @@ namespace PreTrip.Model.Classes
 
             //Primary Key
             HasKey(x => x.Id);
-
-            //Foreign Key
-            HasRequired(x => x.Usuario);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace PreTrip.Model.Classes
             //Primary Key
             HasKey(x => x.Id);
 
-            HasRequired(x => x.Usuario);
+            HasOptional(x => x.Usuario);
         }
     }
 }

@@ -11,27 +11,10 @@ namespace PreTrip.Model.Classes
 {
     public class Pedido
     {
+        //Para o entity é necessário existir um construtor sem parâmetro
         public Pedido()
         {
-            this.DtHrRealizacao = DateTime.Now;
-            this.Quantidade = 1;
-        }
 
-        public Pedido(Pessoa pessoa)
-        {
-            this.DtHrRealizacao = DateTime.Now;
-            this.Quantidade = 1;
-
-            this.Pessoa = pessoa;
-        }
-
-        public Pedido(Viagem viagem)
-        {
-            this.DtHrRealizacao = DateTime.Now;
-            this.Quantidade = 1;
-
-            this.Viagem = viagem;
-            this.PrecoFinal = viagem.PrecoPassagem;            
         }
 
         public Pedido(Viagem viagem, Pessoa pessoa)
@@ -39,13 +22,22 @@ namespace PreTrip.Model.Classes
             this.DtHrRealizacao = DateTime.Now;
             this.Quantidade = 1;
 
+            this.ViagemId = viagem.Id;
             this.Viagem = viagem;
+
             this.PrecoFinal = viagem.PrecoPassagem;
 
+            this.PessoaId = pessoa.Id;
             this.Pessoa = pessoa;
+
+            viagem.Pedidos.Add(this);
         }
         
         public int Id { get; set; }
+
+        public int PessoaId { get; set; }
+
+        public int ViagemId { get; set; }
 
         public int Quantidade { get; set; }
 
@@ -68,9 +60,10 @@ namespace PreTrip.Model.Classes
             //Primary Key
             HasKey(x => x.Id);
 
+            HasRequired(x => x.Viagem).WithMany(x => x.Pedidos).HasForeignKey(x => x.ViagemId);
+
             //Foreign Key
-            HasRequired(x => x.Viagem);
-            HasRequired(x => x.Pessoa);            
+            HasRequired(x => x.Pessoa).WithMany(x => x.Pedidos).HasForeignKey(x => x.PessoaId);
         }
     }
 }

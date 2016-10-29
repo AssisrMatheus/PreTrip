@@ -23,9 +23,9 @@ namespace PreTrip.Services.Enderecos
             db.SaveChanges();
         }
 
-        public IEnumerable<Endereco> GetAllByUser(int userId)
-        {
-            return db.Enderecos.Where(x => x.Usuario.Id == userId).ToList();
-        }
+        //public IEnumerable<Endereco> GetAllByUser(int userId)
+        //{
+        //    return db.Enderecos.Where(x => x.Usuario.Id == userId).ToList();
+        //}
     }
 }

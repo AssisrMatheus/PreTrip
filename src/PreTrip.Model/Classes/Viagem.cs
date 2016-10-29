@@ -13,11 +13,13 @@ namespace PreTrip.Model.Classes
     {
         public Viagem()
         {
-            this.Eventos = new List<Evento>();
             this.Avaliacoes = new List<Avaliacao>();
+            this.Pedidos = new List<Pedido>();
         }
           
         public int Id { get; set; }
+
+        public int PessoaId { get; set; }
 
         public string Titulo { get; set; }
 
@@ -43,9 +45,9 @@ namespace PreTrip.Model.Classes
 
         public virtual Pessoa Pessoa { get; set; }
 
-        public ICollection<Evento> Eventos { get; set; }
+        public ICollection<Avaliacao> Avaliacoes { get; set; }
 
-        public ICollection<Avaliacao> Avaliacoes { get; set; }        
+        public ICollection<Pedido> Pedidos { get; set; }
     }
 
     public class ViagemMap : EntityTypeConfiguration<Viagem>
@@ -63,11 +65,11 @@ namespace PreTrip.Model.Classes
             HasRequired(x => x.Destino);
             HasRequired(x => x.Empresa);
             HasRequired(x => x.Veiculo);
-            HasRequired(x => x.Pessoa);
+            HasRequired(x => x.Pessoa).WithMany(x => x.Viagens).HasForeignKey(x => x.PessoaId);
 
             //Many to one
-            HasMany(x => x.Eventos);
             HasMany(x => x.Avaliacoes);
+            HasMany(x => x.Pedidos);
         }
     }
 }

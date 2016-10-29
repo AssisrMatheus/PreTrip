@@ -16,6 +16,7 @@ namespace PreTrip.Model.Classes
             this.Interesses = new List<Interesse>();
             this.Viagens = new List<Viagem>();
             this.Pedidos = new List<Pedido>();
+            this.Avaliacoes = new List<Avaliacao>();
         }
         
         public int Id { get; set; }
@@ -36,11 +37,15 @@ namespace PreTrip.Model.Classes
         
         public virtual ContaBancaria ContaBancaria { get; set; }
 
+        public virtual Usuario Usuario { get; set; }
+
         public ICollection<Interesse> Interesses { get; set; }
 
         public ICollection<Viagem> Viagens { get; set; }
 
         public ICollection<Pedido> Pedidos { get; set; }
+
+        public ICollection<Avaliacao> Avaliacoes { get; set; }
     }
 
     public class PessoaMap : EntityTypeConfiguration<Pessoa>
@@ -51,18 +56,19 @@ namespace PreTrip.Model.Classes
             ToTable("Pessoa");
 
             //Primary Key
-            HasKey(x => x.Id);
+            HasKey(x => x.Id);            
 
             Property(x => x.Nome).IsRequired();
             Property(x => x.Cpf).IsRequired();
             Property(x => x.DtNascimento).IsRequired();
 
             //Foreign Key
-            HasRequired(x => x.ContaBancaria);
+            HasRequired(x => x.Usuario).WithRequiredDependent(x => x.Pessoa);
 
             HasMany(x => x.Interesses);
             HasMany(x => x.Viagens);
             HasMany(x => x.Pedidos);
+            HasMany(x => x.Avaliacoes);
         }
     }
 }

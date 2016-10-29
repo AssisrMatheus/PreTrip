@@ -102,15 +102,27 @@ namespace PreTrip.Services.Usuarios
                 db.Entry(contaBanc).CurrentValues.SetValues(usuario.Pessoa.ContaBancaria);
 
                 usuExistente.Pessoa = pessoa;
-                usuExistente.Pessoa.ContaBancaria = contaBanc;                
-
-                usuExistente.Pessoa.Viagens = usuario.Pessoa.Viagens;
-                usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x));
+                usuExistente.Pessoa.ContaBancaria = contaBanc;
 
                 usuExistente.Pessoa.Pedidos = usuario.Pessoa.Pedidos;
-                usuExistente.Pessoa.Pedidos.ToList().ForEach(x => db.Pedidos.AddOrUpdate(x));
-
                 usuExistente.Pessoa.Interesses = usuario.Pessoa.Interesses;
+                usuExistente.Pessoa.Viagens = usuario.Pessoa.Viagens;
+
+                usuExistente.Pessoa.Viagens.ToList()
+                    .ForEach(x => 
+                    {
+                        db.Viagens.AddOrUpdate(x);
+                    });
+
+                usuExistente.Pessoa.Pedidos.ToList()
+                    .ForEach(x =>
+                    {
+                        x.Viagem = null;
+                        x.Pessoa = null;
+                        db.Pedidos.AddOrUpdate(x);
+                    });
+
+                
                 usuExistente.Pessoa.Interesses.ToList().ForEach(x => db.Interesses.AddOrUpdate(x));
             }
             else

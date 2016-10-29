@@ -24,8 +24,6 @@ namespace PreTrip.Model.Classes
         public string Cidade { get; set; }
 
         public string Estado { get; set; }
-
-        public virtual Usuario Usuario { get; set; }
     }
 
     public class EnderecoMap : EntityTypeConfiguration<Endereco>
@@ -37,9 +35,6 @@ namespace PreTrip.Model.Classes
 
             //Primary Key
             HasKey(x => x.Id);
-
-            //Foreign Key
-            HasRequired(x => x.Usuario);
         }
     }
 }

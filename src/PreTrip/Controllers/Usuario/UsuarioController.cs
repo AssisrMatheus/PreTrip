@@ -13,6 +13,7 @@ using PreTrip.Services.Viagens;
 using PreTrip.ViewModel;
 using PreTrip.Attributes;
 using PreTrip.Services.ControleFinanceiro;
+using PreTrip.Services.Pedidos;
 
 namespace PreTrip.Controllers
 {
@@ -52,14 +53,14 @@ namespace PreTrip.Controllers
         public ActionResult Empresas()
         {
 #warning usar viewmodel e não viewbag
-            ViewBag.Empresas = new EmpresasService().GetAll(PreTripSession.Usuario.Id);
+            //ViewBag.Empresas = new EmpresasService().GetAll(PreTripSession.Usuario.Id);
 
             return View();
         }
 
         [UsuarioLogado]
         public ActionResult CadastrarEmpresa()
-        {         
+        {
             return View();
         }
 
@@ -70,8 +71,6 @@ namespace PreTrip.Controllers
             if (ModelState.IsValid)
             {
                 var empresaService = new EmpresasService();
-                
-                empresa.Usuario = PreTripSession.Usuario;
 
                 empresaService.Inserir(empresa);
                 ModelState.Clear();
@@ -125,7 +124,7 @@ namespace PreTrip.Controllers
                 {
                     Pessoa = PreTripSession.Usuario.Pessoa,
                     Cidade = c
-                }).ToList();            
+                }).ToList();
 
             new InteresseService().InsertOrUpdate(listaInteresses);
 
@@ -158,10 +157,9 @@ namespace PreTrip.Controllers
         [UsuarioLogado]
         public ActionResult CadastrarEndereco(Endereco endereco)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 var enderecoService = new EnderecosService();
-                endereco.Usuario = PreTripSession.Usuario;
 
                 enderecoService.Gravar(endereco);
                 return RedirectToAction("Index", "Usuario");
@@ -184,14 +182,14 @@ namespace PreTrip.Controllers
             else
             {
                 var pedidos = PreTripSession.Carrinho.Pedidos.ToList();
-                pedidos.Add(new Pedido(viagemPessoa));
+                pedidos.Add(new Pedido(viagemPessoa, PreTripSession.Usuario.Pessoa));
 
                 PreTripSession.Carrinho.Pedidos = pedidos;
             }
 
             return RedirectToAction("MeuCarrinho", "Usuario");
         }
-        
+
         public ActionResult MeuCarrinho()
         {
             var viewModel = new UsuariosViewModel()
@@ -236,19 +234,17 @@ namespace PreTrip.Controllers
         {
             var listaRelatorioFinanceiro = new List<RelatorioFinanceiro>();
 
-            // Lista de vendas
-            var vendas = new ControleFinanceiroService().GetAllVendas(PreTripSession.Usuario.Pessoa.Id);
+            // Lista de vendas(viagens que a pessoa que cadastrou é do id da pessoa logada)
+            var vendas = new ViagensService().GetViagens(x => x.PessoaId == PreTripSession.Usuario.Pessoa.Id);
 
-            // Lista de compras
-            var compras = new ControleFinanceiroService().GetAllCompras(PreTripSession.Usuario.Pessoa.Id);
+            // Lista de compras(Pedidos que a pessoa que fez é da pessoa logada)
+            var compras = new PedidosService().GetPedidos(x => x.PessoaId == PreTripSession.Usuario.Pessoa.Id);
 
-            if (vendas != null && vendas.Count > 0)
-                foreach (var venda in vendas)
-                    this.AddVendasRelatorioFinanceiro(listaRelatorioFinanceiro, venda);
+            foreach (var venda in vendas)
+                this.AddVendasRelatorioFinanceiro(listaRelatorioFinanceiro, venda);
 
-            if (compras != null && compras.Count > 0)
-                foreach (var compra in compras)
-                    this.AddComprasRelatorioFinanceiro(listaRelatorioFinanceiro, compra);
+            foreach (var compra in compras)
+                this.AddComprasRelatorioFinanceiro(listaRelatorioFinanceiro, compra);
 
             return listaRelatorioFinanceiro;
         }
@@ -289,13 +285,16 @@ namespace PreTrip.Controllers
             //Salvo as alterações
             new UsuariosService().Gravar(usuario);
 
+            //Busco os pedidos para mostrar na tela
+            carrinho.Pedidos = new PedidosService().GetPedidos(x => x.PessoaId == usuario.Pessoa.Id);
+
             PreTripSession.Carrinho = null;
             PreTripSession.Usuario = usuario;
 
             return View(new CompraViewModel() { Pedidos = carrinho.Pedidos, PrecoCompra = carrinho.PrecoFinal });
         }
 
-        private void AtualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidos)            
+        private void AtualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidos)
         {
             //Junto todos os pedidos por organizador e somo o lucro para diminuir o foreach e os acessos ao banco
             var pedidosTotal = pedidos
@@ -312,7 +311,7 @@ namespace PreTrip.Controllers
             {
                 //Busco o organizador
                 var pessoaCriadoraViagem = new UsuariosService().GetUsuarioById(pedido.IdOrganizador);
-                
+
                 pessoaCriadoraViagem.Pessoa.ContaBancaria.Saldo += pedido.Lucro;
 
                 //Salva no banco

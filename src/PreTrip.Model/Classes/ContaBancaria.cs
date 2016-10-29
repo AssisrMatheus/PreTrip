@@ -14,6 +14,8 @@ namespace PreTrip.Model.Classes
         public int Id { get; set; }
 
         public double Saldo { get; set; }
+
+        public virtual Pessoa Pessoa { get; set; }
     }
 
     public class ContaBancariaMap : EntityTypeConfiguration<ContaBancaria>
@@ -21,10 +23,12 @@ namespace PreTrip.Model.Classes
         public ContaBancariaMap()
         {
             //Nome da tabela
-            ToTable("ContaBancaria");
+            ToTable("contabancaria");
 
             //Primary Key
             HasKey(x => x.Id);
+
+            HasRequired(x => x.Pessoa).WithRequiredDependent(x => x.ContaBancaria);
         }
     }
 }

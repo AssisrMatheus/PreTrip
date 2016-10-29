@@ -32,7 +32,7 @@ namespace PreTrip.Controllers
 
         public ActionResult Viagens()
         {
-            ViewBag.Viagens = new ViagensService().GetAll();
+            ViewBag.Viagens = new ViagensService().GetViagens();
 
             return View();
         }

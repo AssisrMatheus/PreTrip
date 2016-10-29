@@ -3,7 +3,9 @@ using PreTrip.Session;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -18,7 +20,13 @@ namespace PreTrip
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);                
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var culture = new CultureInfo(Thread.CurrentThread.CurrentUICulture.LCID);
+            culture.NumberFormat.CurrencyNegativePattern = 1;
+
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
         }        
     }
 }

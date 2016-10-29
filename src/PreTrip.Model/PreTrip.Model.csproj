@@ -61,7 +61,6 @@
     <Compile Include="Classes\ContaBancaria.cs" />
     <Compile Include="Classes\Empresa.cs" />
     <Compile Include="Classes\Endereco.cs" />
-    <Compile Include="Classes\Evento.cs" />
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Usuario.cs" />

@@ -56,7 +56,7 @@ namespace PreTrip.Model.Classes
             Property(x => x.Senha).IsRequired();
 
             //Foreign Key
-            HasRequired(x => x.Pessoa);
+            //HasRequired(x => x.Pessoa).WithRequiredPrincipal(t => t.Usuario);
         }
     }
 }

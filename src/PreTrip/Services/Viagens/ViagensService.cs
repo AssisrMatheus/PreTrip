@@ -1,5 +1,6 @@
 ﻿using PreTrip.Model.Classes;
 using PreTrip.Model.Context;
+using PreTrip.Services.Usuarios;
 using PreTrip.Session;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,9 @@ namespace PreTrip.Services.Viagens
             get
             {
                 return this.db.Viagens
-                    .Include(x => x.Origem)
-                    .Include(x => x.Origem.Usuario)
-                    .Include(x => x.Destino)
-                    .Include(x => x.Destino.Usuario)
+                    .Include(x => x.Origem)                    
+                    .Include(x => x.Destino)                    
                     .Include(x => x.Empresa)
-                    .Include(x => x.Empresa.Usuario)
-                    .Include(x => x.Empresa.Usuario)
                     .Include(x => x.Veiculo)
                     .Include(x => x.Pessoa)
                     .Include(x => x.Pessoa.ContaBancaria);
@@ -37,9 +34,12 @@ namespace PreTrip.Services.Viagens
             this.db = new PreTripDB();
         }
 
-        public IEnumerable<Viagem> GetAll()
+        public IEnumerable<Viagem> GetViagens(Func<Viagem, bool> filtro = null)
         {
-            return this.viagens.ToList();
+            if(filtro != null)
+                return this.viagens.Where(filtro).ToList();
+            else
+                return this.viagens.ToList();
         }
 
         public IEnumerable<Viagem> GetAllFilter(Busca filtros)
@@ -71,7 +71,7 @@ namespace PreTrip.Services.Viagens
 
         public IEnumerable<Viagem> GetAllFromPessoa(int pessoaId)
         {
-            return this.viagens.Where(x => x.Pessoa.Id == pessoaId).ToList();
+            return this.viagens.Where(x => x.PessoaId == pessoaId).ToList();
         }
 
         public Viagem GetViagem(int viagemId)
@@ -82,15 +82,17 @@ namespace PreTrip.Services.Viagens
 
         public void Gravar(Viagem viagem)
         {
-            if (viagem.Pessoa == null || viagem.Pessoa.Id == 0) throw new ArgumentNullException("Viagem precisa ter uma pessoa válida");
+            if (viagem.PessoaId == 0) throw new ArgumentNullException("Viagem precisa ter uma pessoa válida");
             
             //Busca pelo id
             var viagExistente = this.viagens.Where(x => x.Id == viagem.Id).FirstOrDefault();
 
-            var pessoa = db.Pessoas.Include(x => x.ContaBancaria).Where(x => x.Id == viagem.Pessoa.Id).FirstOrDefault();
+            var usuario = new UsuariosService().GetUsers(x => x.Pessoa.Id == viagem.PessoaId).FirstOrDefault();
 
-            if (pessoa != null)
-                viagem.Pessoa = pessoa;
+            if (usuario != null)
+            {
+                viagem.PessoaId = usuario.Pessoa.Id;
+            }                
 
             //Se existe
             if (viagExistente != null)
@@ -108,8 +110,7 @@ namespace PreTrip.Services.Viagens
         public void InserirAvaliacao(Avaliacao avaliacao)
         {
             if (avaliacao.Viagem == null || avaliacao.Viagem.Id == 0) throw new ArgumentNullException("Avaliação precisa ter uma viagem válida");
-            if (avaliacao.Usuario == null || avaliacao.Usuario.Id == 0) throw new ArgumentNullException("Avaliacao precisa ter um usuário válido");
-
+            if (avaliacao.Pessoa == null || avaliacao.Pessoa.Id == 0) throw new ArgumentNullException("Avaliacao precisa ter um usuário válido");
 
             db.Avaliacoes.Add(avaliacao);
             db.SaveChanges();

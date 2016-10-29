@@ -11,10 +11,10 @@ namespace PreTrip.Model.Classes
 {
     public class Interesse
     {
-
-        [Key]
         public int Id { get; set; }
-        
+
+        public int PessoaId { get; set; }
+
         public string Cidade { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
@@ -31,7 +31,7 @@ namespace PreTrip.Model.Classes
             HasKey(x => x.Id);
 
             //Foreign Key
-            HasRequired(x => x.Pessoa);
+            HasRequired(x => x.Pessoa).WithMany(x => x.Interesses).HasForeignKey(x => x.PessoaId);
         }
     }
 }

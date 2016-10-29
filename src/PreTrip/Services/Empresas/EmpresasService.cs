@@ -17,10 +17,10 @@ namespace PreTrip.Services.Empresas
             this.db = new PreTripDB();
         }
 
-        public IEnumerable<Empresa> GetAll(int userId)
-        {
-            return db.Empresas.Where(e => e.Usuario.Id == userId).ToList();
-        }
+        //public IEnumerable<Empresa> GetAll(int userId)
+        //{
+        //    return db.Empresas.Where(e => e.Usuario.Id == userId).ToList();
+        //}
 
         public void Inserir(Empresa empresa)
         {

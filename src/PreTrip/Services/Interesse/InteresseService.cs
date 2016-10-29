@@ -30,7 +30,7 @@ namespace PreTrip.Services.Interesse
 
         public IEnumerable<string> GetAllCities()
         {
-            var allViagens = new ViagensService().GetAll();
+            var allViagens = new ViagensService().GetViagens();
 
             var listaCidades = new List<string>();
 

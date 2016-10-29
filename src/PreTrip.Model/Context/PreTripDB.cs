@@ -28,7 +28,7 @@ namespace PreTrip.Model.Context
 
         public DbSet<Pedido> Pedidos { get; set; }
 
-        public DbSet<Evento> Eventos { get; set; }
+        //public DbSet<Evento> Eventos { get; set; }
 
         public DbSet<Endereco> Enderecos { get; set; }
 
@@ -54,7 +54,7 @@ namespace PreTrip.Model.Context
             modelBuilder.Configurations.Add(new PessoaMap());
             modelBuilder.Configurations.Add(new PedidoMap());
             modelBuilder.Configurations.Add(new InteresseMap());
-            modelBuilder.Configurations.Add(new EventoMap());
+            //modelBuilder.Configurations.Add(new EventoMap());
             modelBuilder.Configurations.Add(new EnderecoMap());
             modelBuilder.Configurations.Add(new EmpresaMap());
             modelBuilder.Configurations.Add(new ContaBancariaMap());

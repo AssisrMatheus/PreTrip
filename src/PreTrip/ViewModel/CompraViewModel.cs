@@ -11,5 +11,7 @@ namespace PreTrip.ViewModel
         public IEnumerable<Pedido> Pedidos { get; set; }
 
         public double PrecoCompra { get; set; }
+
+        public bool Sucesso { get; set; }
     }
 }

@@ -137,7 +137,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Services\Autenticacao\AutenticacaoService.cs" />
+    <Compile Include="Services\Cartoes\CartoesService.cs" />
     <Compile Include="Services\ControleFinanceiro\ControleFinanceiroService.cs" />
     <Compile Include="Services\Empresas\EmpresasService.cs" />
     <Compile Include="Services\Enderecos\EnderecosService.cs" />
@@ -152,6 +158,11 @@
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\UsuariosViewModel.cs" />
     <Compile Include="ViewModel\ViagensViewModel.cs" />
+    <Compile Include="Web References\CartaoService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -162,6 +173,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -219,6 +234,11 @@
     <Content Include="Views\Usuario\AdicionarSaldo.cshtml" />
     <Content Include="Views\Usuario\ControleFinanceiro.cshtml" />
     <Content Include="Views\Usuario\Relatorio.cshtml" />
+    <Content Include="Web References\CartaoService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\CartaoService\Server.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +265,22 @@
       <Project>{a8446d23-95e8-4411-a699-5b0ad1b6db6f}</Project>
       <Name>PreTrip.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://tadeuclasse.pe.hu/WSCartao/Server.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\CartaoService\</RelPath>
+      <UpdateFromURL>http://tadeuclasse.pe.hu/WSCartao/Server.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PreTrip_CartaoService_Card</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

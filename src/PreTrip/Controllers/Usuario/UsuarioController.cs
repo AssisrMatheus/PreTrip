@@ -266,58 +266,11 @@ namespace PreTrip.Controllers
             if (PreTripSession.Carrinho == null || PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo < PreTripSession.Carrinho.PrecoFinal)
                 return RedirectToAction("MeuCarrinho");
 
-            var carrinho = PreTripSession.Carrinho;
-            var usuario = PreTripSession.Usuario;
+            var viewModel = new CompraViewModel();
+            new PedidosService().RegistrarCompra(viewModel);
 
-            var pedidos = new List<Pedido>();
-
-            //Adiciono os pedidos do carrinho aos pedidos já feito pela pessoa
-            if (usuario.Pessoa.Pedidos != null && usuario.Pessoa.Pedidos.Any())
-                pedidos = usuario.Pessoa.Pedidos.ToList();
-
-            pedidos.AddRange(carrinho.Pedidos);
-            usuario.Pessoa.Pedidos = pedidos;
-
-            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
-
-            this.AtualizarSaldoCriadorViagem(pedidos);
-
-            //Salvo as alterações
-            new UsuariosService().Gravar(usuario);
-
-            //Busco os pedidos para mostrar na tela
-            carrinho.Pedidos = new PedidosService().GetPedidos(x => x.PessoaId == usuario.Pessoa.Id);
-
-            PreTripSession.Carrinho = null;
-            PreTripSession.Usuario = usuario;
-
-            return View(new CompraViewModel() { Pedidos = carrinho.Pedidos, PrecoCompra = carrinho.PrecoFinal });
-        }
-
-        private void AtualizarSaldoCriadorViagem(IEnumerable<Pedido> pedidos)
-        {
-            //Junto todos os pedidos por organizador e somo o lucro para diminuir o foreach e os acessos ao banco
-            var pedidosTotal = pedidos
-                .GroupBy(x => x.Viagem.Pessoa.Id)
-                .Select(p => new
-                {
-                    IdOrganizador = p.Key,
-                    Lucro = p.Sum(x => x.PrecoFinal)
-                });
-
-            var service = new UsuariosService();
-
-            foreach (var pedido in pedidosTotal)
-            {
-                //Busco o organizador
-                var pessoaCriadoraViagem = new UsuariosService().GetUsuarioById(pedido.IdOrganizador);
-
-                pessoaCriadoraViagem.Pessoa.ContaBancaria.Saldo += pedido.Lucro;
-
-                //Salva no banco
-                service.Gravar(pessoaCriadoraViagem);
-            }
-        }
+            return View(viewModel);
+        }        
 
         /// <summary>
         /// Adiciona as vendas na lista do relatório financeiro.

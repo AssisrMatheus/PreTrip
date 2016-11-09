@@ -82,7 +82,6 @@ namespace PreTrip.Services.Usuarios
             }
         }
 
-#warning verificar a necessidade desse método
         public void Gravar(Usuario usuario)
         {
             var usuExistente = db.Usuarios
@@ -90,29 +89,33 @@ namespace PreTrip.Services.Usuarios
                 .Include(x => x.Pessoa.ContaBancaria)
                 .Where(x => x.Id == usuario.Id).FirstOrDefault();
 
-            //Se existe
+            //Se o usuário recebido existe
             if (usuExistente != null)
             {
+                //Atualizo o usuário existente com os valores do usuário recebido
                 db.Entry(usuExistente).CurrentValues.SetValues(usuario);
 
+                //Busco a pessoa desse usuário
                 var pessoa = db.Pessoas.Where(x => x.Id == usuario.Pessoa.Id).FirstOrDefault();
+
+                //Atualizo a pessoa do banco com os valores da pessoa recebida
                 db.Entry(pessoa).CurrentValues.SetValues(usuario.Pessoa);
 
+                //Busco a conta e atualizo com os valores recebidos
                 var contaBanc = db.ContasBancarias.Where(x => x.Id == usuario.Pessoa.ContaBancaria.Id).FirstOrDefault();
                 db.Entry(contaBanc).CurrentValues.SetValues(usuario.Pessoa.ContaBancaria);
 
+                //Substituo no usuário attachado no banco os campos que acabei de atualizar também
                 usuExistente.Pessoa = pessoa;
                 usuExistente.Pessoa.ContaBancaria = contaBanc;
 
+                //Coloco no usuário existente as listas do usuário recebido
                 usuExistente.Pessoa.Pedidos = usuario.Pessoa.Pedidos;
                 usuExistente.Pessoa.Interesses = usuario.Pessoa.Interesses;
                 usuExistente.Pessoa.Viagens = usuario.Pessoa.Viagens;
 
-                usuExistente.Pessoa.Viagens.ToList()
-                    .ForEach(x => 
-                    {
-                        db.Viagens.AddOrUpdate(x);
-                    });
+                //Para cada uma das listas, atualizo no banco na ordem correta
+                usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x););
 
                 usuExistente.Pessoa.Pedidos.ToList()
                     .ForEach(x =>
@@ -127,11 +130,14 @@ namespace PreTrip.Services.Usuarios
             }
             else
             {
+                //Se não existe somente adiciono
                 db.Usuarios.Add(usuario);
             }
 
+            //Salva todas as alterações criadas
             db.SaveChanges();
         }
+
 
         public void GravarSaldo(Usuario usuario)
         {

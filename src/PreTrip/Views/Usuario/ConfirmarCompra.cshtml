@@ -1,7 +1,9 @@
 ﻿@model PreTrip.ViewModel.CompraViewModel
-
+@{ 
+    var cssColorClass = Model.Sucesso ? "success" : "danger";
+}
 <div class="container">
-    <div class="panel panel-success" style="margin-top: 2em;">
+    <div class="panel panel-@cssColorClass" style="margin-top: 2em;">
         <div class="panel-heading">
             <h3>Compra finalizada com sucesso! @Model.Pedidos.FirstOrDefault().DtHrRealizacao.ToShortDateString()</h3>
         </div>

@@ -16,6 +16,8 @@ namespace PreTrip.Model.Classes
         public double Saldo { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
+
+        public ICollection<Cartao> Cartoes { get; set; }
     }
 
     public class ContaBancariaMap : EntityTypeConfiguration<ContaBancaria>
@@ -29,6 +31,8 @@ namespace PreTrip.Model.Classes
             HasKey(x => x.Id);
 
             HasRequired(x => x.Pessoa).WithRequiredDependent(x => x.ContaBancaria);
+
+            HasMany(x => x.Cartoes);
         }
     }
 }

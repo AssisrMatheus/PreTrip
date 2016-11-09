@@ -5,12 +5,21 @@
 <div class="container">
     <div class="panel panel-@cssColorClass" style="margin-top: 2em;">
         <div class="panel-heading">
-            <h3>Compra finalizada com sucesso! @Model.Pedidos.FirstOrDefault().DtHrRealizacao.ToShortDateString()</h3>
+            <h3>@Model.Informacao</h3>
         </div>
         <div class="panel-body">
-            <p>
-                A sua compra de @Model.Pedidos.Count() itens foi finalizada com sucesso! Com um valor total de <span class="text-success" style="font-size: 3rem;vertical-align: middle;">R$@Model.PrecoCompra</span>
-            </p>
+                @if (Model.Sucesso)
+                {
+                    <p>
+                        A sua compra de @Model.Pedidos.Count() itens foi finalizada com sucesso. Com um valor total de <span class="text-success" style="font-size: 3rem;vertical-align: middle;">R$@Model.PrecoCompra</span>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        Não foi possível realizar a compra
+                    </p>
+                }
         </div>
 
         <ul class="list-group">

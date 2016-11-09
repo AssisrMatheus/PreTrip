@@ -8,6 +8,7 @@ using System.Web;
 using PreTrip.ViewModel;
 using PreTrip.Session;
 using PreTrip.Services.Usuarios;
+using PreTrip.Services.Cartoes;
 
 namespace PreTrip.Services.Pedidos
 {
@@ -51,18 +52,46 @@ namespace PreTrip.Services.Pedidos
             var usuario = PreTripSession.Usuario;
             var pedidos = new List<Pedido>();
 
+            //Adiciono os pedidos dos carrinho à lista de pedidos
+            pedidos.AddRange(carrinho.Pedidos);
+
+            //Se a compra for com cartão
+            if(viewModel.Cartao != null)
+            {
+                //Para cada pedido existente crio um dado da compra, gerando uma lista de dados para cada compra
+                var pedido = pedidos.FirstOrDefault();
+                var dadosCompras = new CartaoService.tDadosCartao()
+                {
+                    CNPJEmpresa = pedido.Viagem.Empresa.Cnpj,
+                    NomeEmpresa = pedido.Viagem.Empresa.RazaoSocial,
+                    NomeCliente = pedido.Pessoa.Nome,
+                    Valor = carrinho.PrecoFinal,
+                    Parcelas = viewModel.NumParcelas,
+                    Codigo = viewModel.Cartao.Codigo,
+                    NumeroCartao = viewModel.Cartao.NumeroCartao.ToString(),
+                    Validade = viewModel.Cartao.DataValidade
+                };
+
+                var cartaoResult = new CartoesService().ValidarCompraCartao(dadosCompras);
+
+                viewModel.Sucesso = cartaoResult.Success;
+                viewModel.Informacao = cartaoResult.Message;
+
+                //Se já foi inválido já retorno e não continuo
+                if(!cartaoResult.Success)
+                    return viewModel;
+            }
+
             //Se o usuário tem pedidos, adiciono à lista de pedidos
             if (usuario.Pessoa.Pedidos != null && usuario.Pessoa.Pedidos.Any())
                 pedidos = usuario.Pessoa.Pedidos.ToList();
-
-            //Adiciono os pedidos dos carrinho à lista de pedidos
-            pedidos.AddRange(carrinho.Pedidos);
 
             //Substituo todos os pedidos de pessoa
             usuario.Pessoa.Pedidos = pedidos;
 
             //Diminuo o saldo da pessoa pelo preço total da compra
-            usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
+            if (viewModel.Cartao == null)
+                usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
 
             viewModel.Pedidos = carrinho.Pedidos;
             viewModel.PrecoCompra = carrinho.PrecoFinal;
@@ -84,6 +113,7 @@ namespace PreTrip.Services.Pedidos
             PreTripSession.Usuario = service.GetUsuarioById(usuario.Id);
 
             viewModel.Sucesso = true;
+            viewModel.Informacao = "Compra finalizada com sucesso!"+ carrinho.Pedidos.FirstOrDefault().DtHrRealizacao.ToShortDateString();
 
             return viewModel;
         }

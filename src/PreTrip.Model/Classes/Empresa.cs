@@ -18,8 +18,10 @@ namespace PreTrip.Model.Classes
         
         public int Id { get; set; }
 
-        public long Cnpj { get; set; }
+        [Required]
+        public int Cnpj { get; set; }
 
+        [Required]
         public string RazaoSocial { get; set; }
 
         public string NomeFantasia { get; set; }

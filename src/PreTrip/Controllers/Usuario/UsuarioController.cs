@@ -263,10 +263,18 @@ namespace PreTrip.Controllers
         [UsuarioLogado]
         public ActionResult ConfirmarCompra()
         {
+            var viewModel = new CompraViewModel();
+
+            return View(viewModel);
+        }
+
+        [UsuarioLogado]
+        [HttpPost]
+        public ActionResult ConfirmarCompra(CompraViewModel viewModel)
+        {
             if (PreTripSession.Carrinho == null || PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo < PreTripSession.Carrinho.PrecoFinal)
                 return RedirectToAction("MeuCarrinho");
 
-            var viewModel = new CompraViewModel();
             new PedidosService().RegistrarCompra(viewModel);
 
             return View(viewModel);

@@ -115,7 +115,7 @@ namespace PreTrip.Services.Usuarios
                 usuExistente.Pessoa.Viagens = usuario.Pessoa.Viagens;
 
                 //Para cada uma das listas, atualizo no banco na ordem correta
-                usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x););
+                usuExistente.Pessoa.Viagens.ToList().ForEach(x => db.Viagens.AddOrUpdate(x));
 
                 usuExistente.Pessoa.Pedidos.ToList()
                     .ForEach(x =>

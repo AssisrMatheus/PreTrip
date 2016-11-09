@@ -41,6 +41,9 @@ namespace PreTrip.Model.Context
         public DbSet<Avaliacao> Avaliacoes { get; set; }
 
         public DbSet<Interesse> Interesses { get; set; }
+
+        public DbSet<Cartao> Cartoes { get; set; }
+
         public object Entity { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -57,6 +60,7 @@ namespace PreTrip.Model.Context
             //modelBuilder.Configurations.Add(new EventoMap());
             modelBuilder.Configurations.Add(new EnderecoMap());
             modelBuilder.Configurations.Add(new EmpresaMap());
+            modelBuilder.Configurations.Add(new CartaoMap());
             modelBuilder.Configurations.Add(new ContaBancariaMap());
             modelBuilder.Configurations.Add(new BuscaMap());
             modelBuilder.Configurations.Add(new AvaliacaoMap());

@@ -8,12 +8,29 @@ namespace PreTrip.Services.Cartoes
     public class CartaoServiceResult
     {
         public bool Success { get; set; }
-        public string Mensagem { get; set; }
+        public string Message { get; set; }
     }
 
     public class CartoesService
     {
-        public CartaoServiceResult ValidarCartao(CartaoService.tDadosCartao dadosCartao)
+        public CartaoServiceResult ValidarComprasCartao(IEnumerable<CartaoService.tDadosCartao> dadosCartoes)
+        {
+            var result = new CartaoServiceResult()
+            {
+                Success = true
+            };
+
+            foreach (var cartao in dadosCartoes)
+            {
+                var resultCartao = this.ValidarCompraCartao(cartao);
+                if (!resultCartao.Success)
+                    result = resultCartao;
+            }
+
+            return result;
+        }
+
+        public CartaoServiceResult ValidarCompraCartao(CartaoService.tDadosCartao dadosCartao)
         {
             var result = new CartaoServiceResult()
             {
@@ -35,13 +52,13 @@ namespace PreTrip.Services.Cartoes
                 //Tenta converter o número de erro
                 if (int.TryParse(serviceResult, out errorNumber))
                 {
-                    result.Mensagem = this.GetMensagemPorErro(errorNumber);
+                    result.Message = this.GetMensagemPorErro(errorNumber);
                 }
                 else
                 {
                     //Se não foi autorizado e não foi um número de erro, foi algum outro erro
                     //Simplesmente seto a mensagem de erro retornada ao resultado
-                    result.Mensagem = serviceResult;
+                    result.Message = serviceResult;
                 }
 
                 return result;

@@ -27,7 +27,7 @@ namespace PreTrip.Model.Classes
         public long Telefone { get; set; }
 
         [Required]
-        [RegularExpression("^[0-9]{11}$")]
+        [RegularExpression("^[0-9]{11}$", ErrorMessage = "O CPF precisa ter exatamente 11 números")]
         public string Cpf { get; set; }
 
         [Required]

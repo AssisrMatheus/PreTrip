@@ -16,6 +16,20 @@ namespace PreTrip.Services.Usuarios
     {
         private PreTripDB db { get; set; }
 
+        private IQueryable<Usuario> usuarios
+        {
+            get
+            {
+                return db.Usuarios
+                .Include(x => x.Pessoa)
+                .Include(x => x.Pessoa.ContaBancaria)
+                .Include(x => x.Pessoa.ContaBancaria.Cartoes)
+                .Include(x => x.Pessoa.Pedidos)
+                .Include(x => x.Pessoa.Avaliacoes)
+                .Include(x => x.Pessoa.Interesses);
+            }
+        }
+
         public UsuariosService()
         {
             this.db = new PreTripDB();
@@ -23,30 +37,20 @@ namespace PreTrip.Services.Usuarios
 
         public Usuario GetUsuarioById(int pessoaId)
         {
-            return db.Usuarios
-                .Include(x => x.Pessoa)
-                .Include(x => x.Pessoa.ContaBancaria)
-                .FirstOrDefault(x => x.Id == pessoaId);
+            return this.usuarios.FirstOrDefault(x => x.Id == pessoaId);
         }
 
         public Usuario GetUsuarioLoginSenha(string login, string senha)
         {
-            return db.Usuarios
-                .Include(x => x.Pessoa)
-                .Include(x => x.Pessoa.ContaBancaria)
-                .FirstOrDefault(x => x.Login == login && x.Senha == senha);
+            return this.usuarios.FirstOrDefault(x => x.Login == login && x.Senha == senha);
         }
 
         public IEnumerable<Usuario> GetUsers(Func<Usuario, bool> filtro = null)
         {
-            var usuarios = db.Usuarios
-                .Include(x => x.Pessoa)
-                .Include(x => x.Pessoa.ContaBancaria);
-
             if (filtro != null)
-                return usuarios.Where(filtro).ToList();
+                return this.usuarios.Where(filtro).ToList();
             else
-                return usuarios.ToList();
+                return this.usuarios.ToList();
         }
 
         /// <summary>
@@ -84,10 +88,7 @@ namespace PreTrip.Services.Usuarios
 
         public void Gravar(Usuario usuario)
         {
-            var usuExistente = db.Usuarios
-                .Include(x => x.Pessoa)
-                .Include(x => x.Pessoa.ContaBancaria)
-                .Where(x => x.Id == usuario.Id).FirstOrDefault();
+            var usuExistente = this.usuarios.Where(x => x.Id == usuario.Id).FirstOrDefault();
 
             //Se o usuário recebido existe
             if (usuExistente != null)
@@ -146,6 +147,22 @@ namespace PreTrip.Services.Usuarios
             //Se existe
             if (contaExistente != null)
                 contaExistente.Saldo = usuario.Pessoa.ContaBancaria.Saldo;
+
+            db.SaveChanges();
+        }
+
+        public void GravarCartao(int userId, Cartao cartao)
+        {
+            var usuario = this.usuarios.FirstOrDefault(x => x.Id == userId);
+            
+            if(usuario != null)
+            {
+                var conta = this.db.ContasBancarias.FirstOrDefault(x => x.Id == usuario.Pessoa.ContaBancaria.Id);
+                cartao.ContaBancaria = conta;
+                cartao.ContaBancariaId = conta.Id;
+                conta.Cartoes.Add(cartao);
+                db.Cartoes.AddOrUpdate(cartao);
+            }
 
             db.SaveChanges();
         }

@@ -10,9 +10,11 @@ namespace PreTrip.Model.Classes
 {
     public class Cartao
     {
+        public int Id { get; set; }
+
         [Required]
         [RegularExpression("^[0-9]{16}$", ErrorMessage = "O cartão precisa ter exatamente 16 números")]
-        public int NumeroCartao { get; set; }
+        public string NumeroCartao { get; set; }
 
         [Required]
         [RegularExpression("^[0-9]{3}$", ErrorMessage = "O código precisa ter exatamente 3 números")]
@@ -35,7 +37,7 @@ namespace PreTrip.Model.Classes
             ToTable("cartao");
 
             //Primary Key
-            HasKey(x => x.NumeroCartao);
+            HasKey(x => x.Id);
 
             HasRequired(x => x.ContaBancaria).WithMany(x => x.Cartoes).HasForeignKey(x => x.ContaBancariaId);
         }

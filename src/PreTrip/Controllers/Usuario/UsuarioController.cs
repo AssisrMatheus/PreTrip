@@ -272,13 +272,35 @@ namespace PreTrip.Controllers
         [HttpPost]
         public ActionResult ConfirmarCompra(CompraViewModel viewModel)
         {
-            if (PreTripSession.Carrinho == null || PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo < PreTripSession.Carrinho.PrecoFinal)
+            if (PreTripSession.Carrinho == null || (PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo < PreTripSession.Carrinho.PrecoFinal && !PreTripSession.Usuario.Pessoa.ContaBancaria.Cartoes.Any()))
                 return RedirectToAction("MeuCarrinho");
 
-            new PedidosService().RegistrarCompra(viewModel);
+            viewModel.Cartao = PreTripSession.Usuario.Pessoa.ContaBancaria.Cartoes.FirstOrDefault(x => x.Id == viewModel.IdCartao);
+            var resultCompra = new PedidosService().RegistrarCompra(viewModel);
 
-            return View(viewModel);
+            return View("CompraFinalizada", viewModel);
         }        
+
+        [HttpGet]
+        [UsuarioLogado]
+        public ActionResult AdicionarCartao()
+        {
+            return View(new Cartao());
+        }
+
+        [HttpPost]
+        [UsuarioLogado]
+        public ActionResult AdicionarCartao(Cartao cartao)
+        {
+            if (!ModelState.IsValid)
+                return View(cartao);
+
+            var service = new UsuariosService();
+            service.GravarCartao(PreTripSession.Usuario.Id, cartao);
+            PreTripSession.Usuario = service.GetUsuarioById(PreTripSession.Usuario.Id);
+
+            return RedirectToAction("MeuCarrinho");
+        }
 
         /// <summary>
         /// Adiciona as vendas na lista do relatório financeiro.

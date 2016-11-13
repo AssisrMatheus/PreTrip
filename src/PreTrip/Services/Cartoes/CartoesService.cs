@@ -38,31 +38,38 @@ namespace PreTrip.Services.Cartoes
             };
 
             //Executa a requisição
-            var serviceResult = new CartaoService.Card().ValidarCartao(dadosCartao);
-
-            //Se for autorizado já retorna
-            if(serviceResult.ToLowerInvariant() == "AUTORIZADO".ToLowerInvariant())
-                return result;
-            else
+            try
             {
-                //Se falhou já seta como falha
-                result.Success = false;                
-
-                int errorNumber;
-                //Tenta converter o número de erro
-                if (int.TryParse(serviceResult, out errorNumber))
-                {
-                    result.Message = this.GetMensagemPorErro(errorNumber);
-                }
+                var serviceResult = new CartaoService.Card().ValidarCartao(dadosCartao);
+                //Se for autorizado já retorna
+                if (serviceResult.ToLowerInvariant() == "AUTORIZADO".ToLowerInvariant())
+                    return result;
                 else
                 {
-                    //Se não foi autorizado e não foi um número de erro, foi algum outro erro
-                    //Simplesmente seto a mensagem de erro retornada ao resultado
-                    result.Message = serviceResult;
-                }
+                    //Se falhou já seta como falha
+                    result.Success = false;
 
-                return result;
+                    int errorNumber;
+                    //Tenta converter o número de erro
+                    if (int.TryParse(serviceResult, out errorNumber))
+                    {
+                        result.Message = this.GetMensagemPorErro(errorNumber);
+                    }
+                    else
+                    {
+                        //Se não foi autorizado e não foi um número de erro, foi algum outro erro
+                        //Simplesmente seto a mensagem de erro retornada ao resultado
+                        result.Message = serviceResult;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.Message;
+            }
+
+            return result;
         }
 
         private string GetMensagemPorErro(int errorNumber)

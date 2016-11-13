@@ -77,23 +77,31 @@
 
         <hr />
 
-            <div class="pull-right">
-                @if (PreTripSession.Usuario != null)
+        <div class="pull-left text-danger">
+            @if (PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo <= Model.Carrinho.PrecoFinal)
+            {
+                <div>Você não possui saldo suficiente para realizar a compra com dinheiro. @Html.ActionLink("Adicione saldo", "AdicionarSaldo", "Usuario")</div>
+            }
+
+            @if (!PreTripSession.Usuario.Pessoa.ContaBancaria.Cartoes.Any())
+            {
+                <div>Você não possui um cartão vinculado. @Html.ActionLink("Adicione um cartão", "AdicionarCartao", "Usuario")</div>
+            }
+        </div>
+
+        <div class="pull-right">
+            @if (PreTripSession.Usuario != null)
                 {
-                    if (PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo >= Model.Carrinho.PrecoFinal)
+                    if (PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo >= Model.Carrinho.PrecoFinal || PreTripSession.Usuario.Pessoa.ContaBancaria.Cartoes.Any())
                     {
-                        <a href="@Url.Action("ConfirmarCompra", "Usuario")" class="btn btn-success">Confirmar Compra</a>
-                    }
-                    else
-                    {
-                        <span>Você não possui saldo suficiente para realizar a compra! @Html.ActionLink("Adicione saldo", "AdicionarSaldo", "Usuario") .</span>
-                    }
-                }
-                else
-                {
-                    <span>@Html.ActionLink("Logue-se", "Index", "Home") para confirmar a compra!</span>
-                }
-            </div>
+                    <a href="@Url.Action("ConfirmarCompra", "Usuario")" class="btn btn-success">Confirmar Compra</a>
+                }              
+            }
+            else
+            {
+                <span>@Html.ActionLink("Logue-se", "Index", "Home") para confirmar a compra!</span>
+            }
+        </div>
 
             <div class="clearfix"></div>
 
@@ -130,14 +138,14 @@
                         <span>
                             Saldo: R$ @PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo
                         </span>
-                    
+
                         <br />
 
                         <span style="color: #099c19">
                             Saldo final: R$ @(PreTripSession.Usuario.Pessoa.ContaBancaria.Saldo - Model.Carrinho.PrecoFinal)
                         </span>
                     }
-                    
+
                 </div>
                 <div class="clearfix"></div>
             </div>

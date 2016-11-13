@@ -18,6 +18,11 @@ namespace PreTrip.Model.Classes
         public virtual Pessoa Pessoa { get; set; }
 
         public ICollection<Cartao> Cartoes { get; set; }
+
+        public ContaBancaria()
+        {
+            this.Cartoes = new List<Cartao>();
+        }
     }
 
     public class ContaBancariaMap : EntityTypeConfiguration<ContaBancaria>

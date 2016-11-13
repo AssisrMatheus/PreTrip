@@ -81,17 +81,17 @@ namespace PreTrip.Services.Pedidos
                 if(!cartaoResult.Success)
                     return viewModel;
             }
+            else
+            {
+                usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
+            }
 
             //Se o usuário tem pedidos, adiciono à lista de pedidos
             if (usuario.Pessoa.Pedidos != null && usuario.Pessoa.Pedidos.Any())
-                pedidos = usuario.Pessoa.Pedidos.ToList();
+                pedidos.AddRange(usuario.Pessoa.Pedidos.ToList());
 
             //Substituo todos os pedidos de pessoa
             usuario.Pessoa.Pedidos = pedidos;
-
-            //Diminuo o saldo da pessoa pelo preço total da compra
-            if (viewModel.Cartao == null)
-                usuario.Pessoa.ContaBancaria.Saldo -= carrinho.PrecoFinal;
 
             viewModel.Pedidos = carrinho.Pedidos;
             viewModel.PrecoCompra = carrinho.PrecoFinal;

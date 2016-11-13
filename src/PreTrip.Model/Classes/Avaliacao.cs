@@ -11,6 +11,11 @@ namespace PreTrip.Model.Classes
 {
     public class Avaliacao
     {
+        public Avaliacao()
+        {
+
+        }
+
         public Avaliacao(Pessoa pessoa, Viagem viagem)
         {
             this.Pessoa = pessoa;

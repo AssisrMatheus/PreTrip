@@ -226,7 +226,7 @@
     <Content Include="Views\Usuario\HistoricoPesquisa.cshtml" />
     <Content Include="Views\Usuario\CadastrarEndereco.cshtml" />
     <Content Include="Views\Usuario\CadastroInteresses.cshtml" />
-    <Content Include="Views\Usuario\ConfirmarCompra.cshtml" />
+    <Content Include="Views\Usuario\CompraFinalizada.cshtml" />
     <Content Include="Views\Usuario\CadastrarContaBancaria.cshtml" />
     <Content Include="Views\Usuario\MeuCarrinho.cshtml" />
     <Content Include="Views\Usuario\Viagens.cshtml" />
@@ -238,6 +238,8 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Usuario\ConfirmarCompra.cshtml" />
+    <Content Include="Views\Usuario\AdicionarCartao.cshtml" />
     <None Include="Web References\CartaoService\Server.wsdl" />
   </ItemGroup>
   <ItemGroup>

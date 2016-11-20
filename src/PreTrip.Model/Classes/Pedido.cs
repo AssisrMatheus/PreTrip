@@ -30,7 +30,7 @@ namespace PreTrip.Model.Classes
             this.PessoaId = pessoa.Id;
             this.Pessoa = pessoa;
 
-            viagem.Pedidos.Add(this);
+            //viagem.Pedidos.Add(this);
         }
         
         public int Id { get; set; }
@@ -59,10 +59,9 @@ namespace PreTrip.Model.Classes
 
             //Primary Key
             HasKey(x => x.Id);
-
+            
             HasRequired(x => x.Viagem).WithMany(x => x.Pedidos).HasForeignKey(x => x.ViagemId);
-
-            //Foreign Key
+            
             HasRequired(x => x.Pessoa).WithMany(x => x.Pedidos).HasForeignKey(x => x.PessoaId);
         }
     }

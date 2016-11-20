@@ -88,7 +88,7 @@ namespace PreTrip.Services.Pedidos
 
             //Se o usuário tem pedidos, adiciono à lista de pedidos
             if (usuario.Pessoa.Pedidos != null && usuario.Pessoa.Pedidos.Any())
-                pedidos.AddRange(usuario.Pessoa.Pedidos.ToList());
+               pedidos.AddRange(usuario.Pessoa.Pedidos.ToList());
 
             //Substituo todos os pedidos de pessoa
             usuario.Pessoa.Pedidos = pedidos;
@@ -97,7 +97,7 @@ namespace PreTrip.Services.Pedidos
             viewModel.PrecoCompra = carrinho.PrecoFinal;
 
             //Registra aos donos das viagens as suas vendas;
-            this.RegistrarVenda(pedidos);
+            this.RegistrarVenda(carrinho.Pedidos);
 
             //Salvo as alterações do usuário no banco
             var service = new UsuariosService();

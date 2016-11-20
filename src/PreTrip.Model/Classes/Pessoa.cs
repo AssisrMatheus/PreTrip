@@ -48,6 +48,99 @@ namespace PreTrip.Model.Classes
         public ICollection<Avaliacao> Avaliacoes { get; set; }
     }
 
+    public class User
+    {
+        public User()
+        {
+            this.Trips = new List<Trip>();
+            this.Orders = new List<Order>();
+        }
+
+        public int Id { get; set; }
+
+        public string Login { get; set; }
+
+        public string Password { get; set; }
+
+        public ICollection<Trip> Trips { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+    }
+
+    public class UserMap : EntityTypeConfiguration<User>
+    {
+        public UserMap()
+        {
+            ToTable("user");
+            
+            HasKey(x => x.Id);
+
+            Property(x => x.Login).IsRequired();
+            Property(x => x.Password).IsRequired();
+
+            HasMany(x => x.Trips).WithRequired(x => x.User).HasForeignKey(x => x.UserId);
+            HasMany(x => x.Orders).WithRequired(x => x.User).HasForeignKey(x => x.UserId);
+        }
+    }
+
+    public class Trip
+    {
+        public Trip()
+        {
+            this.Orders = new List<Order>();
+        }
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+    }
+
+    public class TripMap : EntityTypeConfiguration<Trip>
+    {
+        public TripMap()
+        {
+            ToTable("trip");
+
+            HasKey(x => x.Id);
+            
+            HasRequired(x => x.User).WithMany(x => x.Trips).HasForeignKey(x => x.UserId);
+        }
+    }
+
+    public class Order
+    {
+        public int Id { get; set; }
+
+        public int Number { get; set; }
+
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
+
+        public int TripId { get; set; }
+
+        public virtual Trip Trip { get; set; }
+    }
+
+    public class OrderMap : EntityTypeConfiguration<Order>
+    {
+        public OrderMap()
+        {
+            ToTable("order");
+            
+            HasKey(x => x.Id);
+
+            HasRequired(x => x.Trip).WithMany(x => x.Orders).HasForeignKey(x => x.TripId);
+            HasRequired(x => x.User).WithMany(x => x.Orders).HasForeignKey(x => x.UserId);
+        }
+    }
+
     public class PessoaMap : EntityTypeConfiguration<Pessoa>
     {
         public PessoaMap()

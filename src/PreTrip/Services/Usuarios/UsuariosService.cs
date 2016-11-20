@@ -25,6 +25,8 @@ namespace PreTrip.Services.Usuarios
                 .Include(x => x.Pessoa.ContaBancaria)
                 .Include(x => x.Pessoa.ContaBancaria.Cartoes)
                 .Include(x => x.Pessoa.Pedidos)
+                .Include(x => x.Pessoa.Pedidos.Select(p => p.Viagem))
+                .Include(x => x.Pessoa.Pedidos.Select(p => p.Viagem.Destino))
                 .Include(x => x.Pessoa.Avaliacoes)
                 .Include(x => x.Pessoa.Interesses);
             }
@@ -126,7 +128,7 @@ namespace PreTrip.Services.Usuarios
                         db.Pedidos.AddOrUpdate(x);
                     });
 
-                
+
                 usuExistente.Pessoa.Interesses.ToList().ForEach(x => db.Interesses.AddOrUpdate(x));
             }
             else
@@ -154,8 +156,8 @@ namespace PreTrip.Services.Usuarios
         public void GravarCartao(int userId, Cartao cartao)
         {
             var usuario = this.usuarios.FirstOrDefault(x => x.Id == userId);
-            
-            if(usuario != null)
+
+            if (usuario != null)
             {
                 var conta = this.db.ContasBancarias.FirstOrDefault(x => x.Id == usuario.Pessoa.ContaBancaria.Id);
                 cartao.ContaBancaria = conta;

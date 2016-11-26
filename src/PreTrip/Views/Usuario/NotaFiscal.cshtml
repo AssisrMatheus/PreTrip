@@ -1,11 +1,8 @@
 ﻿@model PreTrip.ViewModel.CompraViewModel
-
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -17,334 +14,299 @@
         div.bordered {
             border: 1px solid #000;
         }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
-<section>
-    <table border="1">
-        <tr>
-            <td colspan="2"></td>
-            <td rowspan="2">NF-e<br>Nº 000001<br>Série 1</td>
-        </tr>
-        <tr>
-            <td>Data de recebimento</td>
-            <td>Identificação e assinatura do recebedor</td>
-        </tr>
-    </table>
-
-    <hr>
-
-    <table border="1">
-        <tr>
-            <td rowSpan="3"> COLOCAR A IMAGEM DA LOGO AQUI</td>
-            <td rowSpan="3"> DANFE Documento auxiliar...</td>
-            <td> Controle de Fisco - CODIGO DE BARRAS</td>
-        </tr>
-
-        <tr>
-            <td>CHAVE DE ACESSO</td>
-        </tr>
-
-        <tr>
-            <td>
-                Consulta de Autenticidade no portal nacional da NF-e<br>
-                www.nfe.fazenda.gov.br/portal<br>
-                ou no site da Sefaz autorizada
-            </td>
-        </tr>
-    </table>
-
-    <br>
-    <table border="1">
-        <tr>
-            <td colspan="2">
-                Natureza da Operação<br>Venda
-            </td>
-            <td>
-                Número de protocolo de autorização de uso da NF-e
-            </td>
-        </tr>
-        <tr>
-            <td>Inscrição Estadual</td>
-            <td>Inscr.est.do subs</td>
-            <td>CNPJ</td>
-        </tr>
-
-    </table>
-    <br>
-    Destinatário/Remetente
-    <table border="1">
-        <tr>
-            <td>
-                Nome/Razão Social<br>
-                NOME DO INDIVIDUO
-            </td>
-            <td>
-                CNPJ/CPF<br>
-                CPF DO CIDADAO
-            </td>
-            <td>
-                Inscrição Estadual<br>
-                CPF DO CIDADAO
-            </td>
-            <td>
-                Data emissão<br>
-                DATA DE EMISSAO
-            </td>
-
-        </tr>
-
-        <tr>
-            <td>
-                Endereço<br>
-                Dados
-            </td>
-            <td>
-                Bairro<br>
-                dados
-            </td>
-            <td>
-                CEP<br>
-                dados
-            </td>
-            <td>
-                Data Saída<br>
-                dados
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                Município<br>
-                Dados
-            </td>
-            <td>
-                Fone/Fax<br>
-                dados
-            </td>
-            <td>
-                UF<br>
-                dados
-            </td>
-            <td>
-                Hora saída<br>
-                dados
-            </td>
-        </tr>
-    </table>
-    <br>
-    Faturas
-    <table border="1">
-        <tr>
-            <td>Número</td>
-            <td>Vencimento</td>
-            <td>Valor</td>
-            <td>Número</td>
-            <td>Vencimento</td>
-            <td>Valor</td>
-            <td>Número</td>
-            <td>Vencimento</td>
-            <td>Valor</td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-
-    <br>
-    Cálculo do imposto
-    <table border="1">
-        <tr>
-            <td>
-                Base de cálculo do ICMS <br>
-                dados
-            </td>
-            <td>
-                Valor do ICMS<br>
-                dados
-            </td>
-            <td>
-                Base de cálculo do ICMS Subst<br>
-                dados
-            </td>
-            <td>
-                Valor do ICMS Subst<br>
-                dados
-            </td>
-            <td>
-                Valor total dos produtos<br>
-                dados
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                Valor do frete<br>
-                dados
-            </td>
-            <td>
-                Valor do seguro<br>
-                dados
-            </td>
-            <td>
-                Desconto<br>
-                dados
-            </td>
-            <td>
-                Outras despesas acessórias<br>
-                dados
-            </td>
-            <td>
-                Valor do IPI<br>
-                dados
-            </td>
-            <td>
-                Valor total da nota<br>
-                dados
-            </td>
-        </tr>
-    </table>
-    <br>
-    Transportador/Volumes transportados
-    <table border="1">
-        <tr>
-            <td>
-                Nome<br>
-                dados
-            </td>
-            <td>
-                Frete por conta<br>
-                0-Emitente 1-Destinatário<br>
-                2-Terceiros 9-Sem Frete
-            </td>
-            <td>
-                Código ANTT<br>
-                dados
-            </td>
-            <td>
-                Placa do veículo<br>
-                dados
-            </td>
-            <td>
-                Uf<br>
-                dados
-            </td>
-            <td>
-                CNPJ/CPF<br>
-                dados
-            </td>
-        </tr>
-
-        <tr>
-            <td colSpan="2">
-                Endereço<br>
-                dados
-            </td>
-            <td>
-                Município<br>
-                dados
-            </td>
-            <td>
-                Uf<br>
-                dados
-            </td>
-            <td colSpan="2">
-                Inscrição Estadual<br>
-                dados
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                Quantidade<br>
-                dados
-            </td>
-            <td>
-                Espécie<br>
-                dados
-            </td>
-            <td>
-                Marca<br>
-                dados
-            </td>
-            <td>
-                Numeração<br>
-                dados
-            </td>
-            <td>
-                Peso bruto<br>
-                dados
-            </td>
-            <td>
-                Peso líquido<br>
-                dados
-            </td>
-        </tr>
-    </table>
-    <br>
-    Itens da nota fiscal
-    <table border="1">
-        <tr>
-            <td>Código</td>
-            <td>Descrição do produto/serviço</td>
-            <td>Qtde</td>
-            <td>Preço Un</td>
-            <td>Preço Total</td>
-        </tr>
-
-        <tr>
-            <td>
-                COLOCAR UM FOREach AQUI COM CADA ITEM
-            </td>
-        </tr>
-    </table>
-    <br>
-    Dados adicionais
-    <table border="1">
-        <tr>
-            <td>Observações</td>
-            <td>Reservado ao fisco</td>
-        </tr>
-    </table>
-
-    @*<div style="width: 1500px">
-        <div>
-            <div class="bordered" style="width: 80%; height: 160px; float: left">
-                <div style="height: 50%; width: 100%;">
-
-                </div>
-
-                <div style="height: 50%; width: 100%;">
-                    <div style="width: 50%; height: 100%; float: left" class="bordered">
-
-                    </div>
-                    <div style="width: 50%; height: 100%; float: left" class="bordered">
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="bordered" style="width: 20%; height: 160px; float: left; text-align: center">
-                <p style="margin-top: 20px; font-weight: bold; font-size: 30px">
-                    NF-e<br/>
-                    Nº 00001<br/>
-                    Série 1
-                </p>
-            </div>
-        </div>
-    </div>*@
-</section>
-
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
+    <section>
+        <table border="1">
+            <tr>
+                <td colspan="2"><br /><br /><br /></td>
+                <td rowspan="2">NF-e<br>Nº 000001<br>Série 1</td>
+            </tr>
+            <tr>
+                <td>Data de recebimento<br /><br /></td>
+                <td>Identificação e assinatura do recebedor<br /><br /></td>
+            </tr>
+        </table>
+        <hr style="border-top: 2px dashed #000" />
+        <table border="1">
+            <tr>
+                <td rowSpan="3"> COLOCAR A IMAGEM DA LOGO AQUI</td>
+                <td rowSpan="3"> DANFE Documento auxiliar...</td>
+                <td> Controle de Fisco - CODIGO DE BARRAS</td>
+            </tr>
+            <tr>
+                <td>CHAVE DE ACESSO</td>
+            </tr>
+            <tr>
+                <td>
+                    Consulta de Autenticidade no portal nacional da NF-e<br>
+                    www.nfe.fazenda.gov.br/portal<br>
+                    ou no site da Sefaz autorizada
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table border="1">
+            <tr>
+                <td colspan="2">
+                    Natureza da Operação<br>Venda
+                </td>
+                <td>
+                    Número de protocolo de autorização de uso da NF-e
+                </td>
+            </tr>
+            <tr>
+                <td>Inscrição Estadual</td>
+                <td>Inscr.est.do subs</td>
+                <td>CNPJ</td>
+            </tr>
+        </table>
+        <br>
+        Destinatário/Remetente
+        <table border="1">
+            <tr>
+                <td>
+                    Nome/Razão Social<br>
+                    NOME DO INDIVIDUO
+                </td>
+                <td>
+                    CNPJ/CPF<br>
+                    CPF DO CIDADAO
+                </td>
+                <td>
+                    Inscrição Estadual<br>
+                    CPF DO CIDADAO
+                </td>
+                <td>
+                    Data emissão<br>
+                    DATA DE EMISSAO
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Endereço<br>
+                    Dados
+                </td>
+                <td>
+                    Bairro<br>
+                    dados
+                </td>
+                <td>
+                    CEP<br>
+                    dados
+                </td>
+                <td>
+                    Data Saída<br>
+                    dados
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Município<br>
+                    Dados
+                </td>
+                <td>
+                    Fone/Fax<br>
+                    dados
+                </td>
+                <td>
+                    UF<br>
+                    dados
+                </td>
+                <td>
+                    Hora saída<br>
+                    dados
+                </td>
+            </tr>
+        </table>
+        <br>
+        Faturas
+        <table border="1">
+            <tr>
+                <td>Número</td>
+                <td>Vencimento</td>
+                <td>Valor</td>
+                <td>Número</td>
+                <td>Vencimento</td>
+                <td>Valor</td>
+                <td>Número</td>
+                <td>Vencimento</td>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <br>
+        Cálculo do imposto
+        <table border="1">
+            <tr>
+                <td>
+                    Base de cálculo do ICMS <br>
+                    dados
+                </td>
+                <td>
+                    Valor do ICMS<br>
+                    dados
+                </td>
+                <td>
+                    Base de cálculo do ICMS Subst<br>
+                    dados
+                </td>
+                <td>
+                    Valor do ICMS Subst<br>
+                    dados
+                </td>
+                <td>
+                    Valor total dos produtos<br>
+                    dados
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Valor do frete<br>
+                    dados
+                </td>
+                <td>
+                    Valor do seguro<br>
+                    dados
+                </td>
+                <td>
+                    Desconto<br>
+                    dados
+                </td>
+                <td>
+                    Outras despesas acessórias<br>
+                    dados
+                </td>
+                <td>
+                    Valor do IPI<br>
+                    dados
+                </td>
+                <td>
+                    Valor total da nota<br>
+                    dados
+                </td>
+            </tr>
+        </table>
+        <br>
+        Transportador/Volumes transportados
+        <table border="1">
+            <tr>
+                <td>
+                    Nome<br>
+                    dados
+                </td>
+                <td>
+                    Frete por conta<br>
+                    0-Emitente 1-Destinatário<br>
+                    2-Terceiros 9-Sem Frete
+                </td>
+                <td>
+                    Código ANTT<br>
+                    dados
+                </td>
+                <td>
+                    Placa do veículo<br>
+                    dados
+                </td>
+                <td>
+                    Uf<br>
+                    dados
+                </td>
+                <td>
+                    CNPJ/CPF<br>
+                    dados
+                </td>
+            </tr>
+            <tr>
+                <td colSpan="2">
+                    Endereço<br>
+                    dados
+                </td>
+                <td>
+                    Município<br>
+                    dados
+                </td>
+                <td>
+                    Uf<br>
+                    dados
+                </td>
+                <td colSpan="2">
+                    Inscrição Estadual<br>
+                    dados
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Quantidade<br>
+                    dados
+                </td>
+                <td>
+                    Espécie<br>
+                    dados
+                </td>
+                <td>
+                    Marca<br>
+                    dados
+                </td>
+                <td>
+                    Numeração<br>
+                    dados
+                </td>
+                <td>
+                    Peso bruto<br>
+                    dados
+                </td>
+                <td>
+                    Peso líquido<br>
+                    dados
+                </td>
+            </tr>
+        </table>
+        <br>
+        Itens da nota fiscal
+        <table border="1">
+            <tr>
+                <td>Código</td>
+                <td>Descrição do produto/serviço</td>
+                <td>Qtde</td>
+                <td>Preço Un</td>
+                <td>Preço Total</td>
+            </tr>
+            <tr>
+                <td>
+                    COLOCAR UM FOREach AQUI COM CADA ITEM
+                </td>
+            </tr>
+        </table>
+        <br>
+        Dados adicionais
+        <table border="1">
+            <tr>
+                <td>Observações</td>
+                <td>Reservado ao fisco</td>
+            </tr>
+        </table>
+    </section>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 </body>
 </html>

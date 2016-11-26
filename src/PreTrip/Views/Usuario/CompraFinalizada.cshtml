@@ -13,6 +13,11 @@
                     <p>
                         A sua compra de @Model.Pedidos.Count() itens foi finalizada com sucesso. Com um valor total de <span class="text-success" style="font-size: 3rem;vertical-align: middle;">R$@Model.PrecoCompra</span>
                     </p>
+
+                    using (Html.BeginForm("NotaFiscal", "Usuario", FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-default" href="@Url.Action("NotaFiscal", "Usuario", Model)" target="_blank">Visualizar nota fiscal</button>
+                    }
                 }
                 else
                 {

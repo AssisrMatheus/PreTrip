@@ -240,6 +240,7 @@
     </Content>
     <Content Include="Views\Usuario\ConfirmarCompra.cshtml" />
     <Content Include="Views\Usuario\AdicionarCartao.cshtml" />
+    <Content Include="Views\Usuario\NotaFiscal.cshtml" />
     <None Include="Web References\CartaoService\Server.wsdl" />
   </ItemGroup>
   <ItemGroup>

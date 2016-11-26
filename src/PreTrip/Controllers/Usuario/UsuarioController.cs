@@ -278,6 +278,8 @@ namespace PreTrip.Controllers
             viewModel.Cartao = PreTripSession.Usuario.Pessoa.ContaBancaria.Cartoes.FirstOrDefault(x => x.Id == viewModel.IdCartao);
             var resultCompra = new PedidosService().RegistrarCompra(viewModel);
 
+            PreTripSession.UltimaCompra = viewModel;
+
             return View("CompraFinalizada", viewModel);
         }        
 
@@ -300,6 +302,16 @@ namespace PreTrip.Controllers
             PreTripSession.Usuario = service.GetUsuarioById(PreTripSession.Usuario.Id);
 
             return RedirectToAction("MeuCarrinho");
+        }
+
+        [HttpPost]
+        [UsuarioLogado]
+        public ActionResult NotaFiscal(CompraViewModel viewModel)
+        {
+            if (viewModel.Pedidos == null)
+                viewModel = PreTripSession.UltimaCompra;
+
+            return View(viewModel);
         }
 
         /// <summary>

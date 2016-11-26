@@ -66,5 +66,31 @@ namespace PreTrip.Session
                 HttpContext.Current.Session["Carrinho"] = value;
             }
         }
+
+        public static CompraViewModel UltimaCompra
+        {
+            get
+            {
+                //Se a sessão ainda não foi iniciada
+                if (HttpContext.Current.Session != null)
+                {
+                    var ultimaCompra = HttpContext.Current.Session["UltimaCompra"];
+
+                    //Se já existe carrinho na sessão retorna
+                    if (ultimaCompra != null)
+                        return (CompraViewModel)ultimaCompra;
+                }
+
+                //Se não existe na sessão, cria um vazio
+                HttpContext.Current.Session["UltimaCompra"] = new CompraViewModel();
+                //Retorna o recém criado
+                return (CompraViewModel)HttpContext.Current.Session["UltimaCompra"];
+            }
+
+            set
+            {
+                HttpContext.Current.Session["UltimaCompra"] = value;
+            }
+        }
     }
 }

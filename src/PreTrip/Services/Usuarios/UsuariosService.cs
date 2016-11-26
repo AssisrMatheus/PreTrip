@@ -27,6 +27,8 @@ namespace PreTrip.Services.Usuarios
                 .Include(x => x.Pessoa.Pedidos)
                 .Include(x => x.Pessoa.Pedidos.Select(p => p.Viagem))
                 .Include(x => x.Pessoa.Pedidos.Select(p => p.Viagem.Destino))
+                .Include(x => x.Pessoa.Pedidos.Select(p => p.Viagem.Origem))
+                .Include(x => x.Pessoa.Pedidos.Select(p => p.Viagem.Descricao))
                 .Include(x => x.Pessoa.Avaliacoes)
                 .Include(x => x.Pessoa.Interesses);
             }

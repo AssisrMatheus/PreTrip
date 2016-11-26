@@ -22,6 +22,10 @@
         td {
             padding: 5px;
         }
+
+        .bold {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -29,7 +33,7 @@
         <table border="1">
             <tr>
                 <td colspan="2"><br /><br /><br /></td>
-                <td rowspan="2">NF-e<br>Nº 000001<br>Série 1</td>
+                <td rowspan="2" style="text-align:center;" class="bold">NF-e<br>Nº 000001<br>Série 1</td>
             </tr>
             <tr>
                 <td>Data de recebimento<br /><br /></td>
@@ -40,11 +44,11 @@
         <table border="1">
             <tr>
                 <td rowSpan="3"> COLOCAR A IMAGEM DA LOGO AQUI</td>
-                <td rowSpan="3"> DANFE Documento auxiliar...</td>
-                <td> Controle de Fisco - CODIGO DE BARRAS</td>
+                <td rowSpan="3" style="text-align: center"> <span class="bold">DANFE</span><br />Documento Auxiliar da Nota Fiscal </td>
+                <td> Controle de Fisco <br /> <br /><br /><br /></td>
             </tr>
             <tr>
-                <td>CHAVE DE ACESSO</td>
+                <td>CHAVE DE ACESSO<br /><br /></td>
             </tr>
             <tr>
                 <td>
@@ -58,78 +62,78 @@
         <table border="1">
             <tr>
                 <td colspan="2">
-                    Natureza da Operação<br>Venda
+                    <span class="bold">Natureza da Operação</span><br>Venda
                 </td>
-                <td>
-                    Número de protocolo de autorização de uso da NF-e
+                <td class="bold">
+                    Número de protocolo de autorização de uso da NF-e<br /><br />
                 </td>
             </tr>
             <tr>
-                <td>Inscrição Estadual</td>
-                <td>Inscr.est.do subs</td>
-                <td>CNPJ</td>
+                <td class="bold">Inscrição Estadual<br /><br /></td>
+                <td class="bold">Inscr.est.do subs<br /><br /></td>
+                <td class="bold">CNPJ<br /><br /></td>
             </tr>
         </table>
         <br>
-        Destinatário/Remetente
+        <span class="bold">Destinatário/Remetente</span>
         <table border="1">
             <tr>
                 <td>
-                    Nome/Razão Social<br>
-                    NOME DO INDIVIDUO
+                    <span class="bold">Nome/Razão Social</span><br>
+                    @Model.Pedidos.FirstOrDefault().Pessoa.Nome
                 </td>
                 <td>
-                    CNPJ/CPF<br>
-                    CPF DO CIDADAO
+                    <span class="bold">CNPJ/CPF</span><br>
+                    @Model.Pedidos.FirstOrDefault().Pessoa.Cpf
                 </td>
                 <td>
-                    Inscrição Estadual<br>
-                    CPF DO CIDADAO
+                    <span class="bold">Inscrição Estadual</span><br /><br />
                 </td>
                 <td>
-                    Data emissão<br>
-                    DATA DE EMISSAO
+                    <span class="bold">Data emissão</span><br>
+                    @DateTime.Now.ToShortDateString()
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Endereço<br><br>
+                </td>
+                <td class="bold">
+                    Bairro<br><br>
+                </td>
+                <td class="bold">
+                    CEP<br><br>
+                </td>
+                <td>
+                    <span class="bold">Data Saída</span><br>
+                    @DateTime.Now.ToShortDateString()
                 </td>
             </tr>
             <tr>
                 <td>
-                    Endereço<br>
-                    Dados
+                    <span class="bold">Município</span>
+                    <br>
+                    @Model.Pedidos.FirstOrDefault().Viagem.Origem.Cidade
                 </td>
                 <td>
-                    Bairro<br>
-                    dados
+                    <span class="bold">Fone/Fax</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    CEP<br>
-                    dados
+                    <span class="bold">UF</span>
+                    <br>
+                    @Model.Pedidos.FirstOrDefault().Viagem.Origem.Estado
                 </td>
                 <td>
-                    Data Saída<br>
-                    dados
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Município<br>
-                    Dados
-                </td>
-                <td>
-                    Fone/Fax<br>
-                    dados
-                </td>
-                <td>
-                    UF<br>
-                    dados
-                </td>
-                <td>
-                    Hora saída<br>
-                    dados
+                    <span class="bold">Hora saída</span>
+                    <br>
+                    @DateTime.Now.ToLongTimeString()
                 </td>
             </tr>
         </table>
         <br>
-        Faturas
+        <span class="bold">Faturas</span>
         <table border="1">
             <tr>
                 <td>Número</td>
@@ -143,166 +147,197 @@
                 <td>Valor</td>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
             </tr>
         </table>
         <br>
-        Cálculo do imposto
+        <span class="bold">Cálculo do imposto</span>
         <table border="1">
             <tr>
                 <td>
-                    Base de cálculo do ICMS <br>
-                    dados
+                    <span class="bold">Base de cálculo do ICMS</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Valor do ICMS<br>
-                    dados
+                    <span class="bold">Valor do ICMS</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Base de cálculo do ICMS Subst<br>
-                    dados
+                    <span class="bold">Base de cálculo do ICMS Subst</span>
+                    <br><br>
                 </td>
                 <td>
-                    Valor do ICMS Subst<br>
-                    dados
+                    <span class="bold">Valor do ICMS Subst</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Valor total dos produtos<br>
-                    dados
+                    <span class="bold">Valor total dos produtos</span>
+                    <br>
+                    R$ @Model.PrecoCompra
                 </td>
             </tr>
             <tr>
                 <td>
-                    Valor do frete<br>
-                    dados
+                    <span class="bold">Valor do frete</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Valor do seguro<br>
-                    dados
+                    <span class="bold">Valor do seguro</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Desconto<br>
-                    dados
+                    <span class="bold">Desconto</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Outras despesas acessórias<br>
-                    dados
+                    <span class="bold">Outras despesas acessórias</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Valor do IPI<br>
-                    dados
+                    <span class="bold">Valor do IPI</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Valor total da nota<br>
-                    dados
+                    <span class="bold">Valor total da nota</span>
+                    <br><br>
                 </td>
             </tr>
         </table>
         <br>
-        Transportador/Volumes transportados
+        <span class="bold">Transportador/Volumes transportados</span>
         <table border="1">
             <tr>
                 <td>
-                    Nome<br>
-                    dados
+                    <span class="bold">Nome</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Frete por conta<br>
+                    <span class="bold">Frete por conta</span>
+                    <br>
                     0-Emitente 1-Destinatário<br>
                     2-Terceiros 9-Sem Frete
                 </td>
                 <td>
-                    Código ANTT<br>
-                    dados
+                    <span class="bold">Código ANTT</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Placa do veículo<br>
-                    dados
+                    <span class="bold">Placa do veículo</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Uf<br>
-                    dados
+                    <span class="bold">Uf</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    CNPJ/CPF<br>
-                    dados
+                    <span class="bold">CNPJ/CPF</span>
+                    <br><br>
                 </td>
             </tr>
             <tr>
                 <td colSpan="2">
-                    Endereço<br>
-                    dados
+                    <span class="bold">Endereço</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Município<br>
-                    dados
+                    <span class="bold">Município</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Uf<br>
-                    dados
+                    <span class="bold">Uf</span>
+                    <br>
+                    <br>
                 </td>
                 <td colSpan="2">
-                    Inscrição Estadual<br>
-                    dados
+                    <span class="bold">Inscrição Estadual</span>
+                    <br>
+                    <br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Quantidade<br>
-                    dados
+                    <span class="bold">Quantidade</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Espécie<br>
-                    dados
+                    <span class="bold">Espécie</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Marca<br>
-                    dados
+                    <span class="bold">Marca</span>
+                    <br><br>
                 </td>
                 <td>
-                    Numeração<br>
-                    dados
+                    <span class="bold">Numeração</span>
+                    <br><br>
                 </td>
                 <td>
-                    Peso bruto<br>
-                    dados
+                    <span class="bold">Peso bruto</span>
+                    <br>
+                    <br>
                 </td>
                 <td>
-                    Peso líquido<br>
-                    dados
-                </td>
-            </tr>
-        </table>
-        <br>
-        Itens da nota fiscal
-        <table border="1">
-            <tr>
-                <td>Código</td>
-                <td>Descrição do produto/serviço</td>
-                <td>Qtde</td>
-                <td>Preço Un</td>
-                <td>Preço Total</td>
-            </tr>
-            <tr>
-                <td>
-                    COLOCAR UM FOREach AQUI COM CADA ITEM
+                    <span class="bold">Peso líquido</span>
+                    <br>
+                    <br>
                 </td>
             </tr>
         </table>
         <br>
-        Dados adicionais
+        <span class="bold">Itens da nota fiscal</span>
         <table border="1">
             <tr>
-                <td>Observações</td>
-                <td>Reservado ao fisco</td>
+                <td class="bold">Código</td>
+                <td class="bold">Descrição do produto/serviço</td>
+                <td class="bold">Qtde</td>
+                <td class="bold">Preço Un</td>
+                <td class="bold">Preço Total</td>
+            </tr>
+            <tr>
+                @if (Model.Pedidos.Any())
+                {
+                    foreach (var pedido in Model.Pedidos)
+                    {
+                        <td>@pedido.Id</td>
+                        <td>@pedido.Viagem.Descricao</td>
+                        <td>@pedido.Quantidade</td>
+                        <td>@pedido.Viagem.PrecoPassagem</td>
+                        <td>@pedido.PrecoFinal</td>
+                    }
+                }
+            </tr>
+        </table>
+        <br>
+        <span class="bold">Dados adicionais</span>
+        
+        <table border="1">
+            <tr>
+                <td class="bold">Observações<br /><br /></td>
+                <td class="bold">Reservado ao fisco<br /><br /></td>
             </tr>
         </table>
     </section>
